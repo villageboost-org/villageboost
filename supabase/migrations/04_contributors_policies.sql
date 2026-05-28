@@ -1,0 +1,5 @@
+-- contributors: intentionally NO policies.
+-- RLS is enabled, so all anonymous/authenticated client access is denied.
+-- All legitimate access (guest checkout inserts, counter updates)
+-- happens server-side via the service-role key, which bypasses RLS.
+-- This protects guest PII (phone, email) from client-side exposure.
