@@ -32,11 +32,11 @@ export default function Process() {
         From idea to funded, in three steps
       </h2>
 
-      <div className="mt-10 grid gap-24 md:grid-cols-3">
+      <div className="mt-10 grid gap-20 md:grid-cols-3">
         {steps.map((step) => (
           <div
             key={step.title}
-            className="overflow-hidden rounded-xl border-[3px] border-maroon text-left">
+            className="max-w-md overflow-hidden rounded-xl border-[3px] border-maroon text-left">
             <div className="p-4">
               <Image
                 src={step.src}

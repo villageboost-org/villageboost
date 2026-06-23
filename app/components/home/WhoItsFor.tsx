@@ -28,7 +28,7 @@ export default function WhoItsFor() {
         {audiences.map((audience) => (
           <div
             key={audience.title}
-            className="flex max-w-md flex-col rounded-3xl p-8 text-left border-rust-red/30 border-[3px]"
+            className="flex max-w-md flex-col rounded-xl p-8 text-left border-rust-red/30 border-[3px]"
             style={{
               background:
                 "linear-gradient(to top left, var(--color-mustard) 50%, var(--color-cream) 50%)",

@@ -18,17 +18,17 @@ const reasons = [
 
 export default function WhyVillageBoost() {
   return (
-    <section className="px-6 py-16 text-center md:px-12">
+    <section className="px-6 py-30 text-center md:px-16">
       <h2 className="text-rust-red">Why Village Boost</h2>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-20 md:grid-cols-3">
         {reasons.map((reason) => (
           <div
             key={reason.title}
-            className="bg-rust-red p-8 text-left text-white"
+            className="flex max-w-sm flex-col rounded-xl p-8 text-left border-[#ffad90] border-[3px]"
             style={{
-              clipPath:
-                "polygon(28px 0, 100% 0, 100% 100%, 0 100%, 0 28px)",
+              background:
+                "linear-gradient(to top left, var(--color-maroon) 50%, var(--color-rust-red) 50%)",
             }}
           >
             <h3 className="text-white">{reason.title}</h3>
