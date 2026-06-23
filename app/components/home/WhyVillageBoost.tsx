@@ -2,7 +2,7 @@ const reasons = [
   {
     title: "Your community, your campaign",
     description:
-      "Village Boost is built around the people who already believe in you. Share your campaign with your network and let them be part of bringing your vision to life.",
+      "Share your campaign with your network and let them be part of bringing your vision to life.",
   },
   {
     title: "M-Pesa & card payments",
