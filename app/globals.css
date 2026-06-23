@@ -59,3 +59,13 @@ p {
   font-weight: 400;
   line-height: 1.6;
 }
+
+@layer components {
+  .btn-primary {
+    @apply rounded-lg bg-maroon px-5 py-2 text-base font-medium text-white;
+  }
+
+  .btn-secondary {
+    @apply rounded-lg border border-maroon px-5 py-2 text-base font-medium text-maroon;
+  }
+}
