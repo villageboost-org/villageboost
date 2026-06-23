@@ -16,31 +16,31 @@ const audiences = [
 export default function WhoItsFor() {
   return (
     <section className="bg-light-mustard px-6 py-16 text-center md:px-12">
-      <span className="rounded-full border border-rust-red px-4 py-1 text-xs font-medium uppercase tracking-wide text-rust-red">
+      <span className="eyebrow-headline">
         Who it&apos;s for
       </span>
 
-      <h2 className="mx-auto mt-4 max-w-xl text-rust-red">
+      <h2 className="mx-auto max-w-xl text-rust-red">
         Built for creators. Backed by community
       </h2>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="mt-10 grid gap-8 md:grid-cols-2 justify-items-center">
         {audiences.map((audience) => (
           <div
             key={audience.title}
-            className="bg-mustard p-8 text-left"
+            className="flex max-w-md flex-col rounded-3xl p-8 text-left border-rust-red/30 border-[3px]"
             style={{
-              clipPath:
-                "polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%)",
+              background:
+                "linear-gradient(to top left, var(--color-mustard) 50%, var(--color-cream) 50%)",
             }}
           >
             <h3 className="text-maroon">{audience.title}</h3>
-            <p className="mt-3 text-sm text-dark-grey">
+            <h5 className="my-3 text-sm text-dark-grey">
               {audience.description}
-            </p>
+            </h5>
             <a
               href={audience.cta.href}
-              className="mt-5 inline-block rounded-full bg-maroon px-5 py-2 text-sm font-medium text-white"
+              className="mt-auto self-start btn-primary"
             >
               {audience.cta.label}
             </a>
