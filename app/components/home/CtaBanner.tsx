@@ -2,18 +2,19 @@ export default function CtaBanner() {
   return (
     <section className="bg-light-mustard px-6 py-16 md:px-12">
       <div
-        className="mx-auto max-w-4xl bg-linear-to-r from-maroon to-rust-red px-8 py-16 text-center text-white"
+        className="mx-auto max-w-4xl rounded-2xl px-8 py-16 text-center text-white"
         style={{
-          clipPath: "polygon(36px 0, 100% 0, 100% 100%, 0 100%, 0 36px)",
+          background:
+            "linear-gradient(53deg, var(--color-rust-red) 50%, var(--color-maroon) 50%)",
         }}
       >
         <h2 className="text-white">Your next project deserves a village</h2>
-        <p className="mt-3 text-light-mustard">
+        <h4 className="mt-3 font-medium! text-light-mustard">
           Join the first wave of creators on Village Boost
-        </p>
+        </h4>
         <a
           href="/start-campaign"
-          className="mt-6 inline-block rounded-md bg-white px-6 py-3 text-sm font-medium text-maroon"
+          className="mt-6 btn-primary text-lg bg-white text-rust-red"
         >
           Start a campaign
         </a>

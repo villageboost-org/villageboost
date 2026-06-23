@@ -35,7 +35,7 @@ export default function WhoItsFor() {
             }}
           >
             <h3 className="text-maroon">{audience.title}</h3>
-            <h5 className="my-3 text-sm text-dark-grey">
+            <h5 className="my-3 text-dark-grey">
               {audience.description}
             </h5>
             <a

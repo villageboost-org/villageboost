@@ -32,9 +32,9 @@ export default function WhyVillageBoost() {
             }}
           >
             <h3 className="text-white">{reason.title}</h3>
-            <p className="mt-3 text-sm text-light-mustard">
+            <h5 className="mt-3 text-sm text-light-mustard">
               {reason.description}
-            </p>
+            </h5>
           </div>
         ))}
       </div>
