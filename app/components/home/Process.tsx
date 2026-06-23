@@ -24,11 +24,11 @@ const steps = [
 export default function Process() {
   return (
     <section id="process" className="px-6 py-16 text-center md:px-16">
-      <span className="rounded-full border border-rust-red px-4 py-1 text-base font-bold uppercase tracking-[.5em] text-rust-red">
+      <span className="eyebrow-headline">
         The process
       </span>
 
-      <h2 className="mx-auto mt-8 text-rust-red">
+      <h2 className="mx-auto text-rust-red">
         From idea to funded, in three steps
       </h2>
 
@@ -36,7 +36,7 @@ export default function Process() {
         {steps.map((step) => (
           <div
             key={step.title}
-            className="overflow-hidden rounded-xl border border-maroon text-left">
+            className="overflow-hidden rounded-xl border-[3px] border-maroon text-left">
             <div className="p-4">
               <Image
                 src={step.src}
@@ -48,7 +48,7 @@ export default function Process() {
             </div>
             <div className="p-5 pt-0">
               <h4 className="text-maroon">{step.title}</h4>
-              <p className="mt-2 text-base text-grey">{step.description}</p>
+              <h5 className="mt-2 text-base text-grey">{step.description}</h5>
             </div>
           </div>
         ))}
