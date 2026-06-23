@@ -21,7 +21,7 @@ export default function Header() {
         ))}
       </nav>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-6">
         <a
           href="/sign-up"
           className="btn-primary"
