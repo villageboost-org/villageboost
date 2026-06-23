@@ -104,8 +104,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-10 border-t border-grey/30 pt-6 text-xs text-grey">
-        © 2026 Village Boost
+      <div className="mt-10 border-t border-grey/30 pt-6 text-sm text-grey">
+        © {new Date().getFullYear()} Village Boost
       </div>
     </footer>
   );
