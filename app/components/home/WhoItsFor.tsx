@@ -16,9 +16,7 @@ const audiences = [
 export default function WhoItsFor() {
   return (
     <section className="bg-light-mustard px-6 py-16 text-center md:px-12">
-      <span className="eyebrow-headline">
-        Who it&apos;s for
-      </span>
+      <span className="eyebrow-headline">Who it&apos;s for</span>
 
       <h2 className="mx-auto max-w-xl text-rust-red">
         Built for creators. Backed by community
@@ -32,16 +30,12 @@ export default function WhoItsFor() {
             style={{
               background:
                 "linear-gradient(to top left, var(--color-mustard) 50%, var(--color-cream) 50%)",
-            }}
-          >
+            }}>
             <h3 className="text-maroon">{audience.title}</h3>
-            <h5 className="my-3 text-dark-grey">
-              {audience.description}
-            </h5>
+            <h5 className="my-3 text-gray-900">{audience.description}</h5>
             <a
               href={audience.cta.href}
-              className="mt-auto self-start btn-primary"
-            >
+              className="mt-auto self-start btn-primary">
               {audience.cta.label}
             </a>
           </div>
