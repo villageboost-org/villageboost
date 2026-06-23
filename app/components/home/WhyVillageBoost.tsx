@@ -1,18 +1,18 @@
 const reasons = [
   {
+    title: "Your community, your campaign",
+    description:
+      "Village Boost is built around the people who already believe in you. Share your campaign with your network and let them be part of bringing your vision to life.",
+  },
+  {
     title: "M-Pesa & card payments",
     description:
       "Back a campaign with M-Pesa or your debit card — whichever works for you. Get paid out the same way. No workarounds, no friction.",
   },
   {
-    title: "Withdraw on your terms",
+    title: "Reward your supporters",
     description:
-      "Your contributors' contributions are held securely and you can withdraw whenever you're ready. No waiting for a funding deadline.",
-  },
-  {
-    title: "Simple, honest fees",
-    description:
-      "We take a flat 3% only when you withdraw your funds. Nothing upfront, nothing hidden — we only earn when you do.",
+      "Give your backers more than a thank you. Offer exclusive perks — early access, signed copies, behind the scenes content, experiences. Make them feel like insiders.",
   },
 ];
 
@@ -25,14 +25,13 @@ export default function WhyVillageBoost() {
         {reasons.map((reason) => (
           <div
             key={reason.title}
-            className="flex max-w-sm flex-col rounded-xl p-8 text-left border-[#ffad90] border-[3px]"
+            className="flex max-w-md flex-col rounded-xl p-8 text-left border-[#ffad90] border-[3px]"
             style={{
               background:
                 "linear-gradient(to top left, var(--color-maroon) 50%, var(--color-rust-red) 50%)",
-            }}
-          >
+            }}>
             <h3 className="text-white">{reason.title}</h3>
-            <h5 className="mt-3 text-sm text-light-mustard">
+            <h5 className="mt-3 text-light-mustard">
               {reason.description}
             </h5>
           </div>
