@@ -12,7 +12,7 @@ export default function CtaBanner() {
       />
 
       <div className="relative">
-        <h2 className="text-white">Your next project deserves a village</h2>
+        <h2 className="text-white">Include your village in your next project</h2>
         <h4 className="mt-3 font-medium! text-white">
           Join the first wave of creators on Village Boost
         </h4>
