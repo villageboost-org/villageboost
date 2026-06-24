@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div>
           <h5 className="font-bold! text-gray-800">Contacts</h5>
-          <ul className="mt-3 space-y-3 text-grey font-medium">
+          <ul className="mt-3 space-y-3 text-grey">
             <li className="flex items-center gap-2 text-base">
               <MailIcon /> villageboost254@gmail.com
             </li>
