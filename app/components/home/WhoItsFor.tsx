@@ -31,7 +31,7 @@ export default function WhoItsFor() {
               background:
                 "linear-gradient(to top left, var(--color-mustard) 50%, var(--color-cream) 50%)",
             }}>
-            <h3 className="text-maroon">{audience.title}</h3>
+            <h4 className="text-maroon">{audience.title}</h4>
             <h5 className="my-3 text-gray-800">{audience.description}</h5>
             <a
               href={audience.cta.href}

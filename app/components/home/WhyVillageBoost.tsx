@@ -30,7 +30,7 @@ export default function WhyVillageBoost() {
               background:
                 "linear-gradient(to top left, var(--color-maroon) 50%, var(--color-rust-red) 50%)",
             }}>
-            <h3 className="text-white">{reason.title}</h3>
+            <h4 className="text-white">{reason.title}</h4>
             <h5 className="mt-3 text-light-mustard">
               {reason.description}
             </h5>

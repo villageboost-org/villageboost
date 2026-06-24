@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --text-base: 17px;
+
   --color-rust-red: #bf3707;
   --color-maroon: #701416;
   --color-grey: #585858;
@@ -45,13 +47,13 @@ h5 {
 }
 
 h6 {
-  font-size: 1rem; /* 16px */
+  font-size: 1.063rem; /* 17px */
   font-weight: 500;
   line-height: 1.4;
 }
 
 p {
-  font-size: 1rem; /* 16px */
+  font-size: 1.063rem; /* 17px */
   font-weight: 400;
   line-height: 1.6;
 }
