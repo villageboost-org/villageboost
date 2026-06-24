@@ -7,7 +7,7 @@ export default function PlaceholderImage({
 }) {
   return (
     <div
-      className={`flex items-center justify-center bg-sky-blue/30 text-sm text-gray-900 ${className}`}>
+      className={`flex items-center justify-center bg-sky-blue/30 text-sm text-gray-800 ${className}`}>
       {label}
     </div>
   );

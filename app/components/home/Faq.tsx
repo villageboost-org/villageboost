@@ -79,7 +79,7 @@ export default function Faq() {
               className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
                 openIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}>
-              <p className="overflow-hidden pt-2 text-lg! text-gray-900">
+              <p className="overflow-hidden pt-2 text-lg! text-gray-800">
                 {faq.answer}
               </p>
             </div>

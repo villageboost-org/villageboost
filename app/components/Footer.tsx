@@ -46,7 +46,7 @@ function TiktokIcon() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.8}
+      strokeWidth={2}
       className="h-9 w-9">
       <path d="M16 4v9.5a3.5 3.5 0 1 1-3.5-3.5" />
       <path d="M16 4c.3 2 1.8 3.5 4 3.8" />
@@ -56,17 +56,19 @@ function TiktokIcon() {
 
 export default function Footer() {
   return (
-    <footer className="bg-light-mustard px-6 py-12 text-grey md:px-12" id="contacts">
-      <div className="grid gap-10 md:grid-cols-3">
+    <footer
+      className="bg-light-mustard px-6 py-20 text-grey md:px-12"
+      id="contacts">
+      <div className="grid gap-10 md:grid-cols-4">
         <div>
-          <span className="text-3xl font-bold tracking-wide text-gray-900">
+          <span className="text-3xl font-bold tracking-wide text-gray-800">
             VILLAGEBOOST
           </span>
           <p className="mt-2 text-grey">It takes a village</p>
         </div>
 
         <div>
-          <h5 className="font-bold! text-gray-900">Contacts</h5>
+          <h5 className="font-bold! text-gray-800">Contacts</h5>
           <ul className="mt-3 space-y-3 text-grey font-medium">
             <li className="flex items-center gap-2 text-base">
               <MailIcon /> villageboost254@gmail.com
@@ -75,7 +77,11 @@ export default function Footer() {
               <PhoneIcon /> +254712345678
             </li>
           </ul>
-          <div className="mt-4 flex gap-3">
+        </div>
+
+        <div>
+          <h5 className="font-bold! text-gray-800">Follow us</h5>
+          <div className="mt-3 flex gap-4">
             <a
               href="https://instagram.com"
               aria-label="Instagram"
@@ -92,7 +98,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h5 className="font-bold! text-gray-900">Legal</h5>
+          <h5 className="font-bold! text-gray-800">Legal</h5>
           <ul className="mt-3 space-y-2 text-base text-grey">
             <li>
               <a href="/privacy-policy">Privacy & Policy</a>
