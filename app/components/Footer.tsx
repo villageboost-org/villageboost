@@ -5,7 +5,7 @@ function MailIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth={1.5}
-      className="h-8 w-8">
+      className="h-6 w-6">
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m4 7 8 6 8-6" />
     </svg>
@@ -19,7 +19,7 @@ function PhoneIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth={1.5}
-      className="h-8 w-8">
+      className="h-6 w-6">
       <path d="M6 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2Z" />
     </svg>
   );
@@ -62,12 +62,12 @@ export default function Footer() {
           <span className="text-3xl font-bold tracking-wide text-gray-900">
             VILLAGEBOOST
           </span>
-          <p className="mt-2 text-lg! text-grey">It takes a village</p>
+          <p className="mt-2 text-grey">It takes a village</p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-900">Contacts</h4>
-          <ul className="mt-3 space-y-2 text-sm text-grey">
+          <h5 className="font-bold! text-gray-900">Contacts</h5>
+          <ul className="mt-3 space-y-3 text-grey font-medium">
             <li className="flex items-center gap-2 text-base">
               <MailIcon /> villageboost254@gmail.com
             </li>
@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-gray-900">Legal</h4>
+          <h5 className="font-bold! text-gray-900">Legal</h5>
           <ul className="mt-3 space-y-2 text-base text-grey">
             <li>
               <a href="/privacy-policy">Privacy & Policy</a>
