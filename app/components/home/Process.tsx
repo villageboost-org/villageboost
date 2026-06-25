@@ -23,7 +23,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="px-6 py-16 text-center md:px-16">
+    <section id="process" className="py-16 text-center xl:px-16 md:px-8 px-4">
       <span className="eyebrow-headline">
         The process
       </span>
@@ -32,7 +32,7 @@ export default function Process() {
         From idea to funded, in three steps
       </h2>
 
-      <div className="mt-10 grid gap-20 md:grid-cols-3">
+      <div className="mt-10 grid xl:gap-20 gap-8 md:grid-cols-3">
         {steps.map((step) => (
           <div
             key={step.title}

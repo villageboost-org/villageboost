@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="grid items-center gap-10 px-6 py-12 md:grid-cols-2 md:pl-16 md:pr-0">
+    <section className="grid items-center gap-10 px-6 py-12 md:grid-cols-2 xl:pl-16 md:pl-8 pl-4 md:pr-0">
       <div>
         <h1 className="max-w-lg text-rust-red">
           Your village is ready to back you

@@ -15,7 +15,7 @@ const audiences = [
 
 export default function WhoItsFor() {
   return (
-    <section className="bg-light-mustard px-6 py-16 text-center md:px-12">
+    <section className="bg-light-mustard py-16 text-center xl:px-16 md:px-8 px-4">
       <span className="eyebrow-headline">Who it&apos;s for</span>
 
       <h2 className="mx-auto max-w-xl text-rust-red">

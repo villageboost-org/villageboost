@@ -18,10 +18,10 @@ const reasons = [
 
 export default function WhyVillageBoost() {
   return (
-    <section className="px-6 py-30 text-center md:px-16">
+    <section className="py-30 text-center xl:px-16 md:px-8 px-4">
       <h2 className="text-rust-red">Why Village Boost</h2>
 
-      <div className="mt-10 grid gap-20 md:grid-cols-3">
+      <div className="mt-10 grid xl:gap-20 gap-8 md:grid-cols-3">
         {reasons.map((reason) => (
           <div
             key={reason.title}

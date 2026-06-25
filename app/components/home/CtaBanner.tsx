@@ -34,7 +34,7 @@ export default function CtaBanner() {
         alt=""
         fill
         sizes="100vw"
-        className="scale-110 object-cover will-change-transform"
+        className="scale-125 object-cover will-change-transform"
       />
 
       <div className="relative">
