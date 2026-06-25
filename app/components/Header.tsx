@@ -8,7 +8,7 @@ const navLinks = [
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between px-6 py-4 md:px-16">
+    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-grey/20 bg-white px-6 py-2 md:px-16">
       <span className="text-2xl font-bold tracking-wide text-rust-red">
         VILLAGEBOOST
       </span>
