@@ -68,6 +68,6 @@ p {
   }
 
   .eyebrow-headline {
-    @apply mb-8 inline-block rounded-full border border-rust-red px-4 py-1 text-base font-bold uppercase tracking-[.5em] text-rust-red;
+    @apply mb-8 inline-block rounded-full border border-rust-red px-4 py-1 md:text-base text-sm font-bold uppercase tracking-[.5em] text-rust-red;
   }
 }
