@@ -1,7 +1,7 @@
 export default function CtaBanner() {
   return (
     <section
-      className="relative bg-cover bg-center bg-fixed bg-no-repeat px-8 py-44 text-center text-white"
+      className="relative bg-cover bg-center bg-fixed bg-no-repeat px-4 py-44 text-center text-white"
       style={{ backgroundImage: "url('/banner-bg.webp')" }}
     >
       <div className="relative">
