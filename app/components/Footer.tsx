@@ -57,9 +57,9 @@ function TiktokIcon() {
 export default function Footer() {
   return (
     <footer
-      className="bg-light-mustard px-6 py-20 text-grey md:px-12"
+      className="bg-light-mustard py-20 text-grey xl:px-16 md:px-8 px-4"
       id="contacts">
-      <div className="grid gap-10 md:grid-cols-4">
+      <div className="grid gap-10 xl:grid-cols-4 md:grid-cols-2">
         <div>
           <span className="text-3xl font-bold tracking-wide text-gray-800">
             VILLAGEBOOST

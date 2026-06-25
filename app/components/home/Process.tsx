@@ -32,7 +32,7 @@ export default function Process() {
         From idea to funded, in three steps
       </h2>
 
-      <div className="mt-10 grid xl:gap-20 gap-8 md:grid-cols-3">
+      <div className="mt-10 grid xl:gap-20 gap-8 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {steps.map((step) => (
           <div
             key={step.title}

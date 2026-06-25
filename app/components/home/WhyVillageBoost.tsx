@@ -21,7 +21,7 @@ export default function WhyVillageBoost() {
     <section className="py-30 text-center xl:px-16 md:px-8 px-4">
       <h2 className="text-rust-red">Why Village Boost</h2>
 
-      <div className="mt-10 grid xl:gap-20 gap-8 md:grid-cols-3">
+      <div className="mt-10 grid xl:gap-20 gap-8 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {reasons.map((reason) => (
           <div
             key={reason.title}

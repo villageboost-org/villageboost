@@ -62,7 +62,7 @@ export default function Faq() {
   return (
     <section
       id="faq"
-      className="grid gap-10 px-6 py-16 md:grid-cols-[1fr_2fr] md:px-16">
+      className="grid gap-10 py-16 md:grid-cols-[1fr_2fr] xl:px-16 md:px-8 px-4">
       <h2 className="text-rust-red">Frequently Asked Questions</h2>
 
       <div className="divide-y divide-grey/20">
