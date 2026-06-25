@@ -45,7 +45,7 @@ export default function Header() {
         VILLAGEBOOST
       </span>
 
-      <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red md:flex">
+      <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red lg:flex">
         {navLinks.map((link) => (
           <a key={link.label} href={link.href} className="hover:text-maroon">
             {link.label}
@@ -53,7 +53,7 @@ export default function Header() {
         ))}
       </nav>
 
-      <div className="hidden items-center gap-6 md:flex">
+      <div className="hidden items-center gap-6 lg:flex">
         <a href="/sign-up" className="btn-primary">
           Sign Up
         </a>
@@ -66,20 +66,20 @@ export default function Header() {
         type="button"
         aria-label="Toggle menu"
         aria-expanded={isMenuOpen}
-        className="text-rust-red md:hidden"
+        className="text-rust-red lg:hidden"
         onClick={() => setIsMenuOpen((open) => !open)}>
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
 
       <div
-        className={`fixed inset-0 z-40 bg-black/60 transition-opacity md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/60 transition-opacity lg:hidden ${
           isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={() => setIsMenuOpen(false)}
       />
 
       <nav
-        className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 md:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}>
         <div className="flex flex-row gap-6 border-b border-grey/20 pb-6">
