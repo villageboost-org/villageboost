@@ -41,11 +41,13 @@ export default function CampaignCard({
       <div className="flex flex-1 flex-col p-5 pt-2">
         <div className="flex items-center gap-2 text-sm text-grey">
           <span>{daysLeft} days left</span>
-          <span className="text-grey/50">&bull;</span>
+          <span className="text-grey text-xl">&bull;</span>
           <span>{funded}% funded</span>
         </div>
 
-        <h3 className="mt-2 leading-none text-lg! font-bold text-maroon">{title}</h3>
+        <h3 className="mt-2 leading-none text-lg! font-bold text-maroon">
+          {title}
+        </h3>
 
         <div className="mt-2 flex items-center gap-2">
           <span
@@ -58,8 +60,9 @@ export default function CampaignCard({
 
         <div className="mt-2 flex items-end justify-between">
           <div>
-            <p className="font-bold text-rust-red">Sh {pledged}</p>
-            <p className="text-sm text-grey">pledged</p>
+            <p className="font-bold text-rust-red">
+              Sh {pledged} <span className="text-sm text-grey font-normal! ml-0.5">pledged</span>
+            </p>
           </div>
           <span className="text-rust-red">
             <ArrowIcon />
