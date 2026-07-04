@@ -46,14 +46,8 @@ h5 {
   line-height: 1.4;
 }
 
-h6 {
-  font-size: 1.063rem; /* 17px */
-  font-weight: 500;
-  line-height: 1.4;
-}
-
 p {
-  font-size: 1.063rem; /* 17px */
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
 }
