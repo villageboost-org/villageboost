@@ -73,7 +73,7 @@ export default function CampaignsPage() {
       <section className="pb-20">
         <CampaignFilters />
 
-        <div className="mt-10 grid xl:gap-10 gap-8 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:px-16 md:px-8 px-4">
+        <div className="mt-10 grid xl:gap-10 gap-8 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 xl:px-16 md:px-8 px-4">
           {campaigns.map((campaign) => (
             <CampaignCard key={campaign.title} {...campaign} />
           ))}
