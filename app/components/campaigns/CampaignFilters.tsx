@@ -11,7 +11,7 @@ const categories = [
 
 export default function CampaignFilters() {
   return (
-    <div className="flex flex-wrap gap-3 xl:px-16 md:px-8 px-4">
+    <div className="flex flex-wrap justify-between gap-3 xl:px-16 md:px-8 px-4">
       {categories.map((category, index) => (
         <button
           key={category}
