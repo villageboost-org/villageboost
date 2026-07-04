@@ -5,7 +5,7 @@ export default function CampaignsHero() {
     <section className="grid items-center xl:gap-10 gap-4 px-6 py-12 md:grid-cols-2 xl:pl-16 md:pl-8 pl-4 md:pr-0">
       <div>
         <h1 className="text-rust-red">Campaigns</h1>
-        <h4 className="mt-4 max-w-md text-maroon">
+        <h4 className="mt-4 text-maroon">
           Discover East African creatives bringing their visions to life and be
           part of making it happen.
         </h4>

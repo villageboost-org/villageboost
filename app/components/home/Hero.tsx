@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section className="grid items-center xl:gap-10 gap-4 px-6 py-12 md:grid-cols-2 xl:pl-16 md:pl-8 pl-4 md:pr-0">
       <div>
-        <h1 className="max-w-lg text-rust-red">
+        <h1 className="text-rust-red">
           Your village is ready to back you
         </h1>
         <h4 className="mt-4 text-maroon">
