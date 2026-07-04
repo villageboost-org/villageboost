@@ -36,7 +36,7 @@ export default function CampaignCard({
 }: CampaignCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-grey/15 bg-white shadow-sm">
-      <PlaceholderImage label={category} className="h-56 w-full" />
+      <PlaceholderImage label={category} className="aspect-video w-full" />
 
       <div className="flex flex-1 flex-col p-5 pt-2">
         <div className="flex items-center gap-2 text-sm text-grey">
