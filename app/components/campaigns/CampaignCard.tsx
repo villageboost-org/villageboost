@@ -38,16 +38,16 @@ export default function CampaignCard({
     <article className="flex flex-col overflow-hidden rounded-xl border border-grey/15 bg-white shadow-sm">
       <PlaceholderImage label={category} className="h-56 w-full" />
 
-      <div className="flex flex-1 flex-col p-5">
-        <p className="flex items-center gap-2 text-sm text-grey">
+      <div className="flex flex-1 flex-col p-5 pt-2">
+        <div className="flex items-center gap-2 text-sm text-grey">
           <span>{daysLeft} days left</span>
           <span className="text-grey/50">&bull;</span>
           <span>{funded}% funded</span>
-        </p>
+        </div>
 
-        <h3 className="mt-2 text-lg! font-bold text-maroon">{title}</h3>
+        <h3 className="mt-2 leading-none text-lg! font-bold text-maroon">{title}</h3>
 
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-2 flex items-center gap-2">
           <span
             className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
             style={{ backgroundColor: avatarColor }}>
@@ -56,7 +56,7 @@ export default function CampaignCard({
           <span className="text-sm text-gray-800">{creator}</span>
         </div>
 
-        <div className="mt-4 flex items-end justify-between">
+        <div className="mt-2 flex items-end justify-between">
           <div>
             <p className="font-bold text-rust-red">Sh {pledged}</p>
             <p className="text-sm text-grey">pledged</p>
