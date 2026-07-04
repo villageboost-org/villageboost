@@ -48,7 +48,7 @@ export default function Process() {
             </div>
             <div className="p-5 pt-0">
               <h4 className="text-maroon">{step.title}</h4>
-              <h5 className="mt-2 text-base text-grey">{step.description}</h5>
+              <p className="mt-2 text-grey font-medium">{step.description}</p>
             </div>
           </div>
         ))}

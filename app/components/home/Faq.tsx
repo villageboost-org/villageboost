@@ -72,14 +72,14 @@ export default function Faq() {
             className="py-4 cursor-pointer transition"
             onClick={() => setOpenIndex(openIndex === index ? null : index)}>
             <div className="flex items-center justify-between">
-              <h4 className="text-maroon">{faq.question}</h4>
+              <h5 className="text-maroon">{faq.question}</h5>
               {openIndex === index ? <ChevronDownIcon /> : <ChevronUpIcon />}
             </div>
             <div
               className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
                 openIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}>
-              <p className="overflow-hidden pt-2 text-lg! text-gray-800">
+              <p className="overflow-hidden pt-2 text-gray-800">
                 {faq.answer}
               </p>
             </div>

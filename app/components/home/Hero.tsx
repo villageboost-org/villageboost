@@ -13,12 +13,12 @@ export default function Hero() {
           community fund it into reality.
         </h4>
         <div className="mt-8 flex items-center gap-8">
-          <a href="/start-campaign" className="btn-primary xl:text-lg text-base">
+          <a href="/start-campaign" className="btn-primary">
             Start a campaign
           </a>
           <a
             href="/campaigns"
-            className="xl:text-lg text-base font-medium text-rust-red underline underline-offset-4">
+            className="font-medium text-rust-red underline underline-offset-4">
             Browse campaigns
           </a>
         </div>

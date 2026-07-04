@@ -11,7 +11,7 @@ export default function CtaBanner() {
         </h4>
         <a
           href="/start-campaign"
-          className="mt-6 btn-primary text-lg bg-white text-rust-red">
+          className="mt-6 btn-primary text-base bg-white text-rust-red">
           Start a campaign
         </a>
       </div>

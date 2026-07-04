@@ -18,7 +18,7 @@ export default function WhoItsFor() {
     <section className="bg-light-mustard py-16 text-center xl:px-16 md:px-8 px-4">
       <span className="eyebrow-headline">Who it&apos;s for</span>
 
-      <h2 className="mx-auto max-w-xl text-rust-red">
+      <h2 className="mx-auto max-w-2xl text-rust-red">
         Built for creators. Backed by community
       </h2>
 
@@ -32,7 +32,7 @@ export default function WhoItsFor() {
                 "linear-gradient(to top left, var(--color-mustard) 50%, var(--color-cream) 50%)",
             }}>
             <h4 className="text-maroon">{audience.title}</h4>
-            <h5 className="my-3 text-gray-800">{audience.description}</h5>
+            <p className="my-3 text-gray-800 font-medium">{audience.description}</p>
             <a
               href={audience.cta.href}
               className="mt-auto self-start btn-primary">

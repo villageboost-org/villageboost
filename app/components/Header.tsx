@@ -101,7 +101,7 @@ export default function Header() {
           <a
             key={link.label}
             href={link.href}
-            className="text-lg font-medium text-rust-red hover:text-maroon"
+            className="text-base font-medium text-rust-red hover:text-maroon"
             onClick={() => setIsMenuOpen(false)}>
             {link.label}
           </a>
