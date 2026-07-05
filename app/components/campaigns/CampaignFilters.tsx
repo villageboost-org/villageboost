@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const categories = [
   "All",
@@ -42,10 +42,39 @@ function ChevronRightIcon() {
 type CampaignFiltersProps = {
   selected: string;
   onSelect: (category: string) => void;
-}
+};
 
-export default function CampaignFilters({ selected, onSelect }: CampaignFiltersProps) {
+export default function CampaignFilters({
+  selected,
+  onSelect,
+}: CampaignFiltersProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth -1);
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    updateScrollState();
+
+    // the effect itself
+    el.addEventListener("scroll", updateScrollState);
+    window.addEventListener("resize", updateScrollState);
+
+    // the cleanup function
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    }
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     const amount = 200;
@@ -62,7 +91,8 @@ export default function CampaignFilters({ selected, onSelect }: CampaignFiltersP
         type="button"
         aria-label="Scroll categories left"
         onClick={() => scroll("left")}
-        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden">
+        disabled={!canScrollLeft}
+        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
         <ChevronLeftIcon />
       </button>
 
@@ -90,7 +120,8 @@ export default function CampaignFilters({ selected, onSelect }: CampaignFiltersP
         type="button"
         aria-label="Scroll categories right"
         onClick={() => scroll("right")}
-        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden">
+        disabled={!canScrollRight}
+        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
         <ChevronRightIcon />
       </button>
     </div>
