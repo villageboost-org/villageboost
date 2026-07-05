@@ -1,6 +1,9 @@
+"use client";
+
 import CampaignsHero from "@/app/components/campaigns/CampaignsHero";
 import CampaignFilters from "@/app/components/campaigns/CampaignFilters";
 import CampaignCard from "@/app/components/campaigns/CampaignCard";
+import { useState } from "react";
 
 const campaigns = [
   {
@@ -66,15 +69,25 @@ const campaigns = [
 ];
 
 export default function CampaignsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredCampaigns =
+    selectedCategory === "All"
+      ? campaigns
+      : campaigns.filter((campaign) => campaign.category === selectedCategory);
+
   return (
     <main>
       <CampaignsHero />
 
       <section className="pb-20">
-        <CampaignFilters />
+        <CampaignFilters
+          selected={selectedCategory}
+          onSelect={setSelectedCategory}
+        />
 
         <div className="mt-10 grid xl:gap-10 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:px-16 md:px-8 px-4">
-          {campaigns.map((campaign) => (
+          {filteredCampaigns.map((campaign) => (
             <CampaignCard key={campaign.title} {...campaign} />
           ))}
         </div>
