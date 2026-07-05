@@ -86,10 +86,18 @@ export default function CampaignsPage() {
           onSelect={setSelectedCategory}
         />
 
-        <div className="mt-10 grid xl:gap-10 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:px-16 md:px-8 px-4">
-          {filteredCampaigns.map((campaign) => (
-            <CampaignCard key={campaign.title} {...campaign} />
-          ))}
+        <div className="mt-10 xl:px-16 md:px-8 px-4">
+          {filteredCampaigns.length === 0 ? (
+            <p className="mt-20 text-center text-grey">
+              No {selectedCategory} campaigns available at the moment.
+            </p>
+          ) : (
+            <div className="grid xl:gap-10 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+              {filteredCampaigns.map((campaign) => (
+                <CampaignCard key={campaign.title} {...campaign} />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="mt-12 flex justify-center">
