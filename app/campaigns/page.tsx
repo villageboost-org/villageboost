@@ -26,6 +26,7 @@ const campaigns = [
     daysLeft: 14,
     funded: 50,
     category: "Music",
+    imageUrl: "/echoes-poster.jpeg"
   },
   {
     title: "Nairobi Noir — A Comic Series",
@@ -36,6 +37,7 @@ const campaigns = [
     daysLeft: 8,
     funded: 80,
     category: "Comics",
+    imageUrl: "/nairobi-noir-poster.jpeg"
   },
   {
     title: "Threads of Home — Fashion Line",
@@ -46,9 +48,10 @@ const campaigns = [
     daysLeft: 21,
     funded: 35,
     category: "Fashion",
+    imageUrl: "/threads-of-home-poster.jpeg"
   },
   {
-    title: "The Last Griot — A Stage Play",
+    title: "The Last Riot — A Stage Play",
     creator: "Baraka Theatre",
     initials: "BT",
     avatarColor: "var(--color-rust-red)",
@@ -56,6 +59,7 @@ const campaigns = [
     daysLeft: 5,
     funded: 65,
     category: "Theater",
+    imageUrl: "/the-last-riot-poster.jpeg"
   },
   {
     title: "Pixel Savannah — Indie Game",
@@ -66,6 +70,7 @@ const campaigns = [
     daysLeft: 30,
     funded: 45,
     category: "Gaming",
+    imageUrl: "/pixel-savannah-poster.jpeg"
   },
   
 ];
