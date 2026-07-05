@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
 
 function ArrowIcon() {
@@ -22,6 +23,7 @@ type CampaignCardProps = {
   daysLeft: number;
   funded: number;
   category: string;
+  imageUrl?: string;
 };
 
 export default function CampaignCard({
@@ -33,10 +35,22 @@ export default function CampaignCard({
   daysLeft,
   funded,
   category,
+  imageUrl,
 }: CampaignCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-grey/15 bg-white shadow-sm">
-      <PlaceholderImage label={category} className="aspect-video w-full" />
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={title}
+          width={1280}
+          height={720}
+          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          className="aspect-video w-full object-cover"
+        />
+      ) : (
+        <PlaceholderImage label={category} className="aspect-video w-full" />
+      )}
 
       <div className="flex flex-1 flex-col p-5 pt-2">
         <div className="flex items-center gap-2 text-sm text-grey">
@@ -61,7 +75,10 @@ export default function CampaignCard({
         <div className="mt-2 flex items-end justify-between">
           <div>
             <p className="font-bold text-rust-red">
-              Sh {pledged} <span className="text-sm text-grey font-normal! ml-0.5">pledged</span>
+              Sh {pledged}{" "}
+              <span className="text-sm text-grey font-normal! ml-0.5">
+                pledged
+              </span>
             </p>
           </div>
           <span className="text-rust-red">

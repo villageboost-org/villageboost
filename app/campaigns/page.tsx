@@ -15,6 +15,7 @@ const campaigns = [
     daysLeft: 10,
     funded: 20,
     category: "Film",
+    imageUrl: "/hatukufi-bado-poster.jpeg",
   },
   {
     title: "Echoes of the Rift — Debut Album",
