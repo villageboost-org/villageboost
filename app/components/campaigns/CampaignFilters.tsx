@@ -39,7 +39,12 @@ function ChevronRightIcon() {
   );
 }
 
-export default function CampaignFilters() {
+type CampaignFiltersProps = {
+  selected: string;
+  onSelect: (category: string) => void;
+}
+
+export default function CampaignFilters({ selected, onSelect }: CampaignFiltersProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -65,12 +70,13 @@ export default function CampaignFilters() {
       <div
         ref={scrollRef}
         className="flex flex-1 min-w-0 gap-2 overflow-x-auto scroll-smooth justify-between md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <button
             key={category}
             type="button"
+            onClick={() => onSelect(category)}
             className={`shrink-0 rounded-md px-4 py-2 text-base font-medium transition ${
-              index === 0
+              selected === category
                 ? "bg-rust-red text-white"
                 : "bg-grey/10 text-grey hover:bg-grey/20"
             }`}>
