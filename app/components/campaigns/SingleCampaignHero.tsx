@@ -36,7 +36,7 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
   } = campaign;
 
   return (
-    <section className="xl:px-16 md:px-8 px-4 pt-8">
+    <section className="xl:px-16 md:px-8 px-4 pt-16">
       <div className="grid lg:grid-cols-2 bg-light-mustard">
         <div className="overflow-hidden rounded-2xl">
           {imageUrl ? (
