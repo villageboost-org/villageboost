@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import CampaignsHero from "@/app/components/campaigns/CampaignsHero";
 import CampaignFilters from "@/app/components/campaigns/CampaignFilters";
 import CampaignCard from "@/app/components/campaigns/CampaignCard";
@@ -41,7 +42,9 @@ export default function CampaignsPage() {
           ) : (
             <div className="grid xl:gap-10 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
               {visibleCampaigns.map((campaign) => (
-                <CampaignCard key={campaign.title} {...campaign} />
+                <Link key={campaign.slug} href={`/campaigns/${campaign.slug}`}>
+                  <CampaignCard {...campaign} />
+                </Link>
               ))}
             </div>
           )}

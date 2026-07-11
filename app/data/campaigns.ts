@@ -1,4 +1,5 @@
 export type Campaign = {
+  slug: string;
   title: string;
   creator: string;
   initials: string;
@@ -8,10 +9,18 @@ export type Campaign = {
   funded: number;
   category: string;
   imageUrl?: string;
+  tagline?: string;
+  goalAmount?: number;
+  contributors?: number;
+  deadlineDate?: string;
+  description?: string[];
+  gallery?: string[];
+  updatesCount?: number;
 };
 
 export const campaigns: Campaign[] = [
   {
+    slug: "hatukufi-bado-indie-stopmotion-film",
     title: "Hatukufi Bado Indie Stopmotion Film",
     creator: "Inkspace Bureau",
     initials: "IB",
@@ -21,8 +30,19 @@ export const campaigns: Campaign[] = [
     funded: 20,
     category: "Film",
     imageUrl: "/hatukufi-bado-poster.jpeg",
+    tagline:
+      "On a single day in Nairobi, two fiercely intelligent young women—Shinde and Joy—navigate the chaos of protest, art, and state repression as they fight for a better country with nothing but their wits, their voices, and each other",
+    goalAmount: 800000,
+    contributors: 100,
+    deadlineDate: "2026-07-08",
+    description: [
+      "Hatukufi Bado follows Shinde, a defiant, politically aware young woman, and her quiet but resolute best friend Joy. They are on the way to their first protest when incidentally a teargas attack erupts on their bus, pulling them into the swelling protest.",
+      "Fear gives way to courage and collective resistance. The uprising turns brutal when a violent police officer asserts himself as a looming threat, and in a surreal, devastating turn, Joy is shot dead before Shinde and the crowd. In the aftermath, reality fractures and Shinde, full of unwavering resolve, affirms the enduring truth of Hatukufi Bado — we are not dead yet.",
+    ],
+    updatesCount: 2,
   },
   {
+    slug: "echoes-of-the-rift-debut-album",
     title: "Echoes of the Rift — Debut Album",
     creator: "Amani Sound",
     initials: "AS",
@@ -34,6 +54,7 @@ export const campaigns: Campaign[] = [
     imageUrl: "/echoes-poster.jpeg",
   },
   {
+    slug: "nairobi-noir-a-comic-series",
     title: "Nairobi Noir — A Comic Series",
     creator: "Kelly Thompson",
     initials: "KT",
@@ -45,6 +66,7 @@ export const campaigns: Campaign[] = [
     imageUrl: "/nairobi-noir-poster.jpeg",
   },
   {
+    slug: "threads-of-home-fashion-line",
     title: "Threads of Home — Fashion Line",
     creator: "Zawadi Studio",
     initials: "ZS",
@@ -56,6 +78,7 @@ export const campaigns: Campaign[] = [
     imageUrl: "/threads-of-home-poster.jpeg",
   },
   {
+    slug: "the-last-riot-a-stage-play",
     title: "The Last Riot — A Stage Play",
     creator: "Baraka Theatre",
     initials: "BT",
@@ -67,6 +90,7 @@ export const campaigns: Campaign[] = [
     imageUrl: "/the-last-riot-poster.jpeg",
   },
   {
+    slug: "pixel-savannah-indie-game",
     title: "Pixel Savannah — Indie Game",
     creator: "Sote Games",
     initials: "SG",
