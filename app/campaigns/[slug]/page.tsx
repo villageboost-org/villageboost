@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import CampaignHero from "@/app/components/campaigns/CampaignHero";
-import CampaignDetailTabs from "@/app/components/campaigns/CampaignDetailTabs";
+import SingleCampaignHero from "@/app/components/campaigns/SingleCampaignHero";
+import SingleCampaignDetails from "@/app/components/campaigns/SingleCampaignDetails";
 import { campaigns } from "@/app/data/campaigns";
 
 export function generateStaticParams() {
@@ -21,8 +21,8 @@ export default async function CampaignPage({
 
   return (
     <main className="pb-20">
-      <CampaignHero campaign={campaign} />
-      <CampaignDetailTabs campaign={campaign} />
+      <SingleCampaignHero campaign={campaign} />
+      <SingleCampaignDetails campaign={campaign} />
     </main>
   );
 }

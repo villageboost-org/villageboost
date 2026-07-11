@@ -19,7 +19,7 @@ function formatDeadline(iso: string) {
   return `${weekday}, ${day}${suffix} ${month} ${date.getFullYear()}`;
 }
 
-export default function CampaignHero({ campaign }: { campaign: Campaign }) {
+export default function SingleCampaignHero({ campaign }: { campaign: Campaign }) {
   const {
     title,
     creator,
