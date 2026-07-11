@@ -25,14 +25,14 @@ export default function SingleCampaignDetails({
 
   return (
     <section id="contribute" className="mt-14 xl:px-16 md:px-8 px-4">
-      <div className="grid gap-10 lg:grid-cols-[200px_1fr_200px]">
+      <div className="grid gap-20 lg:grid-cols-[200px_1fr_300px]">
         <nav className="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`flex shrink-0 items-center gap-2 rounded-r-md px-4 py-3 text-left text-sm ${
+              className={`flex shrink-0 items-center gap-2 rounded-r-md px-4 py-3 text-left text-base ${
                 activeTab === tab.id
                   ? "border-l-4 border-rust-red bg-cream font-bold text-maroon"
                   : "border-l-4 border-transparent text-grey hover:bg-cream/50"

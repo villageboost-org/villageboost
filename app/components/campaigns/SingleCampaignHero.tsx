@@ -37,7 +37,7 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
 
   return (
     <section className="xl:px-16 md:px-8 px-4 pt-8">
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid lg:grid-cols-2 bg-light-mustard">
         <div className="overflow-hidden rounded-2xl">
           {imageUrl ? (
             <Image
@@ -54,33 +54,33 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
           )}
         </div>
 
-        <div className="flex flex-col rounded-2xl bg-light-mustard p-8">
+        <div className="flex flex-col rounded-tr-2xl rounded-br-2xl p-8 pl-12">
           <h1 className="text-maroon">{title}</h1>
 
           {tagline && <p className="mt-4 text-grey">{tagline}</p>}
 
-          <div className="mt-6 flex items-center gap-2 border-t border-grey/20 pt-6">
+          <div className="flex items-center gap-2 pt-6">
             <span
-              className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
+              className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold text-white"
               style={{ backgroundColor: avatarColor }}>
               {initials}
             </span>
-            <span className="text-sm text-gray-800">{creator}</span>
+            <span className="text-base text-gray-800">{creator}</span>
           </div>
 
           <div className="mt-6 flex items-stretch gap-6 border-t border-grey/20 pt-6">
             <div>
-              <p className="text-2xl font-bold text-rust-red">sh {pledged}</p>
+              <p className="text-3xl! font-bold text-rust-red">sh {pledged}</p>
               <p className="mt-1 text-sm text-grey">
                 of sh{goalAmount?.toLocaleString()} pledged
               </p>
             </div>
             <div className="border-l border-grey/20 pl-6">
-              <p className="text-2xl font-bold text-rust-red">{contributors}</p>
+              <p className="text-3xl! font-bold text-rust-red">{contributors}</p>
               <p className="mt-1 text-sm text-grey">contributors</p>
             </div>
             <div className="border-l border-grey/20 pl-6">
-              <p className="text-2xl font-bold text-rust-red">{daysLeft}</p>
+              <p className="text-3xl! font-bold text-rust-red">{daysLeft}</p>
               <p className="mt-1 text-sm text-grey">days left</p>
             </div>
           </div>
