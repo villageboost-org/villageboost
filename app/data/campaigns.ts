@@ -39,6 +39,7 @@ export const campaigns: Campaign[] = [
       "Hatukufi Bado follows Shinde, a defiant, politically aware young woman, and her quiet but resolute best friend Joy. They are on the way to their first protest when incidentally a teargas attack erupts on their bus, pulling them into the swelling protest.",
       "Fear gives way to courage and collective resistance. The uprising turns brutal when a violent police officer asserts himself as a looming threat, and in a surreal, devastating turn, Joy is shot dead before Shinde and the crowd. In the aftermath, reality fractures and Shinde, full of unwavering resolve, affirms the enduring truth of Hatukufi Bado — we are not dead yet.",
     ],
+    gallery: ["/hatukufi-bado-1.jpg", "/hatukufi-bado-2.jpg"],
     updatesCount: 2,
   },
   {

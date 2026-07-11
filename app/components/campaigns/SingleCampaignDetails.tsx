@@ -39,7 +39,7 @@ export default function SingleCampaignDetails({
               }`}>
               {tab.label}
               {typeof tab.badge === "number" && (
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-rust-red/15 text-xs font-bold text-rust-red">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-rust-red text-xs font-bold text-white">
                   {tab.badge}
                 </span>
               )}
@@ -56,23 +56,22 @@ export default function SingleCampaignDetails({
                 </p>
               ))}
 
-              <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="mt-8 flex flex-row gap-2">
                 {galleryImages.length > 0
                   ? galleryImages.map((src) => (
-                      <Image
+                      <img
                         key={src}
                         src={src}
                         alt=""
-                        width={600}
-                        height={800}
-                        className="aspect-3/4 w-full rounded-lg object-cover"
+                        loading="lazy"
+                        className="object-none"
                       />
                     ))
                   : [0, 1].map((i) => (
                       <PlaceholderImage
                         key={i}
                         label="Behind the scenes"
-                        className="aspect-3/4 w-full rounded-lg"
+                        className="aspect-3/4 w-1/2 rounded-lg"
                       />
                     ))}
               </div>
