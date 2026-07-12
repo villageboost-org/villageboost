@@ -4,12 +4,17 @@ export type RewardTier = {
   perks: string[];
 };
 
+export type CreatorInfo = {
+  name: string;
+  initials: string;
+  avatarColor: string;
+  description?: string;
+};
+
 export type Campaign = {
   slug: string;
   title: string;
-  creator: string;
-  initials: string;
-  avatarColor: string;
+  creator?: CreatorInfo;
   pledged: string;
   daysLeft: number;
   funded: number;
@@ -29,9 +34,15 @@ export const campaigns: Campaign[] = [
   {
     slug: "hatukufi-bado-indie-stopmotion-film",
     title: "Hatukufi Bado Indie Stopmotion Film",
-    creator: "Inkspace Bureau",
-    initials: "IB",
-    avatarColor: "var(--color-rust-red)",
+    creator: {
+      name: "Inkspace Bureau",
+      initials: "IB",
+      avatarColor: "var(--color-rust-red)",
+      description: `Inkspace Bureau is an independent film studio rooted in Nairobi, Kenya. We create handcrafted animated and live-action
+        films that reflect the stories, struggles, and spirit of our city — told entirely on our own terms.From stop-motion
+         frames built one photograph at a time, to narratives born in the heat of protest and politics — our work is deliberate,
+        tactile, and unapologetically Kenyan.`,
+    },
     pledged: "100,000",
     daysLeft: 10,
     funded: 20,
@@ -82,9 +93,11 @@ export const campaigns: Campaign[] = [
   {
     slug: "echoes-of-the-rift-debut-album",
     title: "Echoes of the Rift — Debut Album",
-    creator: "Amani Sound",
-    initials: "AS",
-    avatarColor: "var(--color-maroon)",
+    creator: {
+      name: "Amani Sound",
+      initials: "AS",
+      avatarColor: "var(--color-maroon)",
+    },
     pledged: "200,000",
     daysLeft: 14,
     funded: 50,
@@ -94,9 +107,11 @@ export const campaigns: Campaign[] = [
   {
     slug: "nairobi-noir-a-comic-series",
     title: "Nairobi Noir — A Comic Series",
-    creator: "Kelly Thompson",
-    initials: "KT",
-    avatarColor: "var(--color-mustard)",
+    creator: {
+      name: "Kelly Thompson",
+      initials: "KT",
+      avatarColor: "var(--color-mustard)",
+    },
     pledged: "100,000",
     daysLeft: 8,
     funded: 80,
@@ -106,9 +121,11 @@ export const campaigns: Campaign[] = [
   {
     slug: "threads-of-home-fashion-line",
     title: "Threads of Home — Fashion Line",
-    creator: "Zawadi Studio",
-    initials: "ZS",
-    avatarColor: "var(--color-sky-blue)",
+    creator: {
+      name: "Zawadi Studio",
+      initials: "ZS",
+      avatarColor: "var(--color-sky-blue)",
+    },
     pledged: "150,000",
     daysLeft: 21,
     funded: 35,
@@ -118,9 +135,11 @@ export const campaigns: Campaign[] = [
   {
     slug: "the-last-riot-a-stage-play",
     title: "The Last Riot — A Stage Play",
-    creator: "Baraka Theatre",
-    initials: "BT",
-    avatarColor: "var(--color-rust-red)",
+    creator: {
+      name: "Baraka Theatre",
+      initials: "BT",
+      avatarColor: "var(--color-rust-red)",
+    },
     pledged: "300,000",
     daysLeft: 5,
     funded: 65,
@@ -130,9 +149,11 @@ export const campaigns: Campaign[] = [
   {
     slug: "pixel-savannah-indie-game",
     title: "Pixel Savannah — Indie Game",
-    creator: "Sote Games",
-    initials: "SG",
-    avatarColor: "var(--color-maroon)",
+    creator: {
+      name: "Sote Games",
+      initials: "SG",
+      avatarColor: "var(--color-maroon)",
+    },
     pledged: "250,000",
     daysLeft: 30,
     funded: 45,

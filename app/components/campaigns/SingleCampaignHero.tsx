@@ -22,9 +22,6 @@ function formatDeadline(iso: string) {
 export default function SingleCampaignHero({ campaign }: { campaign: Campaign }) {
   const {
     title,
-    creator,
-    initials,
-    avatarColor,
     pledged,
     daysLeft,
     goalAmount,
@@ -34,6 +31,8 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
     imageUrl,
     category,
   } = campaign;
+
+  const creatorInfo = campaign.creator;
 
   return (
     <section className="xl:px-16 md:px-8 px-4 pt-16">
@@ -59,14 +58,16 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
 
           {tagline && <p className="mt-4 text-grey">{tagline}</p>}
 
-          <div className="flex items-center gap-2 pt-6">
-            <span
-              className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold text-white"
-              style={{ backgroundColor: avatarColor }}>
-              {initials}
-            </span>
-            <span className="text-base text-gray-800">{creator}</span>
-          </div>
+          {creatorInfo && (
+            <div className="flex items-center gap-2 pt-6">
+              <span
+                className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold text-white"
+                style={{ backgroundColor: creatorInfo.avatarColor }}>
+                {creatorInfo.initials}
+              </span>
+              <span className="text-base text-gray-800">{creatorInfo.name}</span>
+            </div>
+          )}
 
           <div className="mt-6 flex items-stretch gap-6 border-t border-grey/20 pt-6">
             <div>

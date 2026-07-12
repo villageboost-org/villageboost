@@ -1,5 +1,6 @@
 import Image from "next/image";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
+import type { CreatorInfo } from "@/app/data/campaigns";
 
 function ArrowIcon() {
   return (
@@ -16,9 +17,7 @@ function ArrowIcon() {
 
 type CampaignCardProps = {
   title: string;
-  creator: string;
-  initials: string;
-  avatarColor: string;
+  creator?: CreatorInfo;
   pledged: string;
   daysLeft: number;
   funded: number;
@@ -29,8 +28,6 @@ type CampaignCardProps = {
 export default function CampaignCard({
   title,
   creator,
-  initials,
-  avatarColor,
   pledged,
   daysLeft,
   funded,
@@ -66,10 +63,12 @@ export default function CampaignCard({
         <div className="mt-2 flex items-center gap-2">
           <span
             className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
-            style={{ backgroundColor: avatarColor }}>
-            {initials}
+            style={{ backgroundColor: creator?.avatarColor ?? "var(--color-grey)" }}>
+            {creator?.initials ?? "?"}
           </span>
-          <span className="text-sm text-gray-800">{creator}</span>
+          <span className="text-sm text-gray-800">
+            {creator?.name ?? "Unknown creator"}
+          </span>
         </div>
 
         <div className="mt-2 flex items-end justify-between">

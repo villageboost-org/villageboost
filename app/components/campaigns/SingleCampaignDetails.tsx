@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
 import type { Campaign } from "@/app/data/campaigns";
 
@@ -22,6 +21,7 @@ export default function SingleCampaignDetails({
   ];
 
   const galleryImages = campaign.gallery ?? [];
+  const creatorInfo = campaign.creator;
 
   return (
     <section id="contribute" className="mt-14 xl:px-16 md:px-8 px-4">
@@ -121,21 +121,24 @@ export default function SingleCampaignDetails({
             </div>
           )}
 
-          {activeTab === "creator" && (
-            <div className="flex items-center gap-3">
-              <span
-                className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white"
-                style={{ backgroundColor: campaign.avatarColor }}>
-                {campaign.initials}
-              </span>
-              <div>
-                <p className="font-bold text-maroon">{campaign.creator}</p>
-                <p className="text-sm text-grey">
-                  More about this creator coming soon.
-                </p>
+          {activeTab === "creator" &&
+            (creatorInfo ? (
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white"
+                  style={{ backgroundColor: creatorInfo.avatarColor }}>
+                  {creatorInfo.initials}
+                </span>
+                <div>
+                  <p className="font-bold text-maroon">{creatorInfo.name}</p>
+                  <p className="text-sm text-grey">
+                    {creatorInfo.description ?? "No description available."}
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <p className="text-grey">Creator information is not available.</p>
+            ))}
 
           {activeTab === "updates" && (
             <p className="text-grey">
