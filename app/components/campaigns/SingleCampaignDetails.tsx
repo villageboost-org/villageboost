@@ -79,9 +79,46 @@ export default function SingleCampaignDetails({
           )}
 
           {activeTab === "rewards" && (
-            <p className="text-grey">
-              Rewards for this campaign will appear here.
-            </p>
+            <div>
+              {campaign.rewards && campaign.rewards.length > 0 ? (
+                campaign.rewards.map((reward, index) => (
+                  <div
+                    key={reward.name}
+                    className={`grid grid-cols-[200px_1fr] gap-4 py-6 first:pt-0 ${
+                      index < campaign.rewards!.length - 1
+                        ? "border-b border-grey/20"
+                        : ""
+                    }`}>
+                    <div>
+                      <p className="text-sm font-bold tracking-wide text-gray-800 uppercase">
+                        {reward.name}
+                      </p>
+                      <p className="text-2xl! font-bold text-rust-red">
+                        Sh {reward.amount.toLocaleString()}
+                      </p>
+                    </div>
+                    <div>
+                      <ul className="space-y-1">
+                        {reward.perks.map((perk) => (
+                          <li key={perk} className="text-grey">
+                            {perk}
+                          </li>
+                        ))}
+                      </ul>
+                      <button
+                        type="button"
+                        className="mt-4 rounded-lg bg-rust-red px-5 py-2 font-medium text-white">
+                        Pledge
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-grey">
+                  Rewards for this campaign will appear here.
+                </p>
+              )}
+            </div>
           )}
 
           {activeTab === "creator" && (

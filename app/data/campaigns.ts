@@ -1,3 +1,9 @@
+export type RewardTier = {
+  name: string;
+  amount: number;
+  perks: string[];
+};
+
 export type Campaign = {
   slug: string;
   title: string;
@@ -16,6 +22,7 @@ export type Campaign = {
   description?: string[];
   gallery?: string[];
   updatesCount?: number;
+  rewards?: RewardTier[];
 };
 
 export const campaigns: Campaign[] = [
@@ -41,6 +48,36 @@ export const campaigns: Campaign[] = [
     ],
     gallery: ["/hatukufi-bado-1.jpg", "/hatukufi-bado-2.jpg"],
     updatesCount: 2,
+    rewards: [
+      {
+        name: "Firestarter",
+        amount: 1000,
+        perks: [
+          "Name listed on a public thank you wall",
+          "Early supporter shout out on our Instagram/Social walls",
+          "Access to one behind the scenes photo from production",
+        ],
+      },
+      {
+        name: "BTS Crew",
+        amount: 2000,
+        perks: [
+          "Everything above +",
+          "Access to monthly BTS updates (photos & short captions)",
+          "Name in end credits under special thanks",
+        ],
+      },
+      {
+        name: "Let's Go Baby Crew",
+        amount: 3500,
+        perks: [
+          "Everything above +",
+          "Access to story and character development posts",
+          "Early look at concept art/story boards",
+          "Polls: Vote on merch designs and products",
+        ],
+      },
+    ],
   },
   {
     slug: "echoes-of-the-rift-debut-album",
