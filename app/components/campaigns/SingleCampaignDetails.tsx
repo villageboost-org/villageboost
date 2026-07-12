@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
-import type { Campaign } from "@/app/data/campaigns";
+import { campaigns, type Campaign } from "@/app/data/campaigns";
 
 type TabId = "campaign" | "rewards" | "creator" | "updates";
 
@@ -22,6 +22,9 @@ export default function SingleCampaignDetails({
 
   const galleryImages = campaign.gallery ?? [];
   const creatorInfo = campaign.creator;
+  const creatorProjectCount = creatorInfo
+    ? campaigns.filter((c) => c.creator?.name === creatorInfo.name).length
+    : 0;
 
   return (
     <section id="contribute" className="mt-14 xl:px-16 md:px-8 px-4">
@@ -123,14 +126,24 @@ export default function SingleCampaignDetails({
 
           {activeTab === "creator" &&
             (creatorInfo ? (
-              <div className="flex items-center gap-3">
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white"
-                  style={{ backgroundColor: creatorInfo.avatarColor }}>
-                  {creatorInfo.initials}
-                </span>
+              <div>
+                <div className="flex items-center gap-4 mb-4">
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-full text-xl font-bold text-white"
+                    style={{ backgroundColor: creatorInfo.avatarColor }}>
+                    {creatorInfo.initials}
+                  </span>
+                  <p className="font-bold text-xl! text-maroon">
+                    {creatorInfo.name}
+                  </p>
+                </div>
+                <div className="mb-4 border-b border-grey/20 pb-4">
+                  <p className="text-grey">
+                    {creatorProjectCount} created project
+                    {creatorProjectCount === 1 ? "" : "s"}
+                  </p>
+                </div>
                 <div>
-                  <p className="font-bold text-maroon">{creatorInfo.name}</p>
                   <p className="text-sm text-grey">
                     {creatorInfo.description ?? "No description available."}
                   </p>
