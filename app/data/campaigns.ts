@@ -11,6 +11,12 @@ export type CreatorInfo = {
   description?: string;
 };
 
+export type CampaignUpdate = {
+  date: string;
+  title?: string;
+  body: string;
+};
+
 export type Campaign = {
   slug: string;
   title: string;
@@ -26,7 +32,7 @@ export type Campaign = {
   deadlineDate?: string;
   description?: string[];
   gallery?: string[];
-  updatesCount?: number;
+  updates?: CampaignUpdate[];
   rewards?: RewardTier[];
 };
 
@@ -58,7 +64,17 @@ export const campaigns: Campaign[] = [
       "Fear gives way to courage and collective resistance. The uprising turns brutal when a violent police officer asserts himself as a looming threat, and in a surreal, devastating turn, Joy is shot dead before Shinde and the crowd. In the aftermath, reality fractures and Shinde, full of unwavering resolve, affirms the enduring truth of Hatukufi Bado — we are not dead yet.",
     ],
     gallery: ["/hatukufi-bado-1.jpg", "/hatukufi-bado-2.jpg"],
-    updatesCount: 2,
+    updates: [
+      {
+        date: "2026-07-07",
+        body: "We're grateful that so far we've raised sh114,000! Thank you to everyone who has contributed. We hope our trailers, pleas and pdfs motivated you enough. We have 3 more weeks to finish our stop motion film.",
+      },
+      {
+        date: "2026-05-12",
+        title: "TANGAZO TANGAZO!!",
+        body: "We are seeking funding support of KES 800,000. Be part of this great project with as little as donation as KES 1000. All donation have a perks attached to them",
+      },
+    ],
     rewards: [
       {
         name: "Firestarter",

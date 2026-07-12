@@ -6,6 +6,24 @@ import { campaigns, type Campaign } from "@/app/data/campaigns";
 
 type TabId = "campaign" | "rewards" | "creator" | "updates";
 
+function formatRelativeDate(iso: string) {
+  const date = new Date(`${iso}T00:00:00`);
+  const days = Math.round(
+    (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
+  if (days <= 0) return "Today";
+  if (days === 1) return "1 day ago";
+  if (days < 30) return `${days} days ago`;
+
+  const months = Math.round(days / 30);
+  if (months === 1) return "1 month ago";
+  if (months < 12) return `${months} months ago`;
+
+  const years = Math.round(months / 12);
+  return years === 1 ? "1 year ago" : `${years} years ago`;
+}
+
 export default function SingleCampaignDetails({
   campaign,
 }: {
@@ -17,7 +35,7 @@ export default function SingleCampaignDetails({
     { id: "campaign", label: "Campaign" },
     { id: "rewards", label: "Rewards" },
     { id: "creator", label: "Creator" },
-    { id: "updates", label: "Updates", badge: campaign.updatesCount },
+    { id: "updates", label: "Updates", badge: campaign.updates?.length },
   ];
 
   const galleryImages = campaign.gallery ?? [];
@@ -154,11 +172,42 @@ export default function SingleCampaignDetails({
             ))}
 
           {activeTab === "updates" && (
-            <p className="text-grey">
-              {campaign.updatesCount ?? 0} Update
-              {campaign.updatesCount === 1 ? "" : "s"} from the creator will
-              appear here.
-            </p>
+            <div className="space-y-6">
+              {campaign.updates && campaign.updates.length > 0 ? (
+                campaign.updates.map((update, index) => (
+                  <div
+                    key={index}
+                    className="rounded-xl border border-grey/15 bg-white p-6 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      {creatorInfo && (
+                        <span
+                          className="flex h-9 w-9 items-center justify-center rounded-full text-xl font-bold text-white"
+                          style={{ backgroundColor: creatorInfo.avatarColor }}>
+                          {creatorInfo.initials}
+                        </span>
+                      )}
+                      <div>
+                        <p className="font-mediumtext-base text-gray-800">
+                          {creatorInfo?.name ?? "Creator"}
+                        </p>
+                        <p className="text-sm! text-grey">
+                          {formatRelativeDate(update.date)}
+                        </p>
+                      </div>
+                    </div>
+
+                    {update.title && (
+                      <p className="text-lg! mt-4 font-bold text-maroon">
+                        {update.title}
+                      </p>
+                    )}
+                    <p className="mt-2 text-grey">{update.body}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-grey">No updates from the creator yet.</p>
+              )}
+            </div>
           )}
         </div>
 
