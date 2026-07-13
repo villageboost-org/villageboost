@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -38,75 +39,81 @@ function CloseIcon() {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isSingleCampaignPage = /^\/campaigns\/[^/]+$/.test(pathname);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-grey/20 bg-white py-2 xl:px-16 md:px-8 px-4">
-      <span className="text-2xl font-bold tracking-wide text-rust-red">
-        VILLAGEBOOST
-      </span>
+    <>
+      <header
+        className={`inset-x-0 top-0 z-50 flex items-center justify-between border-b border-grey/20 bg-white py-2 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
+        <span className="text-2xl font-bold tracking-wide text-rust-red">
+          VILLAGEBOOST
+        </span>
 
-      <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red lg:flex">
-        {navLinks.map((link) => (
-          <a key={link.label} href={link.href} className="hover:text-maroon">
-            {link.label}
-          </a>
-        ))}
-      </nav>
+        <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red lg:flex">
+          {navLinks.map((link) => (
+            <a key={link.label} href={link.href} className="hover:text-maroon">
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
-      <div className="hidden items-center gap-6 lg:flex">
-        <a href="/sign-up" className="btn-primary">
-          Sign Up
-        </a>
-        <a href="/login" className="btn-secondary">
-          Login
-        </a>
-      </div>
-
-      <button
-        type="button"
-        aria-label="Toggle menu"
-        aria-expanded={isMenuOpen}
-        className="text-rust-red lg:hidden"
-        onClick={() => setIsMenuOpen((open) => !open)}>
-        {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-      </button>
-
-      <div
-        className={`fixed inset-0 z-40 bg-black/60 transition-opacity lg:hidden ${
-          isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={() => setIsMenuOpen(false)}
-      />
-
-      <nav
-        className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}>
-        <div className="flex flex-row gap-6 border-b border-grey/20 pb-6">
-          <a
-            href="/sign-up"
-            className="btn-primary text-center"
-            onClick={() => setIsMenuOpen(false)}>
+        <div className="hidden items-center gap-6 lg:flex">
+          <a href="/sign-up" className="btn-primary">
             Sign Up
           </a>
-          <a
-            href="/login"
-            className="btn-secondary text-center"
-            onClick={() => setIsMenuOpen(false)}>
+          <a href="/login" className="btn-secondary">
             Login
           </a>
         </div>
 
-        {navLinks.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            className="text-base font-medium text-rust-red hover:text-maroon"
-            onClick={() => setIsMenuOpen(false)}>
-            {link.label}
-          </a>
-        ))}
-      </nav>
-    </header>
+        <button
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+          className="text-rust-red lg:hidden"
+          onClick={() => setIsMenuOpen((open) => !open)}>
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+
+        <div
+          className={`fixed inset-0 z-40 bg-black/60 transition-opacity lg:hidden ${
+            isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+          onClick={() => setIsMenuOpen(false)}
+        />
+
+        <nav
+          className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}>
+          <div className="flex flex-row gap-6 border-b border-grey/20 pb-6">
+            <a
+              href="/sign-up"
+              className="btn-primary text-center"
+              onClick={() => setIsMenuOpen(false)}>
+              Sign Up
+            </a>
+            <a
+              href="/login"
+              className="btn-secondary text-center"
+              onClick={() => setIsMenuOpen(false)}>
+              Login
+            </a>
+          </div>
+
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-base font-medium text-rust-red hover:text-maroon"
+              onClick={() => setIsMenuOpen(false)}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </header>
+      {!isSingleCampaignPage && <div className="h-10" />}
+    </>
   );
 }
