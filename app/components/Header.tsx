@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -46,9 +48,15 @@ export default function Header() {
     <>
       <header
         className={`inset-x-0 top-0 z-50 flex items-center justify-between border-b border-grey/20 bg-white py-2 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
-        <span className="text-2xl font-bold tracking-wide text-rust-red">
-          VILLAGEBOOST
-        </span>
+        <Link href="/">
+          <Image
+            src="/villageboost-logo.svg"
+            alt="Village Boost logo"
+            width={150}
+            height={50}
+            className="h-auto w-auto"
+          />
+        </Link>
 
         <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red lg:flex">
           {navLinks.map((link) => (
