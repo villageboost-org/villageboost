@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${figtree.variable} h-full scroll-smooth`}>
-      <body className="min-h-full pt-10">
+      <body className="min-h-full">
         <Header />
         {children}
         <Footer />

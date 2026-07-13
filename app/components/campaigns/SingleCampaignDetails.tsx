@@ -214,7 +214,7 @@ export default function SingleCampaignDetails({
         <div>
           <button
             type="button"
-            className="w-full rounded-lg bg-rust-red px-5 py-3 font-medium text-white">
+            className="lg:sticky lg:top-16 w-full rounded-lg bg-rust-red px-5 py-3 font-medium text-white">
             Contribute
           </button>
         </div>
