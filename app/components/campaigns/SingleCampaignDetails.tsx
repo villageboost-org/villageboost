@@ -47,7 +47,7 @@ export default function SingleCampaignDetails({
   return (
     <section id="contribute" className="mt-14 xl:px-16 md:px-8 px-4">
       <div className="grid xl:gap-20 gap-8 lg:grid-cols-[200px_1fr_300px]">
-        <nav className="flex gap-2 overflow-x-auto lg:sticky lg:top-16 lg:flex-col lg:self-start lg:overflow-visible">
+        <nav className="flex gap-2 overflow-x-auto lg:sticky lg:top-2 lg:flex-col lg:self-start lg:overflow-visible">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -214,7 +214,7 @@ export default function SingleCampaignDetails({
         <div>
           <button
             type="button"
-            className="lg:sticky lg:top-16 w-full rounded-lg bg-rust-red px-5 py-3 font-medium text-white">
+            className="lg:sticky lg:top-2 w-full rounded-lg bg-rust-red px-5 py-3 font-medium text-white">
             Contribute
           </button>
         </div>
