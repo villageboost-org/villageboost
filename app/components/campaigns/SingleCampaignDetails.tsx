@@ -46,14 +46,14 @@ export default function SingleCampaignDetails({
 
   return (
     <section id="contribute" className="mt-14 xl:px-16 md:px-8 px-4">
-      <div className="grid gap-20 lg:grid-cols-[200px_1fr_300px]">
-        <nav className="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible">
+      <div className="grid xl:gap-20 gap-8 lg:grid-cols-[200px_1fr_300px]">
+        <nav className="flex gap-2 overflow-x-auto lg:sticky lg:top-16 lg:flex-col lg:self-start lg:overflow-visible">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`flex shrink-0 items-center gap-2 rounded-r-md px-4 py-3 text-left text-base ${
+              className={`flex shrink-0 items-center gap-2 rounded-r-md px-2 py-3 text-left text-base ${
                 activeTab === tab.id
                   ? "border-l-4 border-rust-red bg-cream font-bold text-maroon"
                   : "border-l-4 border-transparent text-grey hover:bg-cream/50"
@@ -77,7 +77,7 @@ export default function SingleCampaignDetails({
                 </p>
               ))}
 
-              <div className="mt-8 flex flex-row gap-2">
+              <div className="mt-8 flex flex-row flex-wrap gap-2">
                 {galleryImages.length > 0
                   ? galleryImages.map((src) => (
                       <img
@@ -105,7 +105,7 @@ export default function SingleCampaignDetails({
                 campaign.rewards.map((reward, index) => (
                   <div
                     key={reward.name}
-                    className={`grid grid-cols-[200px_1fr] gap-4 py-6 first:pt-0 ${
+                    className={`grid xl:grid-cols-[200px_1fr] grid-cols-1 gap-4 py-6 first:pt-0 ${
                       index < campaign.rewards!.length - 1
                         ? "border-b border-grey/20"
                         : ""

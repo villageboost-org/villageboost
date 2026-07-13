@@ -36,7 +36,7 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
 
   return (
     <section className="xl:px-16 md:px-8 px-4 pt-16">
-      <div className="grid lg:grid-cols-2 bg-light-mustard">
+      <div className="grid lg:grid-cols-2 grid-cols-1 bg-light-mustard">
         <div className="overflow-hidden rounded-2xl">
           {imageUrl ? (
             <Image
@@ -53,7 +53,7 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
           )}
         </div>
 
-        <div className="flex flex-col rounded-tr-2xl rounded-br-2xl p-8 pl-12">
+        <div className="flex flex-col rounded-tr-2xl rounded-br-2xl xl:p-8 p-4">
           <h1 className="text-maroon">{title}</h1>
 
           {tagline && <p className="mt-4 text-grey">{tagline}</p>}
@@ -69,19 +69,19 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
             </div>
           )}
 
-          <div className="mt-6 flex items-stretch gap-6 border-t border-grey/20 pt-6">
-            <div>
-              <p className="text-3xl! font-bold text-rust-red">sh {pledged}</p>
+          <div className="mt-6 flex items-stretch divide-x divide-grey/20 border-t border-grey/20 pt-6">
+            <div className="md:pr-8 pr-4">
+              <p className="xl:text-3xl! text-2xl! font-bold text-rust-red">sh {pledged}</p>
               <p className="mt-1 text-sm text-grey">
                 of sh{goalAmount?.toLocaleString()} pledged
               </p>
             </div>
-            <div className="border-l border-grey/20 pl-6">
-              <p className="text-3xl! font-bold text-rust-red">{contributors}</p>
+            <div className="md:px-8 px-4">
+              <p className="xl:text-3xl! text-2xl! font-bold text-rust-red">{contributors}</p>
               <p className="mt-1 text-sm text-grey">contributors</p>
             </div>
-            <div className="border-l border-grey/20 pl-6">
-              <p className="text-3xl! font-bold text-rust-red">{daysLeft}</p>
+            <div className="md:pl-8 pl-4">
+              <p className="xl:text-3xl! text-2xl! font-bold text-rust-red">{daysLeft}</p>
               <p className="mt-1 text-sm text-grey">days left</p>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
           </a>
 
           {deadlineDate && (
-            <p className="mt-4 text-sm text-grey">
+            <p className="mt-4 text-sm! text-grey">
               This project should reach its funding goal by{" "}
               {formatDeadline(deadlineDate)}
             </p>
