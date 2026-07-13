@@ -1,8 +1,8 @@
-import Image from 'next/image';
+import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="grid items-center xl:gap-10 gap-4 px-6 py-12 md:grid-cols-2 xl:pl-16 md:pl-8 pl-4 md:pr-0">
+    <section className="px-6 py-20 lg:py-34 text-center mx-auto max-w-xl lg:max-w-3xl">
       <div>
         <h1 className="text-rust-red">
           Your village is ready to back you
@@ -12,26 +12,16 @@ export default function Hero() {
           creatives. Launch your campaign, share your vision, and let your
           community fund it into reality.
         </h4>
-        <div className="mt-8 flex items-center gap-8">
-          <a href="/start-campaign" className="btn-primary">
+        <div className="mt-8 flex items-center gap-8 w-full justify-center flex-wrap">
+          <Link href="/start-campaign" className="btn-primary">
             Start a campaign
-          </a>
-          <a
+          </Link>
+          <Link
             href="/campaigns"
             className="font-medium text-rust-red underline underline-offset-4">
             Browse campaigns
-          </a>
+          </Link>
         </div>
-      </div>
-
-      <div className="flex items-end justify-end">
-        <Image
-          className="h-auto w-full max-w-xl"
-          src="/staircase.svg"
-          alt="staircase graphic"
-          width={700}
-          height={500}
-        />
       </div>
     </section>
   );
