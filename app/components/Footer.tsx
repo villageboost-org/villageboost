@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 function MailIcon() {
   return (
     <svg
@@ -32,7 +34,7 @@ function InstagramIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
-      className="h-8 w-8">
+      className="h-6.5 w-6.5">
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
@@ -47,7 +49,7 @@ function TiktokIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth={2}
-      className="h-9 w-9">
+      className="h-9 w-9 mr-1">
       <path d="M16 4v9.5a3.5 3.5 0 1 1-3.5-3.5" />
       <path d="M16 4c.3 2 1.8 3.5 4 3.8" />
     </svg>
@@ -57,19 +59,25 @@ function TiktokIcon() {
 export default function Footer() {
   return (
     <footer
-      className="bg-light-mustard py-20 text-grey xl:px-16 md:px-8 px-4"
+      className="rounded-t-[2.5rem] bg-neutral-800 py-16 text-white xl:px-16 md:px-8 px-4 xl:mx-16 md:mx-8 mx-4"
       id="contacts">
-      <div className="grid gap-10 xl:grid-cols-4 md:grid-cols-2">
-        <div>
-          <span className="text-3xl font-bold tracking-wide text-gray-800">
-            VILLAGEBOOST
-          </span>
-          <p className="mt-2 text-grey">It takes a village</p>
-        </div>
+      <div className="flex flex-wrap items-baseline gap-x-16 gap-y-1">
+        <Image
+          src="/white-villageboost-logo.svg"
+          alt="Village Boost logo"
+          width={150}
+          height={50}
+          className="h-auto w-auto"
+        />
+        <p className="text-white text-lg!">It takes a village</p>
+      </div>
 
+      <div className="mt-8 border-t border-white/10" />
+
+      <div className="mt-10 grid gap-10 md:grid-cols-3 grid-cols-1">
         <div>
-          <h5 className="font-bold! text-gray-800">Contacts</h5>
-          <ul className="mt-3 space-y-3 text-grey">
+          <h5 className="font-bold! text-white/60">Contacts</h5>
+          <ul className="mt-3 space-y-3 text-white">
             <li className="flex items-center gap-2 text-base">
               <MailIcon /> villageboost254@gmail.com
             </li>
@@ -80,26 +88,26 @@ export default function Footer() {
         </div>
 
         <div>
-          <h5 className="font-bold! text-gray-800">Follow us</h5>
+          <h5 className="font-bold! text-white/60">Follow Us</h5>
           <div className="mt-3 flex gap-4">
             <a
               href="https://instagram.com"
               aria-label="Instagram"
-              className="flex h-8 w-8 items-center justify-center">
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white">
               <InstagramIcon />
             </a>
             <a
               href="https://tiktok.com"
               aria-label="TikTok"
-              className="flex h-9 w-9 items-center justify-center">
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white">
               <TiktokIcon />
             </a>
           </div>
         </div>
 
         <div>
-          <h5 className="font-bold! text-gray-800">Legal</h5>
-          <ul className="mt-3 space-y-2 text-base text-grey">
+          <h5 className="font-bold! text-white/60">Legal</h5>
+          <ul className="mt-3 space-y-2 text-base text-white">
             <li>
               <a href="/privacy-policy">Privacy & Policy</a>
             </li>
@@ -110,8 +118,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-10 border-t border-grey/30 pt-6 text-sm text-grey">
-        © {new Date().getFullYear()} Village Boost
+      <div className="mt-16 flex items-center gap-2 text-sm text-white/60">
+        <span aria-hidden className="text-base">
+          ©
+        </span>
+        {new Date().getFullYear()} Village Boost
       </div>
     </footer>
   );
