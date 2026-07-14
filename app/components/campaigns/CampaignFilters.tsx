@@ -99,7 +99,7 @@ export default function CampaignFilters({
       {/* Scrollable pill row */}
       <div
         ref={scrollRef}
-        className="flex flex-1 min-w-0 gap-2 overflow-x-auto scroll-smooth justify-between md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
+        className="flex flex-1 min-w-0 gap-2 overflow-x-auto scroll-smooth md:justify-between md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
         {categories.map((category) => (
           <button
             key={category}
