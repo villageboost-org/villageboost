@@ -43,6 +43,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isSingleCampaignPage = /^\/campaigns\/[^/]+$/.test(pathname);
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <>
@@ -58,9 +60,14 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-rust-red lg:flex">
+        <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-grey lg:flex">
           {navLinks.map((link) => (
-            <a key={link.label} href={link.href} className="hover:text-maroon">
+            <a
+              key={link.label}
+              href={link.href}
+              className={`hover:text-maroon ${
+                isActive(link.href) ? "text-rust-red" : ""
+              }`}>
               {link.label}
             </a>
           ))}
@@ -114,7 +121,9 @@ export default function Header() {
             <a
               key={link.label}
               href={link.href}
-              className="text-base font-medium text-rust-red hover:text-maroon"
+              className={`text-base font-medium hover:text-maroon ${
+                isActive(link.href) ? "text-rust-red" : "text-grey"
+              }`}
               onClick={() => setIsMenuOpen(false)}>
               {link.label}
             </a>
