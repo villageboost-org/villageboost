@@ -55,8 +55,8 @@ export default function SingleCampaignDetails({
               onClick={() => setActiveTab(tab.id)}
               className={`flex shrink-0 items-center gap-2 rounded-r-md px-2 py-3 text-left text-base ${
                 activeTab === tab.id
-                  ? "border-l-4 border-rust-red bg-cream font-bold text-maroon"
-                  : "border-l-4 border-transparent text-grey hover:bg-cream/50"
+                  ? "border-l-4 border-rust-red bg-red-100 font-bold text-maroon"
+                  : "border-l-4 border-transparent text-grey hover:bg-red-100"
               }`}>
               {tab.label}
               {typeof tab.badge === "number" && (
@@ -214,7 +214,7 @@ export default function SingleCampaignDetails({
         <div>
           <button
             type="button"
-            className="lg:sticky lg:top-2 w-full rounded-lg bg-rust-red px-5 py-3 font-medium text-white">
+            className="lg:sticky lg:top-2 btn-primary w-full text-center">
             Contribute
           </button>
         </div>
