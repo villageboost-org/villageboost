@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -43,8 +43,42 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isSingleCampaignPage = /^\/campaigns\/[^/]+$/.test(pathname);
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sectionIds = navLinks
+      .filter((link) => link.href.includes("#"))
+      .map((link) => link.href.split("#")[1]);
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/" && activeSection === "";
+    if (href.includes("#")){
+      return pathname === "/" && href === `/#${activeSection}`;
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <>

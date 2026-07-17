@@ -2,7 +2,9 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="px-6 py-20 lg:py-34 text-center mx-auto max-w-xl lg:max-w-3xl">
+    <section
+      id="home"
+      className="px-6 py-20 lg:py-34 text-center mx-auto max-w-xl lg:max-w-3xl">
       <div>
         <h1 className="text-rust-red">
           Your village is ready to back you
