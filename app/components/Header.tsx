@@ -10,7 +10,7 @@ const navLinks = [
   { label: "The Process", href: "/#process" },
   { label: "FAQs", href: "/#faq" },
   { label: "Campaigns", href: "/campaigns" },
-  { label: "Contacts", href: "/#contacts" },
+  { label: "Contacts", href: "#contacts" },
 ];
 
 function MenuIcon() {
@@ -46,11 +46,12 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    if (pathname !== "/") return;
-
-    const sectionIds = navLinks
-      .filter((link) => link.href.includes("#"))
-      .map((link) => link.href.split("#")[1]);
+    const sectionIds = [
+      "home",
+      ...navLinks
+        .filter((link) => link.href.includes("#"))
+        .map((link) => link.href.split("#")[1]),
+    ];
 
     const sections = sectionIds
       .map((id) => document.getElementById(id))
@@ -60,7 +61,7 @@ export default function Header() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            setActiveSection(entry.target.id === "home" ? "" : entry.target.id);
           }
         });
       },
@@ -74,7 +75,7 @@ export default function Header() {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/" && activeSection === "";
-    if (href.includes("#")){
+    if (href.includes("#")) {
       return pathname === "/" && href === `/#${activeSection}`;
     }
     return pathname.startsWith(href);
