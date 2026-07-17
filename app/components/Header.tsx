@@ -75,8 +75,11 @@ export default function Header() {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/" && activeSection === "";
-    if (href.includes("#")) {
-      return pathname === "/" && href === `/#${activeSection}`;
+    if (href.startsWith("/#")) {
+      return pathname === "/" && activeSection === href.split("#")[1];
+    }
+    if (href.startsWith("#")) {
+      return activeSection === href.split("#")[1];
     }
     return pathname.startsWith(href);
   };
