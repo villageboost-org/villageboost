@@ -11,13 +11,13 @@ const steps = [
     title: "Share with your village",
     description:
       "Your campaign goes live and your community can back you via M-Pesa or bank card",
-    src: "/process-2.1.jpg",
+    src: "/process-2.jpg",
   },
   {
     title: "Bring your vision to life",
     description:
       "Your backers' contributions are held securely in your campaign balance. Withdraw whenever you're ready — we only take a flat 3% when you do.",
-    src: "/process-3.1.jpg",
+    src: "/process-3.jpg",
   },
 ];
 
