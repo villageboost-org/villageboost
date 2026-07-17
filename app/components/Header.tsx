@@ -81,7 +81,7 @@ export default function Header() {
     if (href.startsWith("#")) {
       return activeSection === href.split("#")[1];
     }
-    return pathname.startsWith(href);
+    return pathname.startsWith(href) && activeSection !== "contacts";
   };
 
   return (
