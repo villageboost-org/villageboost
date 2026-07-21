@@ -105,10 +105,10 @@ export default function CampaignFilters({
             key={category}
             type="button"
             onClick={() => onSelect(category)}
-            className={`shrink-0 rounded-md px-4 py-2 text-base font-medium transition ${
+            className={`shrink-0 rounded-md px-4 py-2 text-base font-medium transition border border-rust-red ${
               selected === category
                 ? "bg-rust-red text-white"
-                : "bg-grey/10 text-grey hover:bg-grey/20"
+                : "bg-white text-rust-red hover:bg-rust-red/20"
             }`}>
             {category}
           </button>
