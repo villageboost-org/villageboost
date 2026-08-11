@@ -77,11 +77,11 @@ p {
   }
   
   .btn-primary {
-    @apply inline-block rounded-lg bg-maroon px-3 md:px-5 py-2 text-base font-medium text-white;
+    @apply inline-block rounded-full bg-maroon px-3 md:px-5 py-2 text-base font-medium text-white;
   }
 
   .btn-secondary {
-    @apply inline-block rounded-lg border border-maroon px-3 md:px-5 py-2 text-base font-medium text-maroon;
+    @apply inline-block rounded-full border border-maroon px-3 md:px-5 py-2 text-base font-medium text-maroon;
   }
 
   .eyebrow-headline {
