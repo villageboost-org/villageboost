@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import { signIn, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
+import { toast } from "sonner";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -13,6 +14,15 @@ export default function LoginForm() {
     undefined,
   );
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (!state?.message) return;
+    if (state.success) {
+      toast.success(state.message);
+    } else {
+      toast.error(state.message);
+    }
+  }, [state]);
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
@@ -84,13 +94,6 @@ export default function LoginForm() {
           Forgot Password?
         </Link>
       </div>
-
-      {/* Global error */}
-      {state?.message && !state.success && (
-        <p className="mb-4 rounded-md bg-red-50 px-4 py-2 text-center text-sm text-rust-red">
-          {state.message}
-        </p>
-      )}
 
       {/* Submit */}
       <button
