@@ -8,7 +8,13 @@ export default function AuthLayout({
   return (
     <>
       {children}
-      <Toaster position="top-right" richColors />
+      <Toaster
+        position="top-right"
+        richColors
+        toastOptions={{
+          style: { fontFamily: "var(--font-figtree), sans-serif" },
+        }}
+      />
     </>
   );
 }
