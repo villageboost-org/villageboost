@@ -14,6 +14,10 @@ const theme = createTheme({
       main: "#701416", // maroon — matches --color-maroon in globals.css
     },
   },
+  typography: {
+    // Use the same Figtree font loaded by Next.js via --font-figtree CSS variable
+    fontFamily: "var(--font-figtree), sans-serif",
+  },
 });
 
 /**
