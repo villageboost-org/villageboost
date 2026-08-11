@@ -9,11 +9,11 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-[calc(100vh-3rem)]">
+    <div className="flex flex-1">
       {/* ── Left decorative panel ── */}
-      <div className="relative hidden w-[44%] shrink-0 lg:block">
+      <div className="relative hidden w-2/5 shrink-0 lg:block">
         <Image
-          src="/login-pattern.jpg"
+          src="/login-pattern.svg"
           alt="Village Boost decorative art"
           fill
           className="object-cover object-center"
@@ -22,15 +22,15 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right: form area ── */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 py-16">
+      <div className="flex flex-1 flex-col items-center justify-center px-6">
         <div className="w-full max-w-md">
           {/* Heading */}
-          <h1 className="mb-2 text-center text-4xl font-bold text-grey">
+          <h2 className="mb-2 text-center text-grey">
             Welcome Back
-          </h1>
-          <p className="mb-10 text-center text-base text-grey/70">
+          </h2>
+          <h5 className="mb-10 text-center text-grey">
             Please enter your details to log in
-          </p>
+          </h5>
 
           <LoginForm />
         </div>

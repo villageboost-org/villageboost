@@ -112,10 +112,10 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <a href="/sign-up" className="btn-primary">
+          <a href="/sign-up" className="btn-primary py-1.5">
             Sign Up
           </a>
-          <a href="/login" className="btn-secondary">
+          <a href="/login" className="btn-secondary py-1.5">
             Login
           </a>
         </div>
