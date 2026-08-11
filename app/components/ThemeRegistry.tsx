@@ -8,7 +8,13 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Create a theme instance — customise tokens here as needed.
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#701416", // maroon — matches --color-maroon in globals.css
+    },
+  },
+});
 
 /**
  * Creates a new Emotion cache each time this function is called.
