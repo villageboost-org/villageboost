@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
+import ThemeRegistry from "@/app/components/ThemeRegistry";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -21,8 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${figtree.variable} h-full scroll-smooth`}>
       <body className="h-full flex flex-col" suppressHydrationWarning>
-        <Header />
-        {children}
+        <ThemeRegistry>
+          <Header />
+          {children}
+        </ThemeRegistry>
       </body>
     </html>
   );
