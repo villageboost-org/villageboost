@@ -7,12 +7,13 @@ import { toast } from "sonner";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
+import { EyeIcon } from "@/app/components/EyeIcon";
 
 export default function LoginForm() {
-  const [state, formAction, pending] = useActionState<AuthActionState, FormData>(
-    signIn,
-    undefined,
-  );
+  const [state, formAction, pending] = useActionState<
+    AuthActionState,
+    FormData
+  >(signIn, undefined);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -61,24 +62,7 @@ export default function LoginForm() {
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   edge="end">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
+                  <EyeIcon />
                 </IconButton>
               </InputAdornment>
             ),
