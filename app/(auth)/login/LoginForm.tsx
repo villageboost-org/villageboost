@@ -37,7 +37,7 @@ export default function LoginForm() {
         required
         fullWidth
         error={!!state?.errors?.email}
-        helperText={state?.errors?.email ?? " "}
+        helperText={state?.errors?.email}
       />
 
       {/* Password field */}
@@ -51,7 +51,7 @@ export default function LoginForm() {
         required
         fullWidth
         error={!!state?.errors?.password}
-        helperText={state?.errors?.password ?? " "}
+        helperText={state?.errors?.password}
         slotProps={{
           input: {
             endAdornment: (
