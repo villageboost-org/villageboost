@@ -36,7 +36,12 @@ type Props = {
 };
 
 export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
-  const [errors, setErrors] = useState<{ crafts?: string }>({});
+  const [errors, setErrors] = useState<{
+    phone?: string;
+    gender?: string;
+    bio?: string;
+    crafts?: string;
+  }>({});
 
   const toggleCraft = (value: string) => {
     const updated = data.crafts.includes(value)
@@ -46,8 +51,14 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
   };
 
   const handleContinue = () => {
-    if (data.crafts.length === 0) {
-      setErrors({ crafts: "Please select at least one craft" });
+    const newErrors: typeof errors = {};
+    if (!data.phone.trim()) newErrors.phone = "Phone number is required";
+    if (!data.gender) newErrors.gender = "Please select a gender";
+    if (!data.bio.trim()) newErrors.bio = "Short bio is required";
+    if (data.crafts.length === 0)
+      newErrors.crafts = "Please select at least one craft";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
     setErrors({});
@@ -64,78 +75,81 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 grid-cols-1 md:gap-10 gap-5">
-        {/* Phone + Gender row */}
-        <div className="flex gap-4">
-          <TextField
-            id="phone"
-            label="Phone Number"
-            type="tel"
-            variant="outlined"
-            fullWidth
-            autoComplete="tel"
-            value={data.phone}
-            onChange={(e) => onUpdate({ phone: e.target.value })}
-            helperText=" "
-          />
-          <TextField
-            id="gender"
-            label="Gender"
-            variant="outlined"
-            select
-            fullWidth
-            value={data.gender}
-            onChange={(e) => onUpdate({ gender: e.target.value })}
-            helperText=" ">
-            {GENDERS.map((g) => (
-              <MenuItem key={g.value} value={g.value}>
-                {g.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-
-        {/* Short Bio */}
+      {/* Phone + Gender row */}
+      <div className="flex md:gap-10 gap-5">
         <TextField
-          id="bio"
-          label="Short Bio"
+          id="phone"
+          label="Phone Number"
+          type="tel"
           variant="outlined"
           fullWidth
-          multiline
-          minRows={4}
-          placeholder="Tell your story in a few sentences. What inspires your work?"
-          value={data.bio}
-          onChange={(e) => onUpdate({ bio: e.target.value })}
-          helperText=" "
+          autoComplete="tel"
+          value={data.phone}
+          onChange={(e) => onUpdate({ phone: e.target.value })}
+          error={!!errors.phone}
+          helperText={errors.phone}
         />
+        <TextField
+          id="gender"
+          label="Gender"
+          variant="outlined"
+          select
+          fullWidth
+          value={data.gender}
+          onChange={(e) => onUpdate({ gender: e.target.value })}
+          error={!!errors.gender}
+          helperText={errors.gender}>
+          {GENDERS.map((g) => (
+            <MenuItem key={g.value} value={g.value}>
+              {g.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
 
-        {/* Craft checkboxes */}
-        <div>
-          <p className="mb-3 text-sm font-semibold text-grey">
-            Select Your Craft
-          </p>
-          <div className="grid grid-cols-3 gap-x-2 gap-y-1 sm:grid-cols-4">
-            {CRAFTS.map((craft) => (
-              <FormControlLabel
-                key={craft.value}
-                label={craft.label}
-                control={
-                  <Checkbox
-                    checked={data.crafts.includes(craft.value)}
-                    onChange={() => toggleCraft(craft.value)}
-                    size="small"
-                  />
-                }
-                sx={{
-                  "& .MuiFormControlLabel-label": { fontSize: "0.875rem" },
-                }}
-              />
-            ))}
-          </div>
+      {/* Short Bio */}
+      <TextField
+        id="bio"
+        label="Short Bio"
+        variant="outlined"
+        fullWidth
+        multiline
+        minRows={4}
+        placeholder="Tell your story in a few sentences. What inspires your work?"
+        value={data.bio}
+        onChange={(e) => onUpdate({ bio: e.target.value })}
+        error={!!errors.bio}
+        helperText={errors.bio}
+      />
 
-          {errors.crafts && (
-            <p className="mt-1 text-sm text-rust-red">{errors.crafts}</p>
-          )}
+      {/* Craft checkboxes */}
+      <div>
+        <p className="mb-3 text-sm font-semibold text-grey">
+          Select Your Craft
+        </p>
+        <div className="grid grid-cols-3 gap-x-2 gap-y-1 sm:grid-cols-4">
+          {CRAFTS.map((craft) => (
+            <FormControlLabel
+              key={craft.value}
+              label={craft.label}
+              control={
+                <Checkbox
+                  checked={data.crafts.includes(craft.value)}
+                  onChange={() => toggleCraft(craft.value)}
+                  size="small"
+                />
+              }
+              sx={{
+                "& .MuiFormControlLabel-label": {
+                  fontSize: "0.875rem",
+                  ...(errors.crafts && { color: "error.main" }),
+                },
+                ...(errors.crafts && {
+                  "& .MuiCheckbox-root": { color: "error.main" },
+                }),
+              }}
+            />
+          ))}
         </div>
       </div>
 
