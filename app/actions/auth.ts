@@ -5,6 +5,7 @@
 // via React's useActionState hook (no manual fetch() needed).
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 
 // Types
@@ -15,6 +16,7 @@ export type AuthActionData = {
     fullName?: string;
     email?: string;
     password?: string;
+    confirmPassword?: string;
   };
   message?: string;
   success?: boolean;
@@ -47,6 +49,19 @@ export async function signUp(
   const fullName = (formData.get("fullName") as string)?.trim();
   const email = (formData.get("email") as string)?.trim();
   const password = formData.get("password") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+  // Profile fields (optional)
+  const phone = (formData.get("phone") as string)?.trim() || null;
+  const gender = (formData.get("gender") as string)?.trim() || null;
+  const bio = (formData.get("bio") as string)?.trim() || null;
+  // Crafts: JSON array of category strings e.g. ["film", "music"]
+  const craftsRaw = formData.get("crafts") as string;
+  const crafts: string[] = craftsRaw ? JSON.parse(craftsRaw) : [];
+  // Links: JSON array of { platform, url } objects
+  const linksRaw = formData.get("links") as string;
+  const links: { platform: string; url: string }[] = linksRaw
+    ? JSON.parse(linksRaw)
+    : [];
 
   // Validate fields before hitting Supabase
   const errors: AuthActionData["errors"] = {};
@@ -56,12 +71,14 @@ export async function signUp(
   if (emailError) errors.email = emailError;
   const passwordError = validatePassword(password);
   if (passwordError) errors.password = passwordError;
+  if (!passwordError && password !== confirmPassword)
+    errors.confirmPassword = "Passwords do not match.";
 
   if (Object.keys(errors).length > 0) return { errors };
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -84,6 +101,51 @@ export async function signUp(
       };
     }
     return { message: "Something went wrong. Please try again." };
+  }
+
+  const userId = data.user?.id;
+  if (!userId) {
+    return { message: "Something went wrong. Please try again." };
+  }
+
+  // Write additional profile data using the admin client.
+  // The handle_new_user trigger already created the public.users row with id + full_name,
+  // but we need to add phone, gender, bio, crafts and portfolio links.
+  // We use the admin (service role) client because the user has no session yet
+  // when email confirmation is enabled.
+  const admin = createAdminClient();
+
+  // Update the profile row the trigger created
+  if (phone || gender || bio) {
+    const { error: profileError } = await admin
+      .from("users")
+      .update({ phone, gender, bio })
+      .eq("id", userId);
+    if (profileError) console.error("[signUp] Profile update error:", profileError);
+  }
+
+  // Insert craft categories
+  if (crafts.length > 0) {
+    const { error: craftsError } = await admin
+      .from("user_categories")
+      .insert(crafts.map((category) => ({ user_id: userId, category })));
+    if (craftsError) console.error("[signUp] Crafts insert error:", craftsError);
+  }
+
+  // Insert portfolio links (skip any rows where both fields aren't filled)
+  const validLinks = links.filter((l) => l.platform && l.url);
+  if (validLinks.length > 0) {
+    const { error: linksError } = await admin
+      .from("user_portfolio_links")
+      .insert(
+        validLinks.map((l, i) => ({
+          user_id: userId,
+          platform: l.platform,
+          url: l.url,
+          sort_order: i,
+        })),
+      );
+    if (linksError) console.error("[signUp] Links insert error:", linksError);
   }
 
   // If email confirmation is ON in Supabase, the user isn't logged in yet —
