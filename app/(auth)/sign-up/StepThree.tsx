@@ -3,6 +3,7 @@
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import type { WizardData } from "./SignUpWizard";
+import { useState, useRef } from "react";
 
 // ─── Platform options ─────────────────────────────────────────────────────────
 // Values MUST match the CHECK constraint in 04_create_user_portfolio_links.sql
@@ -33,6 +34,12 @@ export default function StepThree({
   onSubmit,
   submitting,
 }: Props) {
+  const [touched, setTouched] = useState<{ platform: boolean; url: boolean }[]>(
+    data.links.map(() => ({ platform: false, url: false })),
+  );
+
+  const urlRefs = useRef<(HTMLInputElement | null)[]>([]);
+
   const updateLink = (
     index: number,
     field: "platform" | "url",
@@ -42,15 +49,47 @@ export default function StepThree({
       i === index ? { ...link, [field]: value } : link,
     );
     onUpdate({ links: updated });
+    if (field === "platform")
+      setTimeout(() => {
+        setTouched((prev) =>
+          prev.map((t, i) => (i === index ? { ...t, url: false } : t)),
+        );
+        urlRefs.current[index]?.focus();
+      }, 0);
   };
 
   const addLink = () => {
     onUpdate({ links: [...data.links, { platform: "", url: "" }] });
+    setTouched((prev) => [...prev, { platform: false, url: false }]);
   };
 
   const removeLink = (index: number) => {
     onUpdate({ links: data.links.filter((_, i) => i !== index) });
+    setTouched((prev) => prev.filter((_, i) => i !== index));
   };
+
+  const handleBlur = (index: number, field: "platform" | "url") => {
+    setTouched((prev) =>
+      prev.map((t, i) => (i === index ? { ...t, [field]: true } : t)),
+    );
+  };
+
+  const linkErrors = data.links.map((link, i) => ({
+    platform:
+      touched[i]?.platform && !link.platform ? "Please select a platform" : "",
+    url:
+      touched[i]?.url && !link.url
+        ? "Please enter a URL"
+        : touched[i]?.url && !/^https?:\/\/.+/.test(link.url)
+          ? "URL must start with http:// or https://"
+          : "",
+  }));
+
+  const lastLink = data.links[data.links.length - 1];
+  const canAddLink =
+    !!lastLink?.platform &&
+    !!lastLink?.url &&
+    /^https?:\/\/.+/.test(lastLink.url);
 
   return (
     <div className="flex flex-col gap-6">
@@ -66,16 +105,19 @@ export default function StepThree({
       {/* Dynamic link rows */}
       <div className="flex flex-col gap-4">
         {data.links.map((link, i) => (
-          <div key={i} className="flex items-start gap-3">
+          <div key={i} className="flex items-start md:gap-10 gap-5">
             {/* Platform selector */}
             <TextField
               label="Platform"
               variant="outlined"
               select
+              required
               fullWidth
               value={link.platform}
               onChange={(e) => updateLink(i, "platform", e.target.value)}
-              helperText=" "
+              onBlur={() => handleBlur(i, "platform")}
+              error={!!linkErrors[i]?.platform}
+              helperText={linkErrors[i]?.platform}
               sx={{ maxWidth: 180 }}>
               {PLATFORMS.map((p) => (
                 <MenuItem key={p.value} value={p.value}>
@@ -88,12 +130,18 @@ export default function StepThree({
             <TextField
               label="Portfolio / Platform URL"
               variant="outlined"
+              required
               fullWidth
               type="url"
               placeholder="Enter your website or social media link"
               value={link.url}
               onChange={(e) => updateLink(i, "url", e.target.value)}
-              helperText=" "
+              onBlur={() => handleBlur(i, "url")}
+              error={!!linkErrors[i]?.url}
+              helperText={linkErrors[i]?.url}
+              inputRef={(el) => {
+                urlRefs.current[i] = el;
+              }}
             />
 
             {/* Remove button — only render when there is more than one row */}
@@ -125,7 +173,8 @@ export default function StepThree({
         <button
           type="button"
           onClick={addLink}
-          className="self-start text-sm font-semibold text-maroon underline underline-offset-2 hover:text-maroon/80">
+          disabled={!canAddLink}
+          className="self-start text-sm font-semibold text-maroon underline underline-offset-2 hover:text-maroon/80 disabled:cursor-not-allowed disabled:opacity-40">
           + Add another link
         </button>
       </div>
