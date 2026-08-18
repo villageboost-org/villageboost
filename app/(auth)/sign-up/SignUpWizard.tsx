@@ -125,9 +125,11 @@ export default function SignUpWizard() {
         {[1, 2, 3].map((s) => (
           <div
             key={s}
+            title={process.env.NODE_ENV === "development" ? `Jump to step ${s}` : undefined}
+            onClick={process.env.NODE_ENV === "development" ? () => setStep(s) : undefined}
             className={`h-1.5 flex-1 rounded-full transition-colors duration-500 ${
               s <= step ? "bg-maroon" : "bg-grey/20"
-            }`}
+            } ${process.env.NODE_ENV === "development" ? "cursor-pointer" : ""}`}
           />
         ))}
       </div>
