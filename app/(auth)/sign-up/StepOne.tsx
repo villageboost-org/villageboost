@@ -27,8 +27,8 @@ type Errors = {
 // ─── Validation function ──────────────────────────────────────────────────────
 const validate = (data: WizardData): Errors => {
   const errors: Errors = {};
-  if (!data.fullName || data.fullName.length < 2)
-    errors.fullName = "Full name must be at least 2 characters";
+  if (!data.fullName || data.fullName.trim().split(/\s+/).filter(Boolean).length < 2)
+    errors.fullName = "Full name must include at least a first and last name";
   if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
     errors.email = "Enter a valid email address";
   if (!data.password || data.password.length < 8)
