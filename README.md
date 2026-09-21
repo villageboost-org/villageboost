@@ -85,13 +85,6 @@ supabase/migrations/   SQL schema, applied in numeric order
 | `npm run start` | Run the production build |
 | `npm run lint` | Run ESLint |
 
-## How sign-up works
-
-1. The wizard collects account details (step 1), profile and crafts (step 2), and portfolio links (step 3).
-2. On submit, the `signUp` server action validates the input and calls Supabase Auth.
-3. A database trigger (`handle_new_user`) creates the matching `public.users` row.
-4. The action then uses the admin client to save phone, gender, bio, crafts and links. It needs the admin client because the user has no session until they confirm their email.
-5. Supabase sends a confirmation email through Resend. The link goes to `/auth/callback`.
 
 ## Notes for contributors
 
