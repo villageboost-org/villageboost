@@ -72,7 +72,7 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
         variant="outlined"
         fullWidth
         multiline
-        minRows={4}
+        minRows={3}
         placeholder="Tell your story in a few sentences. What inspires your work?"
         value={data.bio}
         onChange={(e) => onUpdate({ bio: e.target.value })}

@@ -24,6 +24,16 @@ const theme = createTheme({
         input: {
           paddingTop: 12, // default 16.5, small 8.5
           paddingBottom: 12,
+          // Multiline padding lives on the wrapper below, not the textarea
+          "&.MuiInputBase-inputMultiline": {
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
+        },
+        root: {
+          "&.MuiInputBase-multiline": {
+            padding: "0 12px",
+          },
         },
       },
     },
