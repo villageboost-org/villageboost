@@ -8,7 +8,6 @@ import Link from "next/link";
 import type { WizardData } from "./SignUpWizard";
 import { EyeIcon } from "@/app/components/EyeIcon";
 
-
 // ─── Props ────────────────────────────────────────────────────────────────────
 type Props = {
   data: WizardData;
@@ -27,7 +26,10 @@ type Errors = {
 // ─── Validation function ──────────────────────────────────────────────────────
 const validate = (data: WizardData): Errors => {
   const errors: Errors = {};
-  if (!data.fullName || data.fullName.trim().split(/\s+/).filter(Boolean).length < 2)
+  if (
+    !data.fullName ||
+    data.fullName.trim().split(/\s+/).filter(Boolean).length < 2
+  )
     errors.fullName = "Full name must include at least a first and last name";
   if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
     errors.email = "Enter a valid email address";
@@ -49,7 +51,7 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
     if (Object.keys(result).length === 0) onNext();
   };
 
-  const eyeButton = (show: Boolean, toggle: () => void, ariaLabel: string) => {
+  const eyeButton = (show: boolean, toggle: () => void, ariaLabel: string) => {
     return (
       <InputAdornment position="end">
         <IconButton

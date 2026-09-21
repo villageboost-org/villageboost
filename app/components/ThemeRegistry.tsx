@@ -18,6 +18,31 @@ const theme = createTheme({
     // Use the same Figtree font loaded by Next.js via --font-figtree CSS variable
     fontFamily: "var(--font-figtree), sans-serif",
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          paddingTop: 12, // default 16.5, small 8.5
+          paddingBottom: 12,
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: { paddingTop: 12, paddingBottom: 12 },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        outlined: {
+          transform: "translate(14px, 12px) scale(1)",
+          "&.MuiInputLabel-shrink": {
+            transform: "translate(14px, -9px) scale(0.75)",
+          },
+        },
+      },
+    },
+  },
 });
 
 /**
