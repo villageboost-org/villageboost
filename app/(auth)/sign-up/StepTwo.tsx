@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import type { WizardData } from "./SignUpWizard";
@@ -22,11 +21,6 @@ const CRAFTS = [
   { value: "crafts", label: "Crafts" },
 ];
 
-const GENDERS = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-];
-
 // ─── Props ────────────────────────────────────────────────────────────────────
 type Props = {
   data: WizardData;
@@ -37,8 +31,6 @@ type Props = {
 
 export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
   const [errors, setErrors] = useState<{
-    phone?: string;
-    gender?: string;
     bio?: string;
     crafts?: string;
   }>({});
@@ -52,8 +44,6 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
 
   const handleContinue = () => {
     const newErrors: typeof errors = {};
-    if (!data.phone.trim()) newErrors.phone = "Phone number is required";
-    if (!data.gender) newErrors.gender = "Please select a gender";
     if (!data.bio.trim()) newErrors.bio = "Short bio is required";
     if (data.crafts.length === 0)
       newErrors.crafts = "Please select at least one craft";
@@ -73,38 +63,6 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
         <p className="text-grey/70">
           Help supporters and your village get to know who you are.
         </p>
-      </div>
-
-      {/* Phone + Gender row */}
-      <div className="flex md:gap-10 gap-5">
-        <TextField
-          id="phone"
-          label="Phone Number"
-          type="tel"
-          variant="outlined"
-          fullWidth
-          autoComplete="tel"
-          value={data.phone}
-          onChange={(e) => onUpdate({ phone: e.target.value })}
-          error={!!errors.phone}
-          helperText={errors.phone}
-        />
-        <TextField
-          id="gender"
-          label="Gender"
-          variant="outlined"
-          select
-          fullWidth
-          value={data.gender}
-          onChange={(e) => onUpdate({ gender: e.target.value })}
-          error={!!errors.gender}
-          helperText={errors.gender}>
-          {GENDERS.map((g) => (
-            <MenuItem key={g.value} value={g.value}>
-              {g.label}
-            </MenuItem>
-          ))}
-        </TextField>
       </div>
 
       {/* Short Bio */}

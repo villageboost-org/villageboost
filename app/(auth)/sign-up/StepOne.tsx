@@ -2,11 +2,17 @@
 
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Link from "next/link";
 import type { WizardData } from "./SignUpWizard";
 import { EyeIcon } from "@/app/components/EyeIcon";
+
+const GENDERS = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 type Props = {
@@ -21,6 +27,8 @@ type Errors = {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  phone?: string;
+  gender?: string;
 };
 
 // ─── Validation function ──────────────────────────────────────────────────────
@@ -37,6 +45,8 @@ const validate = (data: WizardData): Errors => {
     errors.password = "Password must be at least 8 characters";
   if (!data.confirmPassword || data.confirmPassword !== data.password)
     errors.confirmPassword = "Passwords do not match";
+  if (!data.phone.trim()) errors.phone = "Phone number is required";
+  if (!data.gender) errors.gender = "Please select a gender";
   return errors;
 };
 
@@ -143,6 +153,36 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
             },
           }}
         />
+
+        <TextField
+          id="phone"
+          label="Phone Number"
+          type="tel"
+          variant="outlined"
+          fullWidth
+          autoComplete="tel"
+          value={data.phone}
+          onChange={(e) => onUpdate({ phone: e.target.value })}
+          error={!!errors.phone}
+          helperText={errors.phone}
+        />
+
+        <TextField
+          id="gender"
+          label="Gender"
+          variant="outlined"
+          select
+          fullWidth
+          value={data.gender}
+          onChange={(e) => onUpdate({ gender: e.target.value })}
+          error={!!errors.gender}
+          helperText={errors.gender}>
+          {GENDERS.map((g) => (
+            <MenuItem key={g.value} value={g.value}>
+              {g.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
 
       <button
