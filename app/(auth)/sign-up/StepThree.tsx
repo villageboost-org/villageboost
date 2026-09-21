@@ -105,7 +105,7 @@ export default function StepThree({
       {/* Dynamic link rows */}
       <div className="flex flex-col gap-4">
         {data.links.map((link, i) => (
-          <div key={i} className="flex items-start md:gap-10 gap-5">
+          <div key={i} className="flex md:flex-nowrap flex-wrap items-start md:gap-10 gap-5">
             {/* Platform selector */}
             <TextField
               label="Platform"

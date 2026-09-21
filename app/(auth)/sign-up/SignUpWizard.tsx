@@ -121,7 +121,7 @@ export default function SignUpWizard() {
   return (
     <div>
       {/* Step Progress bar */}
-      <div className="mb-10 flex gap-3">
+      <div className="mt-5 md:mb-10 mb-5 flex gap-3">
         {[1, 2, 3].map((s) => (
           <div
             key={s}

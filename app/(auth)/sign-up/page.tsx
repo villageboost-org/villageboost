@@ -23,7 +23,7 @@ export default function SignUpPage() {
 
       {/* ── Right: wizard area ── */}
       <div className="flex flex-1 flex-col items-center overflow-y-auto py-12">
-        <div className="my-auto w-full px-12 xl:px-30">
+        <div className="w-full px-6 md:px-12 xl:px-30">
           <SignUpWizard />
         </div>
       </div>

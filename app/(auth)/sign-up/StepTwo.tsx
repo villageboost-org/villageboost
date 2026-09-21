@@ -85,7 +85,7 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
         <p className="mb-3 text-sm font-semibold text-grey">
           Select Your Craft
         </p>
-        <div className="grid grid-cols-3 gap-x-2 gap-y-1 sm:grid-cols-4">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-1 sm:grid-cols-4">
           {CRAFTS.map((craft) => (
             <FormControlLabel
               key={craft.value}
