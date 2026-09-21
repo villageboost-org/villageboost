@@ -100,6 +100,12 @@ export async function signUp(
         errors: { email: "An account with this email already exists." },
       };
     }
+    console.error("[signUp] Supabase auth error:", error.code, error.status, error.message);
+    if (error.code === "over_email_send_rate_limit") {
+      return {
+        message: "Too many sign-up emails were sent. Please try again later.",
+      };
+    }
     return { message: "Something went wrong. Please try again." };
   }
 
