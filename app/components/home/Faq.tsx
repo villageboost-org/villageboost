@@ -47,7 +47,7 @@ const faqs = [
   {
     question: "What fees does Village Boost charge?",
     answer:
-      "Nothing upfront. We take a flat 3% only when a creator withdraws their funds. Backers pay no fees to us — however, Paystack, our payment processor, charges 2.9% per card transaction and 1.5% per M-Pesa transaction. These are deducted automatically at the point of payment and go directly to Paystack, not to us.",
+      "Nothing upfront. We take a flat 3% only when a creator withdraws their funds. Backers pay no fees to us — however, Pesapal, our payment processor, charges 2.9% per card transaction and 1.5% per M-Pesa transaction. These are deducted automatically at the point of payment and go directly to Pesapal, not to us.",
   },
   {
     question: "What happens if a campaign doesn't reach its goal?",
