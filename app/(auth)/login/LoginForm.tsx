@@ -3,6 +3,7 @@
 import { useActionState, useState, useEffect } from "react";
 import { signIn, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -34,9 +35,20 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState("");
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   // Client errors win; fallback to server errors after a submission
   const emailError = clientErrors.email ?? state?.errors?.email;
   const passwordError = clientErrors.password ?? state?.errors?.password;
+
+  // Show a toast after redirect from a successful password reset,
+  // then strip the query param so a page refresh doesn't re-trigger it.
+  useEffect(() => {
+    if (searchParams.get("passwordReset") !== "success") return;
+    toast.success("Password changed successfully. Please log in.");
+    router.replace("/login");
+  }, [searchParams, router]);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
