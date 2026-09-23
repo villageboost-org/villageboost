@@ -79,7 +79,8 @@ export default function Footer() {
           <h5 className="font-bold! text-white/60">Contacts</h5>
           <ul className="mt-3 space-y-3 text-white">
             <li className="flex items-center gap-2 text-base">
-              <MailIcon /> villageboost254@gmail.com
+              <MailIcon />
+              <a href="mailto:info@villageboost.com">info@villageboost.com</a>
             </li>
             <li className="flex items-center gap-2 text-base">
               <PhoneIcon /> +254712345678
@@ -93,13 +94,13 @@ export default function Footer() {
             <a
               href="https://instagram.com"
               aria-label="Instagram"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white">
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover:border-white hover:bg-white/10">
               <InstagramIcon />
             </a>
             <a
               href="https://tiktok.com"
               aria-label="TikTok"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white">
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover:border-white hover:bg-white/10">
               <TiktokIcon />
             </a>
           </div>
