@@ -262,5 +262,8 @@ export async function updatePassword(
     };
   }
 
-  redirect("/dashboard");
+  // Sign out the recovery session so the user logs back in with the new password.
+  await supabase.auth.signOut();
+
+  redirect("/login?passwordReset=success");
 }
