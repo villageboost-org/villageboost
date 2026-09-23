@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import LoginForm from "./LoginForm";
 
 export const metadata = {
@@ -32,7 +33,9 @@ export default function LoginPage() {
             Please enter your details to log in
           </h5>
 
-          <LoginForm />
+          <Suspense fallback={null}>
+            <LoginForm />
+          </Suspense>
         </div>
       </div>
     </div>
