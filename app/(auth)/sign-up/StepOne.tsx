@@ -209,7 +209,7 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
         Already have an account?
         <Link
           href="/login"
-          className="font-semibold text-maroon hover:underline">
+          className="font-semibold ml-1 text-maroon hover:underline">
           Log In
         </Link>
       </p>
