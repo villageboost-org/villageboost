@@ -42,11 +42,18 @@ export default function LoginForm() {
   const emailError = clientErrors.email ?? state?.errors?.email;
   const passwordError = clientErrors.password ?? state?.errors?.password;
 
-  // Show a toast after redirect from a successful password reset,
-  // then strip the query param so a page refresh doesn't re-trigger it.
+  // Show a toast for redirect flags, then strip the query param
+  // so a page refresh doesn't re-trigger it.
   useEffect(() => {
-    if (searchParams.get("passwordReset") !== "success") return;
-    toast.success("Password changed successfully. Please log in.");
+    if (searchParams.get("passwordReset") === "success") {
+      toast.success("Password changed successfully. Please log in.");
+    } else if (searchParams.get("error") === "invalid_link") {
+      toast.error(
+        "That link is invalid or has expired. Please request a new one.",
+      );
+    } else {
+      return;
+    }
     router.replace("/login");
   }, [searchParams, router]);
 
