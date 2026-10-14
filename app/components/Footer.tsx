@@ -1,129 +1,115 @@
-import Image from "next/image";
+import Link from "next/link";
 
-function MailIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      className="h-6 w-6">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m4 7 8 6 8-6" />
-    </svg>
-  );
-}
+const platformLinks = [
+  { label: "Browse campaigns", href: "/campaigns" },
+  { label: "Start a campaign", href: "/start-campaign" },
+  { label: "Our fees", href: "/#faq" },
+];
 
-function PhoneIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      className="h-6 w-6">
-      <path d="M6 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2Z" />
-    </svg>
-  );
-}
+const governanceLinks = [
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms & Conditions", href: "#" },
+];
 
-function InstagramIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.8}
-      className="h-6.5 w-6.5">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
-    </svg>
-  );
-}
-
-function TiktokIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-9 w-9 mr-1">
-      <path d="M16 4v9.5a3.5 3.5 0 1 1-3.5-3.5" />
-      <path d="M16 4c.3 2 1.8 3.5 4 3.8" />
-    </svg>
-  );
-}
+const supportLinks = [
+  { label: "jambo@villageboost.com", href: "mailto:info@villageboost.com" },
+  { label: "+254 700 000 000", href: "tel:+254700000000" },
+];
 
 export default function Footer() {
   return (
-    <footer
-      className="rounded-t-[2.5rem] bg-neutral-800 py-16 text-white xl:px-16 md:px-8 px-4 xl:mx-16 md:mx-8 mx-4"
-      id="contacts">
-      <div className="flex flex-wrap items-baseline gap-x-16 gap-y-1">
-        <Image
-          src="/white-villageboost-logo.svg"
-          alt="Village Boost logo"
-          width={150}
-          height={50}
-          className="h-auto w-auto"
-        />
-        <p className="text-white text-lg!">It takes a village</p>
-      </div>
+    <footer className="py-16 xl:px-16 md:px-8 px-6 bg-[#f9f2e9]" id="contacts">
+      {/* Top row */}
+      <div className=" grid grid-cols-[2fr_1fr_1fr_1fr] gap-6 items-start">
+        <div className="relative">
+          <span className="absolute rotate-4 top-2 left-0 rounded-full bg-[#FFDAD3] px-3 py-1 text-xs font-bold text-[#3E0500] tracking-wide">
+            COMMUNITY COLLECTIVE
+          </span>
+          <h3 className="mt-12 max-w-md leading-tight">
+            It takes a village to spark a creative revolution.
+          </h3>
+          <p className="mt-3 text-sm max-w-md text-body-gray">
+            East Africa&apos;s crowdfunding platform for independent creators.
+            Community funded, community powered.
+          </p>
+        </div>
 
-      <div className="mt-8 border-t border-white/10" />
-
-      <div className="mt-10 grid gap-10 md:grid-cols-3 grid-cols-1">
+        {/* Navigation columns */}
         <div>
-          <h5 className="font-bold! text-white/60">Contacts</h5>
-          <ul className="mt-3 space-y-3 text-white">
-            <li className="flex items-center gap-2 text-base">
-              <MailIcon />
-              <a href="mailto:info@villageboost.com">info@villageboost.com</a>
-            </li>
-            <li className="flex items-center gap-2 text-base">
-              <PhoneIcon /> +254712345678
-            </li>
+          <h5 className="text-xs font-bold uppercase tracking-[.15em] mb-4">
+            Platform
+          </h5>
+          <ul className="space-y-2.5">
+            {platformLinks.map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="text-sm transition-colors ">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
-          <h5 className="font-bold! text-white/60">Follow Us</h5>
-          <div className="mt-3 flex gap-4">
+          <h5 className="text-xs font-bold uppercase tracking-[.15em] mb-4">
+            Governance
+          </h5>
+          <ul className="space-y-2.5">
+            {governanceLinks.map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="text-sm transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h5 className="text-xs font-bold uppercase tracking-[.15em] mb-4">
+            CONTACT US
+          </h5>
+          <ul className="space-y-2.5">
+            {supportLinks.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="text-sm transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {/* Social links */}
+          <div className="mt-3 flex flex-col gap-3">
             <a
               href="https://instagram.com"
               aria-label="Instagram"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover:border-white hover:bg-white/10">
-              <InstagramIcon />
+              className="text-sm font-bold transition-colors">
+              INSTAGRAM
             </a>
             <a
               href="https://tiktok.com"
               aria-label="TikTok"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover:border-white hover:bg-white/10">
-              <TiktokIcon />
+              className="text-sm font-bold transition-colors">
+              TIKTOK
             </a>
           </div>
         </div>
-
-        <div>
-          <h5 className="font-bold! text-white/60">Legal</h5>
-          <ul className="mt-3 space-y-2 text-base text-white">
-            <li>
-              <a href="/privacy-policy">Privacy & Policy</a>
-            </li>
-            <li>
-              <a href="/terms">Terms & Conditions</a>
-            </li>
-          </ul>
-        </div>
       </div>
 
-      <div className="mt-16 flex items-center gap-2 text-sm text-white/60">
-        <span aria-hidden className="text-base">
-          ©
+      <div
+        className="mt-10 border-t"
+        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+      />
+
+      {/* Bottom bar */}
+      <div
+        className="mt-12 pt-6 border-t border-body-gray/20 text-xs">
+        <span>
+          © {new Date().getFullYear()} Village Boost. Made by Africans, for
+          Africans.
         </span>
-        {new Date().getFullYear()} Village Boost
       </div>
     </footer>
   );

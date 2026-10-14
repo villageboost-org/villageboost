@@ -2,95 +2,104 @@ import Image from "next/image";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
 import type { CreatorInfo } from "@/app/data/campaigns";
 
-function ArrowIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-6 w-6">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
-
 type CampaignCardProps = {
   title: string;
+  tagline?: string;
   creator?: CreatorInfo;
   pledged: string;
   daysLeft: number;
   funded: number;
   category: string;
+  contributors?: number;
   imageUrl?: string;
 };
 
 export default function CampaignCard({
   title,
+  tagline,
   creator,
-  pledged,
   daysLeft,
   funded,
   category,
+  contributors,
   imageUrl,
 }: CampaignCardProps) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-grey/15 bg-white shadow-sm">
-      {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={1280}
-          height={720}
-          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          className="aspect-video w-full object-cover"
-        />
-      ) : (
-        <PlaceholderImage label={category} className="aspect-video w-full" />
-      )}
+    <article className="flex flex-col overflow-hidden rounded-2xl border bg-white transition-shadow hover:shadow-md"
+      style={{ borderColor: "rgba(68,71,72,0.12)" }}>
+      {/* Image with funded badge overlay */}
+      <div className="relative">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={title}
+            width={1280}
+            height={720}
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="aspect-video w-full object-cover"
+          />
+        ) : (
+          <PlaceholderImage label={category} className="aspect-video w-full" />
+        )}
+        <span
+          className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold text-white"
+          style={{ backgroundColor: "rgba(27,28,26,0.78)", backdropFilter: "blur(4px)" }}>
+          {funded}% funded
+        </span>
+      </div>
 
-      <div className="flex flex-1 flex-col p-5 pt-2">
-        <div className="flex items-center gap-2 text-sm text-grey">
-          <span>{daysLeft} days left</span>
-          <span className="text-grey text-xl">&bull;</span>
-          <span>{funded}% funded</span>
-        </div>
-
-        <h3 className="mt-2 leading-none text-lg! font-bold text-maroon">
+      <div className="flex flex-1 flex-col p-5">
+        <h3
+          className="font-bold leading-snug line-clamp-2"
+          style={{ fontSize: "1rem", color: "#1B1C1A" }}>
           {title}
         </h3>
 
-        <div className="mt-2 flex items-center gap-2">
+        {tagline && (
+          <p className="mt-1.5 text-sm! line-clamp-2" style={{ color: "#444748" }}>
+            {tagline}
+          </p>
+        )}
+
+        {/* Creator */}
+        <div className="mt-3 flex items-center gap-2">
           <span
-            className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
-            style={{ backgroundColor: creator?.avatarColor ?? "var(--color-grey)" }}>
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+            style={{ backgroundColor: creator?.avatarColor ?? "#444748" }}>
             {creator?.initials ?? "?"}
           </span>
-          <span className="text-sm text-gray-800">
+          <span className="text-sm truncate" style={{ color: "#444748" }}>
             {creator?.name ?? "Unknown creator"}
           </span>
         </div>
 
-        <div className="mt-2 flex items-end justify-between">
-          <div>
-            <p className="font-bold text-rust-red">
-              Sh {pledged}{" "}
-              <span className="text-sm text-grey font-normal! ml-0.5">
-                pledged
-              </span>
-            </p>
-          </div>
-          <span className="text-rust-red">
-            <ArrowIcon />
-          </span>
+        {/* Tags */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className="tag-pill">{daysLeft} days left</span>
+          {contributors !== undefined && (
+            <span className="tag-pill">{contributors} contributors</span>
+          )}
         </div>
-      </div>
 
-      <div className="h-2 w-full">
+        {/* Progress bar */}
         <div
-          className="h-full rounded-r-full bg-rust-red"
-          style={{ width: `${funded}%` }}
-        />
+          className="mt-4 h-1.5 w-full rounded-full"
+          style={{ backgroundColor: "rgba(68,71,72,0.1)" }}>
+          <div
+            className="h-full rounded-full"
+            style={{
+              width: `${Math.min(funded, 100)}%`,
+              backgroundColor: "#16D09A",
+            }}
+          />
+        </div>
+
+        {/* CTA */}
+        <div
+          className="mt-4 rounded-full py-2.5 text-center text-sm font-bold text-white"
+          style={{ backgroundColor: "#1B1C1A" }}>
+          Back campaign
+        </div>
       </div>
     </article>
   );

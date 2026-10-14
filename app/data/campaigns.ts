@@ -55,7 +55,7 @@ export const campaigns: Campaign[] = [
     category: "Film",
     imageUrl: "/hatukufi-bado-poster.jpeg",
     tagline:
-      "On a single day in Nairobi, two fiercely intelligent young women—Shinde and Joy—navigate the chaos of protest, art, and state repression as they fight for a better country with nothing but their wits, their voices, and each other",
+      "Two young women. One day of protest. A stop-motion story that refuses to end.",
     goalAmount: 800000,
     contributors: 100,
     deadlineDate: "2026-07-08",
@@ -119,6 +119,8 @@ export const campaigns: Campaign[] = [
     funded: 50,
     category: "Music",
     imageUrl: "/echoes-poster.jpeg",
+    tagline:
+      "A debut album shaped by the valleys, voices, and fire of the East African Rift.",
   },
   {
     slug: "nairobi-noir-a-comic-series",
@@ -133,6 +135,8 @@ export const campaigns: Campaign[] = [
     funded: 80,
     category: "Comics",
     imageUrl: "/nairobi-noir-poster.jpeg",
+    tagline:
+      "A handcrafted noir comic series that peels back Nairobi's surface to reveal the city beneath.",
   },
   {
     slug: "threads-of-home-fashion-line",
@@ -147,6 +151,8 @@ export const campaigns: Campaign[] = [
     funded: 35,
     category: "Fashion",
     imageUrl: "/threads-of-home-poster.jpeg",
+    tagline:
+      "East African heritage woven into wearable art — fabric as memory, clothing as identity.",
   },
   {
     slug: "the-last-riot-a-stage-play",
@@ -160,7 +166,9 @@ export const campaigns: Campaign[] = [
     daysLeft: 5,
     funded: 65,
     category: "Theater",
-    imageUrl: "/the-last-riot-poster.jpeg",
+    imageUrl: "/last-riot-poster.jpg",
+    tagline:
+      "A visceral stage play about dissent, sacrifice, and what it truly costs to stand your ground.",
   },
   {
     slug: "pixel-savannah-indie-game",
@@ -175,5 +183,7 @@ export const campaigns: Campaign[] = [
     funded: 45,
     category: "Gaming",
     imageUrl: "/pixel-savannah-poster.jpeg",
+    tagline:
+      "An indie adventure set in a pixelated East African savannah where wildlife and folklore collide.",
   },
 ];

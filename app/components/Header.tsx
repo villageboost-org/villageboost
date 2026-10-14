@@ -8,36 +8,12 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Process", href: "/#process" },
-  { label: "FAQs", href: "/#faq" },
   { label: "Campaigns", href: "/campaigns" },
-  { label: "Contacts", href: "#contacts" },
+  { label: "Why Village Boost", href: "/#why" },
+  { label: "Contacts", href: "/#contacts" }
 ];
 
-function MenuIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-8 w-8">
-      <path d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-8 w-8">
-      <path d="M6 6l12 12M18 6L6 18" />
-    </svg>
-  );
-}
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,36 +63,38 @@ export default function Header() {
   return (
     <>
       <header
-        className={`inset-x-0 top-0 z-50 flex items-center justify-between border-b border-grey/20 bg-white py-2 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
-        <Link href="/">
+        className={`inset-x-40 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
+        <Link className="flex items-center gap-2" href="/">
           <Image
-            src="/villageboost-logo.svg"
+            src="/main-logo.svg"
             alt="Village Boost logo"
-            width={150}
-            height={50}
-            className="h-auto w-auto"
+            width={35}
+            height={35}
           />
+          <h4 className="font-bold text-ink">VillageBoost</h4>
         </Link>
 
-        <nav className="hidden items-center xl:gap-12 gap-8 text-base font-medium text-grey lg:flex">
+        <nav className="hidden items-center xl:gap-10 gap-6 text-sm font-medium text-body-gray lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className={`hover:text-maroon ${
-                isActive(link.href) ? "text-rust-red" : ""
+              className={`transition-colors hover:text-ink ${
+                isActive(link.href) ? "text-ink font-bold" : ""
               }`}>
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-6 lg:flex">
-          <a href="/sign-up" className="btn-primary py-1.5">
-            Sign Up
-          </a>
-          <a href="/login" className="btn-secondary py-1.5">
+        <div className="hidden items-center gap-5 lg:flex">
+          <a
+            href="/login"
+            className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
             Login
+          </a>
+          <a href="/start-campaign" className="btn-primary">
+            Start a campaign
           </a>
         </div>
 
@@ -124,9 +102,9 @@ export default function Header() {
           type="button"
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
-          className="text-rust-red lg:hidden"
+          className="text-ink lg:hidden"
           onClick={() => setIsMenuOpen((open) => !open)}>
-          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
         </button>
 
         <div
@@ -140,18 +118,18 @@ export default function Header() {
           className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}>
-          <div className="flex flex-row gap-6 border-b border-grey/20 pb-6">
-            <a
-              href="/sign-up"
-              className="btn-primary text-center"
-              onClick={() => setIsMenuOpen(false)}>
-              Sign Up
-            </a>
+          <div className="flex flex-row gap-3 border-b border-ink/10 pb-6">
             <a
               href="/login"
-              className="btn-secondary text-center"
+              className="btn-secondary text-center flex-1"
               onClick={() => setIsMenuOpen(false)}>
               Login
+            </a>
+            <a
+              href="/start-campaign"
+              className="btn-primary text-center flex-1"
+              onClick={() => setIsMenuOpen(false)}>
+              Start a campaign
             </a>
           </div>
 
@@ -159,8 +137,8 @@ export default function Header() {
             <a
               key={link.label}
               href={link.href}
-              className={`text-base font-medium hover:text-maroon ${
-                isActive(link.href) ? "text-rust-red" : "text-grey"
+              className={`text-sm font-medium transition-colors hover:text-ink ${
+                isActive(link.href) ? "text-ink font-bold" : "text-body-gray"
               }`}
               onClick={() => setIsMenuOpen(false)}>
               {link.label}

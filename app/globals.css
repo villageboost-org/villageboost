@@ -1,73 +1,92 @@
 @import "tailwindcss";
 
 @theme {
-  --color-rust-red: #bf3707;
-  --color-maroon: #701416;
-  --color-grey: #3a3a3a;
-  --color-sky-blue: #98c0da;
-  --color-mustard: #f3c15e;
-  --color-cream: #f3dfc4;
-  --color-light-mustard: #fff2d9;
+  /* Brand palette */
+  --color-ink: #1b1c1a;
+  --color-paper: #fbf9f6;
+  --color-body-gray: #444748;
+  --color-action: #3463ff;
+  --color-progress: #16d09a;
+  --color-signal: #f2421e;
+  --color-yellow: #ffd028;
+  --color-navy: #0f1f4b;
+  --color-pink: #ff4d8f;
+
+  /* Legacy — preserved for campaign avatar colors in data/campaigns.ts */
+  --color-rust-red: #f2421e;
+  --color-maroon: #1b1c1a;
+  --color-grey: #444748;
+  --color-mustard: #ffd028;
+  --color-sky-blue: #16d09a;
+  --color-cream: #fbf9f6;
+  --color-light-mustard: #fff9e6;
 }
 
 body {
-  font-family: var(--font-figtree);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  color: var(--color-ink);
+  background-color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-epilogue), system-ui, sans-serif;
 }
 
 h1 {
-  font-size: 3rem; /* 48px */
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 3.3rem;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: 2rem; /* 32px */
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.25;
 }
 
-h3 {
-  font-size: 1.5rem; /* 24px */
-  font-weight: 600;
+h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
   line-height: 1.3;
 }
 
-h4 {
-  font-size: 1.375rem; /* 22px */
-  font-weight: 600;
-  line-height: 1.35;
-}
-
 h5 {
-  font-size: 1.125rem; /* 18px */
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1.4;
 }
 
 p {
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 @media (max-width: 1279px) {
   h1 {
-    font-size: 2rem; /* 32px */
+    font-size: 2.25rem;
   }
 
   h2 {
-    font-size: 1.625rem; /* 26px */
+    font-size: 1.75rem;
   }
 
   h3 {
-    font-size: 1.25rem; /* 20px */
+    font-size: 1.375rem;
   }
 
   h4 {
-    font-size: 1.125rem; /* 18px */
-  }
-
-  h5 {
-    font-size: 1rem; /* 16px */
+    font-size: 1.125rem;
   }
 }
 
@@ -75,16 +94,28 @@ p {
   button {
     @apply cursor-pointer;
   }
-  
+
   .btn-primary {
-    @apply inline-block rounded-full bg-maroon px-3 md:px-5 py-2 text-base font-medium text-white;
+    @apply inline-block rounded-full bg-ink px-6 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90;
   }
 
   .btn-secondary {
-    @apply inline-block rounded-full border border-maroon px-3 md:px-5 py-2 text-base font-medium text-maroon;
+    @apply inline-block rounded-full border-2 border-ink px-6 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-ink hover:text-white;
   }
 
   .eyebrow-headline {
-    @apply mb-8 inline-block rounded-full border border-rust-red px-4 py-1 text-sm font-bold uppercase tracking-[.5em] text-rust-red;
+    @apply inline-block mb-4 text-xs font-bold uppercase tracking-[.15em] text-body-gray;
+  }
+
+  .tag-pill {
+    @apply inline-block rounded-full border border-body-gray/30 px-3 py-1 text-xs font-medium text-body-gray;
+  }
+
+  .section {
+    @apply relative py-20 xl:px-16 md:px-8 px-4;
+  }
+
+  footer a{
+    @apply hover:underline underline-offset-3;
   }
 }

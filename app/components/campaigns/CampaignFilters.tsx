@@ -13,31 +13,7 @@ const categories = [
   "Fashion",
 ];
 
-function ChevronLeftIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-5 w-5">
-      <path d="m15 18-6-6 6-6" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-5 w-5">
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type CampaignFiltersProps = {
   selected: string;
@@ -93,7 +69,7 @@ export default function CampaignFilters({
         onClick={() => scroll("left")}
         disabled={!canScrollLeft}
         className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
-        <ChevronLeftIcon />
+        <ChevronLeft className="h-5 w-5" />
       </button>
 
       {/* Scrollable pill row */}
@@ -122,7 +98,7 @@ export default function CampaignFilters({
         onClick={() => scroll("right")}
         disabled={!canScrollRight}
         className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
-        <ChevronRightIcon />
+        <ChevronRight className="h-5 w-5" />
       </button>
     </div>
   );

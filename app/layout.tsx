@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
+import { Epilogue, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import ThemeRegistry from "@/app/components/ThemeRegistry";
 
-const figtree = Figtree({
+const epilogue = Epilogue({
   subsets: ["latin"],
-  variable: "--font-figtree",
+  variable: "--font-epilogue",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${figtree.variable} h-full scroll-smooth`}>
+    <html
+      lang="en"
+      className={`${epilogue.variable} ${manrope.variable} h-full scroll-smooth`}>
       <body className="h-full flex flex-col" suppressHydrationWarning>
         <ThemeRegistry>
           <Header />

@@ -2,31 +2,7 @@
 
 import { useState } from "react";
 
-function ChevronDownIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-6 w-6">
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
-
-function ChevronUpIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      className="h-6 w-6">
-      <path d="m6 15 6-6 6 6" />
-    </svg>
-  );
-}
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
@@ -47,7 +23,7 @@ const faqs = [
   {
     question: "What fees does Village Boost charge?",
     answer:
-      "Nothing upfront. We take a flat 3% only when a creator withdraws their funds. Backers pay no fees to us — however, Pesapal, our payment processor, charges 2.9% per card transaction and 1.5% per M-Pesa transaction. These are deducted automatically at the point of payment and go directly to Pesapal, not to us.",
+      "Nothing upfront. We take a flat 5% only when a creator withdraws their funds. Backers pay no fees to us — however, Pesapal, our payment processor, charges 2.9% per card transaction and 1.5% per M-Pesa transaction. These are deducted automatically at the point of payment and go directly to Pesapal, not to us.",
   },
   {
     question: "What happens if a campaign doesn't reach its goal?",
@@ -62,26 +38,24 @@ export default function Faq() {
   return (
     <section
       id="faq"
-      className="grid gap-10 py-16 md:grid-cols-[1fr_2fr] xl:px-16 md:px-8 px-4">
-      <h2 className="text-rust-red">Frequently Asked Questions</h2>
+      className="section grid gap-10 md:grid-cols-[1fr_2fr]">
+      <h2>Frequently Asked Questions</h2>
 
-      <div className="divide-y divide-grey/20">
+      <div className="divide-y divide-body-gray/15">
         {faqs.map((faq, index) => (
           <div
             key={faq.question}
-            className="py-4 cursor-pointer transition"
+            className="py-5 cursor-pointer transition"
             onClick={() => setOpenIndex(openIndex === index ? null : index)}>
-            <div className="flex items-center justify-between">
-              <h5 className="text-maroon">{faq.question}</h5>
-              {openIndex === index ? <ChevronDownIcon /> : <ChevronUpIcon />}
+            <div className="flex items-center justify-between gap-4">
+              <h5>{faq.question}</h5>
+              {openIndex === index ? <ChevronDown className="h-6 w-6" /> : <ChevronUp className="h-6 w-6" />}
             </div>
             <div
               className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out ${
                 openIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}>
-              <p className="overflow-hidden pt-2 text-gray-800">
-                {faq.answer}
-              </p>
+              <p className="overflow-hidden pt-3">{faq.answer}</p>
             </div>
           </div>
         ))}
