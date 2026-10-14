@@ -44,13 +44,13 @@ export default function CampaignsPreview() {
       </div>
 
       {/* Filter pills */}
-      <div className="flex flex-wrap gap-4 mb-8">
+      <div className="flex gap-2 md:gap-4 mb-8 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden pb-1">
         {CATEGORY_FILTERS.map((cat) => (
           <button
             key={cat}
             type="button"
             onClick={() => setActiveFilter(cat)}
-            className={`rounded-full px-4 py-2 text-sm font-medium border transition-colors ${activeFilter === cat ? "bg-ink text-white border-ink" : "border-body-gray/30 text-body-gray hover:border-ink"}`}>
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium border transition-colors ${activeFilter === cat ? "bg-ink text-white border-ink" : "border-body-gray/30 text-body-gray hover:border-ink"}`}>
             {cat}
           </button>
         ))}
