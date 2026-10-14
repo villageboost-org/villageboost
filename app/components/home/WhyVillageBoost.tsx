@@ -42,7 +42,7 @@ export default function WhyVillageBoost() {
         <h2>Why Village Boost</h2>
       </div>
 
-      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12">
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-12 gap-8">
         {reasons.map(({ Icon, title, description }) => (
           <div
             key={title}

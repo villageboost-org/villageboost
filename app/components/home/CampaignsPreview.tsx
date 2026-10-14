@@ -5,12 +5,14 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const CATEGORY_FILTERS = [
-  "All Projects",
-  "Music & Audio",
-  "Film & Doc",
-  "Craft & Creatives",
-  "Visual Art & Comics",
-  "Lit & Zines",
+  "All",
+  "Visual Art",
+  "Film",
+  "Music",
+  "Comics",
+  "Theater",
+  "Gaming",
+  "Fashion",
 ];
 
 export default function CampaignsPreview() {
@@ -85,7 +87,9 @@ export default function CampaignsPreview() {
           42 creative campaigns across East Africa
         </p>
 
-        <Link href="/campaigns" className="btn-primary inline-flex items-center gap-2">
+        <Link
+          href="/campaigns"
+          className="btn-primary inline-flex items-center gap-2">
           Explore all campaigns <ArrowRight size={16} />
         </Link>
       </div>

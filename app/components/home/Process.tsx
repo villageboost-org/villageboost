@@ -58,11 +58,11 @@ export default function Process() {
         </p>
       </div>
 
-      <div className="grid xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-12 text-center">
+      <div className="grid xl:grid-cols-3 md:grid-cols-3 grid-cols-1 xl:gap-12 gap-8 text-center">
         {steps.map((step) => (
           <div
             key={step.number}
-            className="relative flex flex-col rounded-3xl shadow-md/20 bg-white p-8 shadow-sm"
+            className="relative flex flex-col rounded-3xl shadow-md/20 bg-white lg:p-8 p-4 shadow-sm"
             style={{ border: "1px solid rgba(68,71,72,0.08)" }}>
             {step.badge && (
               <span className="absolute rotate-23 top-2 -right-2 inline-flex items-center rounded-full bg-yellow px-3 py-1 text-xs font-bold text-ink tracking-wide">
@@ -78,7 +78,7 @@ export default function Process() {
               STEP {step.number}
             </p>
             <h4 className="font-bold mb-3">{step.title}</h4>
-            <p className="text-sm leading-relaxed" style={{ color: "#444748" }}>
+            <p className="lg:text-base text-sm! leading-relaxed" style={{ color: "#444748" }}>
               {step.description}
             </p>
           </div>

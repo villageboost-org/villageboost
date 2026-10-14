@@ -40,14 +40,12 @@ const audiences = [
 
 export default function WhoItsFor() {
   return (
-    <section
-      className="section"
-      style={{ backgroundColor: "#FBF9F6" }}>
+    <section className="section" style={{ backgroundColor: "#FBF9F6" }}>
       <div className="text-center mb-12">
         <h2>Built for creators. Backed by community</h2>
       </div>
 
-      <div className="grid gap-20 md:grid-cols-2">
+      <div className="grid xl:gap-20 md:gap-10  gap-8 md:grid-cols-2">
         {audiences.map((audience) => (
           <div
             key={audience.title}
@@ -60,7 +58,8 @@ export default function WhoItsFor() {
               height={150}
               className="absolute top-0 right-0 rounded-3xl"
             />
-            <span className={`text-xs font-bold uppercase ${audience.labelBg} text-white py-1 px-3 w-fit rounded-2xl mb-5`}>
+            <span
+              className={`text-xs font-bold uppercase ${audience.labelBg} text-white py-1 px-3 w-fit rounded-2xl mb-5`}>
               {audience.label}
             </span>
             <h3>{audience.title}</h3>
@@ -69,7 +68,10 @@ export default function WhoItsFor() {
               {audience.bullets.map((bullet) => (
                 <li key={bullet} className="flex items-center gap-3">
                   <div className="bg-progress/20 rounded-full p-1.5">
-                    <Check className="h-5 w-5 shrink-0" style={{ color: "#16D09A" }} />
+                    <Check
+                      className="h-5 w-5 shrink-0"
+                      style={{ color: "#16D09A" }}
+                    />
                   </div>
                   <span className="text-sm">{bullet}</span>
                 </li>

@@ -63,7 +63,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`inset-x-40 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
+        className={`xl:inset-x-40 inset-x-5 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
         <Link className="flex items-center gap-2" href="/">
           <Image
             src="/main-logo.svg"
@@ -115,19 +115,19 @@ export default function Header() {
         />
 
         <nav
-          className={`fixed inset-y-0 right-0 z-50 flex w-72 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
+          className={`fixed inset-y-0 right-0 z-50 flex w-76 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}>
           <div className="flex flex-row gap-3 border-b border-ink/10 pb-6">
             <a
               href="/login"
-              className="btn-secondary text-center flex-1"
+              className="text-sm btn-secondary text-center self-start"
               onClick={() => setIsMenuOpen(false)}>
               Login
             </a>
             <a
               href="/start-campaign"
-              className="btn-primary text-center flex-1"
+              className="text-sm btn-primary text-center self-start"
               onClick={() => setIsMenuOpen(false)}>
               Start a campaign
             </a>

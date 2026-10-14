@@ -20,7 +20,7 @@ export default function Footer() {
   return (
     <footer className="py-16 xl:px-16 md:px-8 px-6 bg-[#f9f2e9]" id="contacts">
       {/* Top row */}
-      <div className=" grid grid-cols-[2fr_1fr_1fr_1fr] gap-6 items-start">
+      <div className=" grid md:grid-cols-[2fr_1fr_1fr_1fr] grid-cols-1 gap-6 items-start">
         <div className="relative">
           <span className="absolute rotate-4 top-2 left-0 rounded-full bg-[#FFDAD3] px-3 py-1 text-xs font-bold text-[#3E0500] tracking-wide">
             COMMUNITY COLLECTIVE

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function CtaBanner() {
   return (
     <section
-      className="my-20 relative overflow-hidden py-20 px-6 text-center max-w-4xl mx-auto rounded-3xl"
+      className="mb-20 relative overflow-hidden py-20 px-6 text-center max-w-4xl mx-auto rounded-3xl"
       style={{ backgroundColor: "#1B1C1A" }}>
       {/* Decorative circles */}
       <div
