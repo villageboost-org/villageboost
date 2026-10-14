@@ -54,7 +54,7 @@ export default function CampaignsPreview() {
 
       <div className="grid xl:gap-6 gap-6 xl:grid-cols-4 md:grid-cols-2 grid-cols-1">
         {shown.map((campaign) => (
-          <Link key={campaign.slug} href={`/campaigns/${campaign.slug}`}>
+          <Link key={campaign.slug} href={`/campaigns/${campaign.slug}`} className="h-full">
             <CampaignCard {...campaign} />
           </Link>
         ))}

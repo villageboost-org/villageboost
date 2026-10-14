@@ -25,7 +25,8 @@ export default function CampaignCard({
   imageUrl,
 }: CampaignCardProps) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border bg-white transition-shadow hover:shadow-md"
+    <article
+      className="flex flex-col h-full overflow-hidden rounded-2xl border bg-white transition-shadow hover:shadow-md"
       style={{ borderColor: "rgba(68,71,72,0.12)" }}>
       {/* Image with funded badge overlay */}
       <div className="relative">
@@ -43,7 +44,10 @@ export default function CampaignCard({
         )}
         <span
           className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold text-white"
-          style={{ backgroundColor: "rgba(27,28,26,0.78)", backdropFilter: "blur(4px)" }}>
+          style={{
+            backgroundColor: "rgba(27,28,26,0.78)",
+            backdropFilter: "blur(4px)",
+          }}>
           {funded}% funded
         </span>
       </div>
@@ -56,7 +60,9 @@ export default function CampaignCard({
         </h3>
 
         {tagline && (
-          <p className="mt-1.5 text-sm! line-clamp-2" style={{ color: "#444748" }}>
+          <p
+            className="mt-1.5 text-sm! line-clamp-2"
+            style={{ color: "#444748" }}>
             {tagline}
           </p>
         )}
@@ -81,24 +87,24 @@ export default function CampaignCard({
           )}
         </div>
 
-        {/* Progress bar */}
-        <div
-          className="mt-4 h-1.5 w-full rounded-full"
-          style={{ backgroundColor: "rgba(68,71,72,0.1)" }}>
+        <div className="mt-auto pt-4 flex flex-col gap-4">
+          {/* Progress bar */}
           <div
-            className="h-full rounded-full"
-            style={{
-              width: `${Math.min(funded, 100)}%`,
-              backgroundColor: "#16D09A",
-            }}
-          />
-        </div>
+            className="h-1.5 w-full rounded-full"
+            style={{ backgroundColor: "rgba(68,71,72,0.1)" }}>
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${Math.min(funded, 100)}%`,
+                backgroundColor: "#16D09A",
+              }}
+            />
+          </div>
 
-        {/* CTA */}
-        <div
-          className="mt-4 rounded-full py-2.5 text-center text-sm font-bold text-white"
-          style={{ backgroundColor: "#1B1C1A" }}>
-          Back campaign
+          {/* CTA */}
+          <div className="rounded-full bg-ink py-2.5 text-center text-sm font-bold text-white">
+            Back campaign
+          </div>
         </div>
       </div>
     </article>
