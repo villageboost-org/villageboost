@@ -10,7 +10,7 @@ const navLinks = [
   { label: "The Process", href: "/#process" },
   { label: "Campaigns", href: "/campaigns" },
   { label: "Why Village Boost", href: "/#why" },
-  { label: "Contacts", href: "/#contacts" }
+  { label: "Contacts", href: "/#contacts" },
 ];
 
 import { Menu, X } from "lucide-react";
@@ -104,7 +104,11 @@ export default function Header() {
           aria-expanded={isMenuOpen}
           className="text-ink lg:hidden"
           onClick={() => setIsMenuOpen((open) => !open)}>
-          {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+          {isMenuOpen ? (
+            <X className="h-8 w-8" />
+          ) : (
+            <Menu className="h-8 w-8" />
+          )}
         </button>
 
         <div
@@ -115,22 +119,31 @@ export default function Header() {
         />
 
         <nav
-          className={`fixed inset-y-0 right-0 z-50 flex w-76 flex-col gap-6 bg-white px-4 py-8 shadow-lg transition-transform duration-300 lg:hidden ${
+          className={`fixed inset-y-0 right-0 z-50 flex w-76 flex-col gap-6 bg-white px-4 py-4 shadow-lg transition-transform duration-300 lg:hidden ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}>
-          <div className="flex flex-row gap-3 border-b border-ink/10 pb-6">
-            <a
-              href="/login"
-              className="text-sm btn-secondary text-center self-start"
-              onClick={() => setIsMenuOpen(false)}>
-              Login
-            </a>
-            <a
-              href="/start-campaign"
-              className="text-sm btn-primary text-center self-start"
-              onClick={() => setIsMenuOpen(false)}>
-              Start a campaign
-            </a>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setIsMenuOpen(false)}
+            className="rounded-full p-1 text-body-gray hover:text-ink transition-colors">
+            <X className="h-6 w-6" />
+          </button>
+          <div className="border-b border-ink/10 pb-6">
+            <div className="flex flex-row gap-3">
+              <a
+                href="/login"
+                className="text-sm btn-secondary text-center self-start"
+                onClick={() => setIsMenuOpen(false)}>
+                Login
+              </a>
+              <a
+                href="/start-campaign"
+                className="text-sm btn-primary text-center self-start"
+                onClick={() => setIsMenuOpen(false)}>
+                Start a campaign
+              </a>
+            </div>
           </div>
 
           {navLinks.map((link) => (
