@@ -15,7 +15,7 @@ export default function CampaignsHero() {
         <Image
           src={motif14}
           alt=""
-          className="mx-auto w-56 md:w-auto"
+          className="ml-auto md:mr-auto w-56 md:w-auto"
           priority
         />
         <h1 className="mt-6">Campaigns</h1>
