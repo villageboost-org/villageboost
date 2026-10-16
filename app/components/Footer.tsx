@@ -12,8 +12,9 @@ const governanceLinks = [
 ];
 
 const supportLinks = [
-  { label: "jambo@villageboost.com", href: "mailto:info@villageboost.com" },
+  { label: "jambo@villageboost.com", href: "mailto:jambo@villageboost.com" },
   { label: "+254 700 000 000", href: "tel:+254700000000" },
+  { label: "Visit Ngara, Nairobi" },
 ];
 
 export default function Footer() {
@@ -72,11 +73,13 @@ export default function Footer() {
           <ul className="space-y-2.5">
             {supportLinks.map((link) => (
               <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="text-sm transition-colors">
-                  {link.label}
-                </Link>
+                {link.href ? (
+                  <Link href={link.href} className="text-sm transition-colors">
+                    {link.label}
+                  </Link>
+                ) : (
+                  <span className="text-sm">{link.label}</span>
+                )}
               </li>
             ))}
           </ul>
@@ -104,8 +107,7 @@ export default function Footer() {
       />
 
       {/* Bottom bar */}
-      <div
-        className="mt-12 pt-6 border-t border-body-gray/20 text-xs">
+      <div className="mt-12 pt-6 border-t border-body-gray/20 text-xs">
         <span>
           © {new Date().getFullYear()} Village Boost. Made by Africans, for
           Africans.
