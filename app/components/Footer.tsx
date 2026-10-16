@@ -8,7 +8,7 @@ const platformLinks = [
 
 const governanceLinks = [
   { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Conditions", href: "#" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];
 
 const supportLinks = [

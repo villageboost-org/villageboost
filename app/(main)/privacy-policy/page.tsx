@@ -1,6 +1,10 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import PolicySidebar from "@/app/components/privacy/PolicySidebar";
+import PolicySection from "@/app/components/privacy/PolicySection";
+import motif7 from "@/public/motif-7.svg";
+import motif8 from "@/public/motif-8.svg";
+import motif9 from "@/public/motif-9.svg";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Village Boost",
@@ -13,55 +17,32 @@ const sections = [
   { id: "payments", title: "Payments" },
   { id: "who-we-share-with", title: "Who we share information with" },
   { id: "cookies", title: "Cookies" },
-  { id: "data-retention", title: "How long do we keep your data" },
+  { id: "data-retention", title: "How long we keep your data" },
   { id: "your-rights", title: "Your rights" },
   { id: "keeping-your-data-safe", title: "Keeping your data safe" },
   { id: "changes-to-this-policy", title: "Changes to this policy" },
-  { id: "contact-us", title: "Contact Us" },
+  { id: "contact-us", title: "Contact us" },
 ];
 
 const contactEmail = "jambo@villageboost.com";
-
-function PolicySection({
-  id,
-  title,
-  children,
-}: {
-  id: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="scroll-mt-32">
-      <h2 className="mb-4 text-[1.375rem]! font-semibold!">{title}</h2>
-      <div className="space-y-4 text-body-gray">{children}</div>
-    </section>
-  );
-}
 
 export default function PrivacyPolicyPage() {
   return (
     <main className="bg-paper">
       <section className="relative overflow-hidden lg:pt-52 pt-40 lg:pb-20 pb-8 text-center">
         <Image
-          src="/motif-7.svg"
+          src={motif7}
           alt=""
-          width={50}
-          height={170}
-          className="absolute left-2 top-28 md:left-10 md:w-24 lg:top-36 lg:left-20"
+          className="absolute left-2 top-28 w-12.5 md:left-10 md:w-24 lg:top-36 lg:left-20"
         />
         <Image
-          src="/motif-8.svg"
+          src={motif8}
           alt=""
-          width={170}
-          height={34}
-          className="absolute left-1/2 top-24 -translate-x-1/2 md:left-[38%] md:translate-x-0 md:w-36 lg:top-32"
+          className="absolute left-1/2 top-24 w-42.5 -translate-x-1/2 md:left-[38%] md:translate-x-0 md:w-36 lg:top-32"
         />
         <Image
-          src="/motif-9.svg"
+          src={motif9}
           alt=""
-          width={171}
-          height={130}
           className="hidden md:block absolute right-2 top-28 md:right-10 md:w-28 lg:top-36 lg:right-28"
         />
 
@@ -191,7 +172,7 @@ export default function PrivacyPolicyPage() {
 
           <PolicySection
             id="data-retention"
-            title="How long do we keep your data">
+            title="How long we keep your data">
             <p>
               We keep your account information for as long as your account is
               active. If you delete your account, we remove your personal
@@ -237,9 +218,9 @@ export default function PrivacyPolicyPage() {
             id="keeping-your-data-safe"
             title="Keeping your data safe">
             <p>
-              We take reasonable technical and organizational steps to protect
+              We take reasonable technical and organisational steps to protect
               your information, including encrypted storage, access controls so
-              only authorized people can view your data, and secure handling of
+              only authorised people can view your data, and secure handling of
               payments through Pesapal. No system is 100% secure, but we work to
               keep your data safe and will notify you if a breach affects you.
             </p>
