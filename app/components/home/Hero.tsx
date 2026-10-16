@@ -32,11 +32,11 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-3xl px-6">
         <h1>Your village is ready to back you</h1>
-        <p className="mt-6 mx-auto max-w-xl text-lg">
+        <h5 className="font-normal! mt-6 mx-auto max-w-xl">
           Village Boost is the crowdfunding platform built for East African
           creatives. Launch your campaign, share your vision, and let your
           community fund it into reality.
-        </p>
+        </h5>
         <div className="mt-10 flex items-center gap-4 w-full justify-center flex-wrap">
           <Link
             href="/start-campaign"

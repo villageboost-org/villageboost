@@ -1,6 +1,4 @@
-"use client";
-
-import { useRef, useEffect, useState } from "react";
+import { campaigns } from "@/app/data/campaigns";
 
 const categories = [
   "All",
@@ -13,93 +11,48 @@ const categories = [
   "Fashion",
 ];
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
 type CampaignFiltersProps = {
   selected: string;
   onSelect: (category: string) => void;
+  showCounts?: boolean;
 };
 
 export default function CampaignFilters({
   selected,
   onSelect,
+  showCounts = false,
 }: CampaignFiltersProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const updateScrollState = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth -1);
-  };
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    updateScrollState();
-
-    // the effect itself
-    el.addEventListener("scroll", updateScrollState);
-    window.addEventListener("resize", updateScrollState);
-
-    // the cleanup function
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    }
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    const amount = 200;
-    scrollRef.current?.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <div className="w-full flex items-center gap-2 xl:px-16 md:px-8 px-4">
-      {/* Left arrow — small screens only */}
-      <button
-        type="button"
-        aria-label="Scroll categories left"
-        onClick={() => scroll("left")}
-        disabled={!canScrollLeft}
-        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
-        <ChevronLeft className="h-5 w-5" />
-      </button>
+    <div className="flex gap-2 md:gap-4 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden pb-1">
+      {categories.map((category) => {
+        const isActive = selected === category;
+        const count =
+          category === "All"
+            ? campaigns.length
+            : campaigns.filter((c) => c.category === category).length;
 
-      {/* Scrollable pill row */}
-      <div
-        ref={scrollRef}
-        className="flex flex-1 min-w-0 gap-2 overflow-x-auto scroll-smooth md:justify-between md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
-        {categories.map((category) => (
+        return (
           <button
             key={category}
             type="button"
             onClick={() => onSelect(category)}
-            className={`shrink-0 rounded-md px-4 py-2 text-base font-medium transition border border-rust-red ${
-              selected === category
-                ? "bg-rust-red text-white"
-                : "bg-white text-rust-red hover:bg-rust-red/20"
+            className={`shrink-0 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium border transition-colors ${
+              isActive
+                ? "bg-ink text-white border-ink"
+                : "border-body-gray/30 text-body-gray hover:border-ink"
             }`}>
             {category}
+            {showCounts && (
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs ${
+                  isActive ? "bg-white/20" : "bg-body-gray/10"
+                }`}>
+                {count}
+              </span>
+            )}
           </button>
-        ))}
-      </div>
-
-      {/* Right arrow — small screens only */}
-      <button
-        type="button"
-        aria-label="Scroll categories right"
-        onClick={() => scroll("right")}
-        disabled={!canScrollRight}
-        className="shrink-0 rounded-full border border-grey/20 p-1 text-grey md:hidden disabled:opacity-30">
-        <ChevronRight className="h-5 w-5" />
-      </button>
+        );
+      })}
     </div>
   );
 }
