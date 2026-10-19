@@ -3,9 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { updatePassword, type AuthActionState } from "@/app/actions/auth";
 import { toast } from "sonner";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import { FieldError, InputGroup, Label, TextField } from "@heroui/react";
 import { EyeIcon } from "@/app/components/EyeIcon";
 
 type FieldErrors = { password?: string; confirmPassword?: string };
@@ -55,11 +53,13 @@ export default function ResetPasswordForm() {
   }, [state]);
 
   const eyeButton = (show: boolean, toggle: () => void, ariaLabel: string) => (
-    <InputAdornment position="end">
-      <IconButton type="button" onClick={toggle} aria-label={ariaLabel} edge="end">
-        <EyeIcon />
-      </IconButton>
-    </InputAdornment>
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={ariaLabel}
+      className="flex items-center text-grey/60 hover:text-grey">
+      <EyeIcon />
+    </button>
   );
 
   return (
@@ -70,56 +70,53 @@ export default function ResetPasswordForm() {
       className="flex flex-col gap-5">
       {/* New password */}
       <TextField
-        id="password"
+        fullWidth
         name="password"
         type={showPassword ? "text" : "password"}
-        label="New Password"
-        variant="outlined"
         autoComplete="new-password"
-        placeholder="At least 8 characters"
-        fullWidth
-        error={!!passwordError}
-        helperText={passwordError}
+        isInvalid={!!passwordError}
         onChange={() =>
           clientErrors.password &&
           setClientErrors((p) => ({ ...p, password: undefined }))
-        }
-        slotProps={{
-          input: {
-            endAdornment: eyeButton(
+        }>
+        <Label>New Password</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Input placeholder="At least 8 characters" />
+          <InputGroup.Suffix>
+            {eyeButton(
               showPassword,
               () => setShowPassword((v) => !v),
               showPassword ? "Hide password" : "Show password",
-            ),
-          },
-        }}
-      />
+            )}
+          </InputGroup.Suffix>
+        </InputGroup>
+        <FieldError>{passwordError}</FieldError>
+      </TextField>
 
       {/* Confirm password */}
       <TextField
-        id="confirmPassword"
+        fullWidth
         name="confirmPassword"
         type={showConfirm ? "text" : "password"}
-        label="Confirm New Password"
-        variant="outlined"
         autoComplete="new-password"
-        fullWidth
-        error={!!confirmError}
-        helperText={confirmError}
+        isInvalid={!!confirmError}
         onChange={() =>
           clientErrors.confirmPassword &&
           setClientErrors((p) => ({ ...p, confirmPassword: undefined }))
-        }
-        slotProps={{
-          input: {
-            endAdornment: eyeButton(
+        }>
+        <Label>Confirm New Password</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Input />
+          <InputGroup.Suffix>
+            {eyeButton(
               showConfirm,
               () => setShowConfirm((v) => !v),
               showConfirm ? "Hide password" : "Show password",
-            ),
-          },
-        }}
-      />
+            )}
+          </InputGroup.Suffix>
+        </InputGroup>
+        <FieldError>{confirmError}</FieldError>
+      </TextField>
 
       {/* Submit */}
       <button

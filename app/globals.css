@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 @theme {
   /* Brand palette */
@@ -118,4 +119,13 @@ p {
   footer a{
     @apply hover:underline underline-offset-3;
   }
+}
+
+/* HeroUI theme overrides — brand colours and visible input borders */
+:root {
+  --accent: #1b1c1a; /* ink */
+  --accent-foreground: #fbf9f6; /* paper */
+  --focus: #1b1c1a;
+  --field-border-width: 1px;
+  --field-border: oklch(0.708 0 0);
 }

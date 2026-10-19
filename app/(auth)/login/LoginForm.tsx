@@ -5,9 +5,13 @@ import { signIn, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import {
+  FieldError,
+  Input,
+  InputGroup,
+  Label,
+  TextField,
+} from "@heroui/react";
 import { EyeIcon } from "@/app/components/EyeIcon";
 
 type FieldErrors = { email?: string; password?: string };
@@ -88,54 +92,48 @@ export default function LoginForm() {
       className="flex flex-col gap-5">
       {/* Email field */}
       <TextField
-        id="email"
+        fullWidth
         name="email"
         type="email"
-        label="Email Address"
-        variant="outlined"
         autoComplete="email"
-        fullWidth
         value={email}
-        error={!!emailError}
-        helperText={emailError}
-        onChange={(e) => {
-          setEmail(e.target.value);
+        isInvalid={!!emailError}
+        onChange={(value) => {
+          setEmail(value);
           if (clientErrors.email)
             setClientErrors((p) => ({ ...p, email: undefined }));
-        }}
-      />
+        }}>
+        <Label>Email Address</Label>
+        <Input />
+        <FieldError>{emailError}</FieldError>
+      </TextField>
 
       {/* Password field */}
       <TextField
-        id="password"
+        fullWidth
         name="password"
         type={showPassword ? "text" : "password"}
-        label="Password"
-        variant="outlined"
         autoComplete="current-password"
-        fullWidth
-        error={!!passwordError}
-        helperText={passwordError}
+        isInvalid={!!passwordError}
         onChange={() =>
           clientErrors.password &&
           setClientErrors((p) => ({ ...p, password: undefined }))
-        }
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  edge="end">
-                  <EyeIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+        }>
+        <Label>Password</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Input />
+          <InputGroup.Suffix>
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="flex items-center text-grey/60 hover:text-grey">
+              <EyeIcon />
+            </button>
+          </InputGroup.Suffix>
+        </InputGroup>
+        <FieldError>{passwordError}</FieldError>
+      </TextField>
 
       {/* Forgot password */}
       <div className="text-right -mt-4">

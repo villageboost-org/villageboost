@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { requestPasswordReset, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { toast } from "sonner";
-import TextField from "@mui/material/TextField";
+import { FieldError, Input, Label, TextField } from "@heroui/react";
 
 type FieldErrors = { email?: string };
 
@@ -54,20 +54,19 @@ export default function ForgotPasswordForm() {
       className="flex flex-col gap-5">
       {/* Email field */}
       <TextField
-        id="email"
+        fullWidth
         name="email"
         type="email"
-        label="Email Address"
-        variant="outlined"
         autoComplete="email"
-        fullWidth
-        error={!!emailError}
-        helperText={emailError}
+        isInvalid={!!emailError}
         onChange={() =>
           clientErrors.email &&
           setClientErrors((p) => ({ ...p, email: undefined }))
-        }
-      />
+        }>
+        <Label>Email Address</Label>
+        <Input />
+        <FieldError>{emailError}</FieldError>
+      </TextField>
 
       {/* Submit */}
       <button

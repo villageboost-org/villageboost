@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Epilogue, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
-import ThemeRegistry from "@/app/components/ThemeRegistry";
 
 const epilogue = Epilogue({
   subsets: ["latin"],
@@ -31,10 +30,8 @@ export default function RootLayout({
       lang="en"
       className={`${epilogue.variable} ${manrope.variable} h-full scroll-smooth`}>
       <body className="h-full flex flex-col" suppressHydrationWarning>
-        <ThemeRegistry>
-          <Header />
-          {children}
-        </ThemeRegistry>
+        <Header />
+        {children}
       </body>
     </html>
   );

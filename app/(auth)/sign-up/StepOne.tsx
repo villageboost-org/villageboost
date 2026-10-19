@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import {
+  FieldError,
+  Input,
+  InputGroup,
+  Label,
+  ListBox,
+  Select,
+  TextField,
+} from "@heroui/react";
 import Link from "next/link";
 import type { WizardData } from "./SignUpWizard";
 import { EyeIcon } from "@/app/components/EyeIcon";
+import { ArrowRight } from "lucide-react";
 
 const GENDERS = [
   { value: "male", label: "Male" },
@@ -63,20 +69,18 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
 
   const eyeButton = (show: boolean, toggle: () => void, ariaLabel: string) => {
     return (
-      <InputAdornment position="end">
-        <IconButton
-          type="button"
-          onClick={toggle}
-          aria-label={ariaLabel}
-          edge="end">
-          <EyeIcon />
-        </IconButton>
-      </InputAdornment>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={ariaLabel}
+        className="flex items-center text-grey/60 hover:text-grey">
+        <EyeIcon />
+      </button>
     );
   };
 
   return (
-    <div className="flex flex-col md:gap-10 gap-5">
+    <div className="flex flex-col md:gap-8 gap-4">
       <div>
         <h2 className="mb-2 text-grey">Create Your Creator Account</h2>
         <p className="text-grey/70">
@@ -85,104 +89,107 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 grid-cols-1 md:gap-10 gap-5">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
         <TextField
-          id="fullName"
-          label="Full Name"
-          variant="outlined"
+          fullWidth
+          autoComplete="name"
           value={data.fullName}
-          onChange={(e) => onUpdate({ fullName: e.target.value })}
-          error={!!errors.fullName}
-          helperText={errors.fullName}
-        />
+          onChange={(value) => onUpdate({ fullName: value })}
+          isInvalid={!!errors.fullName}>
+          <Label>Full Name</Label>
+          <Input />
+          <FieldError>{errors.fullName}</FieldError>
+        </TextField>
 
         <TextField
-          id="email"
-          label="Email Address"
-          type="email"
-          variant="outlined"
           fullWidth
+          type="email"
           autoComplete="email"
           value={data.email}
-          onChange={(e) => onUpdate({ email: e.target.value })}
-          error={!!errors.email}
-          helperText={errors.email}
-        />
+          onChange={(value) => onUpdate({ email: value })}
+          isInvalid={!!errors.email}>
+          <Label>Email Address</Label>
+          <Input />
+          <FieldError>{errors.email}</FieldError>
+        </TextField>
 
         <TextField
-          id="password"
-          label="Password"
-          type={showPassword ? "text" : "password"}
-          variant="outlined"
           fullWidth
+          type={showPassword ? "text" : "password"}
           autoComplete="new-password"
-          placeholder="At least 8 characters"
           value={data.password}
-          onChange={(e) => onUpdate({ password: e.target.value })}
-          error={!!errors.password}
-          helperText={errors.password}
-          slotProps={{
-            input: {
-              endAdornment: eyeButton(
+          onChange={(value) => onUpdate({ password: value })}
+          isInvalid={!!errors.password}>
+          <Label>Password</Label>
+          <InputGroup fullWidth>
+            <InputGroup.Input placeholder="At least 8 characters" />
+            <InputGroup.Suffix>
+              {eyeButton(
                 showPassword,
                 () => setShowPassword((v) => !v),
                 showPassword ? "Hide password" : "Show password",
-              ),
-            },
-          }}
-        />
+              )}
+            </InputGroup.Suffix>
+          </InputGroup>
+          <FieldError>{errors.password}</FieldError>
+        </TextField>
 
         <TextField
-          id="confirmPassword"
-          label="Confirm Your Password"
-          type={showConfirm ? "text" : "password"}
-          variant="outlined"
           fullWidth
+          type={showConfirm ? "text" : "password"}
           autoComplete="new-password"
           value={data.confirmPassword}
-          onChange={(e) => onUpdate({ confirmPassword: e.target.value })}
-          error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword}
-          slotProps={{
-            input: {
-              endAdornment: eyeButton(
+          onChange={(value) => onUpdate({ confirmPassword: value })}
+          isInvalid={!!errors.confirmPassword}>
+          <Label>Confirm Your Password</Label>
+          <InputGroup fullWidth>
+            <InputGroup.Input />
+            <InputGroup.Suffix>
+              {eyeButton(
                 showConfirm,
                 () => setShowConfirm((v) => !v),
                 showConfirm ? "Hide password" : "Show password",
-              ),
-            },
-          }}
-        />
+              )}
+            </InputGroup.Suffix>
+          </InputGroup>
+          <FieldError>{errors.confirmPassword}</FieldError>
+        </TextField>
 
         <TextField
-          id="phone"
-          label="Phone Number"
-          type="tel"
-          variant="outlined"
           fullWidth
+          type="tel"
           autoComplete="tel"
           value={data.phone}
-          onChange={(e) => onUpdate({ phone: e.target.value })}
-          error={!!errors.phone}
-          helperText={errors.phone}
-        />
-
-        <TextField
-          id="gender"
-          label="Gender"
-          variant="outlined"
-          select
-          fullWidth
-          value={data.gender}
-          onChange={(e) => onUpdate({ gender: e.target.value })}
-          error={!!errors.gender}
-          helperText={errors.gender}>
-          {GENDERS.map((g) => (
-            <MenuItem key={g.value} value={g.value}>
-              {g.label}
-            </MenuItem>
-          ))}
+          onChange={(value) => onUpdate({ phone: value })}
+          isInvalid={!!errors.phone}>
+          <Label>Phone Number</Label>
+          <Input />
+          <FieldError>{errors.phone}</FieldError>
         </TextField>
+
+        <Select
+          fullWidth
+          placeholder="Select gender"
+          value={data.gender || null}
+          onChange={(key) => onUpdate({ gender: key ? String(key) : "" })}
+          isInvalid={!!errors.gender}>
+          <Label>Gender</Label>
+          <Select.Trigger>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox>
+              {GENDERS.map((g) => (
+                <ListBox.Item key={g.value} id={g.value} textValue={g.label}>
+                  {g.label}
+                  <ListBox.ItemIndicator />
+                </ListBox.Item>
+              ))}
+            </ListBox>
+          </Select.Popover>
+          <FieldError>{errors.gender}</FieldError>
+        </Select>
       </div>
 
       <button
@@ -190,19 +197,7 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
         onClick={handleContinue}
         className="flex w-full items-center justify-center gap-2 rounded-full bg-maroon py-3 text-base font-semibold text-white transition hover:bg-maroon/90 active:scale-[0.98]">
         Continue to Profile
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
+        <ArrowRight size={16} />
       </button>
 
       <p className="text-center text-sm text-grey/70">

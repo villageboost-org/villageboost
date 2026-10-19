@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import {
+  Checkbox,
+  FieldError,
+  Label,
+  TextArea,
+  TextField,
+} from "@heroui/react";
 import type { WizardData } from "./SignUpWizard";
+import { ArrowLeft } from "lucide-react";
 
 // ─── Craft options ─────────────────────────────────────────────────────────────
 // Values MUST match the CHECK constraint in 03_create_user_categories.sql
@@ -67,46 +72,37 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
 
       {/* Short Bio */}
       <TextField
-        id="bio"
-        label="Short Bio"
-        variant="outlined"
         fullWidth
-        multiline
-        minRows={3}
-        placeholder="Tell your story in a few sentences. What inspires your work?"
         value={data.bio}
-        onChange={(e) => onUpdate({ bio: e.target.value })}
-        error={!!errors.bio}
-        helperText={errors.bio}
-      />
+        onChange={(value) => onUpdate({ bio: value })}
+        isInvalid={!!errors.bio}>
+        <Label>Short Bio</Label>
+        <TextArea
+          rows={4}
+          placeholder="Tell your story in a few sentences. What inspires your work?"
+        />
+        <FieldError>{errors.bio}</FieldError>
+      </TextField>
 
       {/* Craft checkboxes */}
       <div>
         <p className="mb-3 text-sm font-semibold text-grey">
           Select Your Craft
         </p>
-        <div className="grid grid-cols-3 gap-x-4 gap-y-1 sm:grid-cols-4">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-3 sm:grid-cols-4">
           {CRAFTS.map((craft) => (
-            <FormControlLabel
+            <Checkbox
               key={craft.value}
-              label={craft.label}
-              control={
-                <Checkbox
-                  checked={data.crafts.includes(craft.value)}
-                  onChange={() => toggleCraft(craft.value)}
-                  size="small"
-                />
-              }
-              sx={{
-                "& .MuiFormControlLabel-label": {
-                  fontSize: "0.875rem",
-                  ...(errors.crafts && { color: "error.main" }),
-                },
-                ...(errors.crafts && {
-                  "& .MuiCheckbox-root": { color: "error.main" },
-                }),
-              }}
-            />
+              isSelected={data.crafts.includes(craft.value)}
+              onChange={() => toggleCraft(craft.value)}
+              isInvalid={!!errors.crafts}>
+              <Checkbox.Content>
+                <Checkbox.Control>
+                  <Checkbox.Indicator />
+                </Checkbox.Control>
+                <Label>{craft.label}</Label>
+              </Checkbox.Content>
+            </Checkbox>
           ))}
         </div>
       </div>
@@ -117,19 +113,7 @@ export default function StepTwo({ data, onUpdate, onNext, onBack }: Props) {
           type="button"
           onClick={onBack}
           className="flex flex-1 items-center justify-center gap-2 rounded-full border border-maroon py-3 text-base font-semibold text-maroon transition hover:bg-maroon/5 active:scale-[0.98]">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}>
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7 16l-4-4m0 0l4-4m-4 4h18"
-            />
-          </svg>
+          <ArrowLeft size={16} />
           Back
         </button>
         <button
