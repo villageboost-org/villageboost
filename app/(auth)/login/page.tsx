@@ -10,14 +10,15 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 overflow-hidden">
       {/* ── Left decorative panel ── */}
-      <div className="relative hidden w-2/5 shrink-0 lg:block">
+      <div className="hidden w-1/3 shrink-0 lg:block">
         <Image
           src="/login-pattern.svg"
           alt="Village Boost decorative art"
-          fill
-          className="object-cover object-center"
+          width={632}
+          height={1438}
+          className="h-full w-full object-cover"
           priority
         />
       </div>

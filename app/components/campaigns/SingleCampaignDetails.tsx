@@ -3,6 +3,7 @@
 import { useState } from "react";
 import PlaceholderImage from "@/app/components/PlaceholderImage";
 import { campaigns, type Campaign } from "@/app/data/campaigns";
+import Image from "next/image";
 
 type TabId = "campaign" | "rewards" | "creator" | "updates";
 
@@ -80,7 +81,7 @@ export default function SingleCampaignDetails({
               <div className="mt-8 flex flex-row flex-wrap gap-2">
                 {galleryImages.length > 0
                   ? galleryImages.map((src) => (
-                      <img
+                      <Image
                         key={src}
                         src={src}
                         alt=""

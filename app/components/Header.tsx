@@ -159,7 +159,6 @@ export default function Header() {
           ))}
         </nav>
       </header>
-      {!isSingleCampaignPage && <div className="h-10" />}
     </>
   );
 }

@@ -6,7 +6,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <main className="flex min-h-0 flex-1 flex-col bg-paper">
       {children}
       <Toaster
         position="top-right"
@@ -15,6 +15,6 @@ export default function AuthLayout({
           style: { fontFamily: "var(--font-figtree), sans-serif" },
         }}
       />
-    </>
+    </main>
   );
 }

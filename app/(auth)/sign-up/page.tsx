@@ -11,12 +11,13 @@ export default function SignUpPage() {
   return (
     <div className="flex flex-1">
       {/* ── Left decorative panel ── */}
-      <div className="relative hidden w-2/5 shrink-0 lg:block">
+      <div className="relative hidden w-1/3 shrink-0 lg:block">
         <Image
           src="/signup-pattern.svg"
           alt="Village Boost decorative art"
-          fill
-          className="object-cover object-center"
+           fill
+          sizes="33vw"
+          className="object-cover"
           priority
         />
       </div>
