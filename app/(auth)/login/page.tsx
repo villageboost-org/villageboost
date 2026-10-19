@@ -24,8 +24,8 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right: form area ── */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6">
-        <div className="w-full max-w-md">
+      <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-12">
+        <div className="my-auto w-full max-w-md">
           {/* Heading */}
           <h2 className="mb-2 text-center text-grey">
             Welcome Back

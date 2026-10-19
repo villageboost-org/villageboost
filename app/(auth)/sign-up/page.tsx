@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function SignUpPage() {
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 overflow-hidden">
       {/* ── Left decorative panel ── */}
       <div className="relative hidden w-1/3 shrink-0 lg:block">
         <Image
