@@ -11,10 +11,12 @@ Village Boost is a crowdfunding platform for East Africa, in the spirit of Kicks
 | [Next.js](https://nextjs.org) (App Router) | 16.2.9 | Framework: routing, server components, server actions |
 | [React](https://react.dev) | 19.2.4 | UI |
 | [TypeScript](https://www.typescriptlang.org) | 5 | Type safety |
-| [Tailwind CSS](https://tailwindcss.com) | 4 | Layout and custom styling, with brand colors defined in `app/globals.css` |
-| [MUI (Material UI)](https://mui.com) | 9.3.1 | Form components, themed in `app/components/ThemeRegistry.tsx` |
-| [Emotion](https://emotion.sh) | 11 | Styling engine required by MUI |
+| [Tailwind CSS](https://tailwindcss.com) | 4 | Layout and custom styling, with brand colours defined in `app/globals.css` |
+| [HeroUI](https://heroui.com) (`@heroui/react`, `@heroui/styles`) | 3.2 | Form components (TextField, Select, Checkbox, ...), built on React Aria. Theme overrides at the bottom of `app/globals.css` |
+| [Lucide](https://lucide.dev) (`lucide-react`) | 1 | Icons |
 | [Sonner](https://sonner.emilkowal.ski) | 2 | Toast notifications |
+| [react-confetti](https://github.com/alampros/react-confetti) | 6 | Confetti on the sign-up success screen |
+| [libphonenumber-js](https://github.com/catamphetamine/libphonenumber-js) | 1.13 | Phone number validation and formatting (`/mobile` rules, Kenya by default) |
 | [Supabase JS](https://supabase.com/docs/reference/javascript) and [@supabase/ssr](https://supabase.com/docs/guides/auth/server-side) | 2.110 / 0.12 | Auth and database clients for browser, server and admin use |
 | [ESLint](https://eslint.org) with `eslint-config-next` | 9 | Linting |
 
@@ -24,7 +26,7 @@ Village Boost is a crowdfunding platform for East Africa, in the spirit of Kicks
 | --- | --- |
 | [Supabase](https://supabase.com) | PostgreSQL database, Auth (email and password), Row Level Security policies |
 | [Resend](https://resend.com) | Custom SMTP provider for Supabase auth emails (sign-up confirmation, password reset) |
-| [Google Fonts](https://fonts.google.com/specimen/Figtree) | Figtree typeface, loaded through `next/font` |
+| [Google Fonts](https://fonts.google.com) | Epilogue (headings) and Manrope (body text), loaded through `next/font` |
 
 ## Project structure
 
@@ -35,12 +37,16 @@ app/
   (main)/          Public pages: home, campaigns, campaign detail
   actions/auth.ts  Server actions: signUp, signIn, signOut, password reset
   auth/callback/   Handles the link from confirmation and reset emails
-  components/      Shared UI (Header, Footer, ThemeRegistry, ...)
+  components/      Shared UI (Header, Footer, EyeIcon, ...)
   data/            Static data that will later come from Supabase
 lib/supabase/
   client.ts        Browser client
   server.ts        Server client (uses the user's session)
   admin.ts         Service-role client, bypasses RLS, server-only
+lib/validation/    Rules shared by forms and server actions
+  password.ts      New-password strength rules (sign-up and reset)
+  phone.ts         Phone number validation (libphonenumber-js)
+  portfolioLinks.ts  Portfolio URL and platform-domain checks
 proxy.ts           Refreshes the Supabase session on each request
 supabase/migrations/   SQL schema, applied in numeric order
 ```
