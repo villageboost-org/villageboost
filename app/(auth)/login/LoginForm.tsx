@@ -5,13 +5,7 @@ import { signIn, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import {
-  FieldError,
-  Input,
-  InputGroup,
-  Label,
-  TextField,
-} from "@heroui/react";
+import { FieldError, Input, InputGroup, Label, TextField } from "@heroui/react";
 import { EyeIcon } from "@/app/components/EyeIcon";
 
 type FieldErrors = { email?: string; password?: string };
@@ -22,8 +16,6 @@ const validate = (email: string, password: string): FieldErrors => {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     errors.email = "Enter a valid email address";
   if (!password) errors.password = "Password is required";
-  else if (password.length < 8)
-    errors.password = "Password must be at least 8 characters long";
   return errors;
 };
 

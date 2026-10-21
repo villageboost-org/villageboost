@@ -15,6 +15,7 @@ import type { WizardData } from "./SignUpWizard";
 import { EyeIcon } from "@/app/components/EyeIcon";
 import { ArrowRight } from "lucide-react";
 import { validatePhone } from "@/lib/validation/phone";
+import { validateNewPassword } from "@/lib/validation/password";
 
 const GENDERS = [
   { value: "male", label: "Male" },
@@ -49,8 +50,8 @@ const validate = (data: WizardData): Errors => {
     errors.fullName = "Full name must include at least a first and last name";
   if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
     errors.email = "Enter a valid email address";
-  if (!data.password || data.password.length < 8)
-    errors.password = "Password must be at least 8 characters";
+  const passwordError = validateNewPassword(data.password);
+  if (passwordError) errors.password = passwordError;
   if (!data.confirmPassword || data.confirmPassword !== data.password)
     errors.confirmPassword = "Passwords do not match";
   const phoneError = validatePhone(data.phone);
@@ -125,7 +126,7 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
           isInvalid={!!errors.password}>
           <Label>Password</Label>
           <InputGroup fullWidth>
-            <InputGroup.Input placeholder="At least 8 characters" />
+            <InputGroup.Input placeholder="8+ characters, with a number and a symbol" />
             <InputGroup.Suffix>
               {eyeButton(
                 showPassword,

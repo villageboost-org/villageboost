@@ -5,14 +5,14 @@ import { updatePassword, type AuthActionState } from "@/app/actions/auth";
 import { toast } from "sonner";
 import { FieldError, InputGroup, Label, TextField } from "@heroui/react";
 import { EyeIcon } from "@/app/components/EyeIcon";
+import { validateNewPassword } from "@/lib/validation/password";
 
 type FieldErrors = { password?: string; confirmPassword?: string };
 
 const validate = (password: string, confirmPassword: string): FieldErrors => {
   const errors: FieldErrors = {};
-  if (!password) errors.password = "Password is required";
-  else if (password.length < 8)
-    errors.password = "Password must be at least 8 characters";
+  const passwordError = validateNewPassword(password);
+  if (passwordError) errors.password = passwordError;
   if (!confirmPassword) errors.confirmPassword = "Please confirm your password";
   else if (confirmPassword !== password)
     errors.confirmPassword = "Passwords do not match";
@@ -81,7 +81,7 @@ export default function ResetPasswordForm() {
         }>
         <Label>New Password</Label>
         <InputGroup fullWidth>
-          <InputGroup.Input placeholder="At least 8 characters" />
+          <InputGroup.Input placeholder="8+ characters, with a number and a symbol" />
           <InputGroup.Suffix>
             {eyeButton(
               showPassword,

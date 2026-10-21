@@ -4,6 +4,7 @@ import {
   validatePortfolioLink,
 } from "@/lib/validation/portfolioLinks";
 import { normalisePhone, validatePhone } from "@/lib/validation/phone";
+import { validateNewPassword } from "@/lib/validation/password";
 
 // Server Actions run only on the server — your Supabase calls are
 // never exposed to the browser. They're called directly from forms
@@ -41,11 +42,6 @@ function validateEmail(email: string): string | undefined {
     return "Enter a valid email address.";
 }
 
-function validatePassword(password: string): string | undefined {
-  if (!password) return "Password is required.";
-  if (password.length < 8) return "Password must be at least 8 characters.";
-}
-
 // Sign Up
 
 export async function signUp(
@@ -76,7 +72,7 @@ export async function signUp(
     errors.fullName = "Full name must be at least 2 characters.";
   const emailError = validateEmail(email);
   if (emailError) errors.email = emailError;
-  const passwordError = validatePassword(password);
+  const passwordError = validateNewPassword(password) ?? undefined;
   if (passwordError) errors.password = passwordError;
   if (!passwordError && password !== confirmPassword)
     errors.confirmPassword = "Passwords do not match.";
@@ -197,8 +193,8 @@ export async function signIn(
   const errors: AuthActionData["errors"] = {};
   const emailError = validateEmail(email);
   if (emailError) errors.email = emailError;
-  const passwordError = validatePassword(password);
-  if (passwordError) errors.password = passwordError;
+
+  if (!password) errors.password = "Password is required.";
 
   if (Object.keys(errors).length > 0) return { errors };
 
@@ -269,9 +265,9 @@ export async function updatePassword(
   const password = formData.get("password") as string;
   const confirm = formData.get("confirmPassword") as string;
 
-  if (!password || password.length < 8) {
-    return { errors: { password: "Password must be at least 8 characters." } };
-  }
+  const passwordError = validateNewPassword(password);
+  if (passwordError) return { errors: { password: passwordError } };
+
   if (password !== confirm) {
     return { errors: { password: "Passwords do not match." } };
   }
