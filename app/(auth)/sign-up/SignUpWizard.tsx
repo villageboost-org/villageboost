@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { signUp } from "@/app/actions/auth";
+import { useEffect, useState } from "react";
+import { resendConfirmation, signUp } from "@/app/actions/auth";
 import { toast } from "sonner";
 import Confetti from "react-confetti";
 import StepOne from "./StepOne";
@@ -96,6 +96,31 @@ export default function SignUpWizard() {
     toast.error(result?.message ?? "Something went wrong");
   }
 
+  const [resending, setResending] = useState(false);
+  const [cooldown, setCooldown] = useState(60); // seconds until "Resend" can be clicked
+
+  // Count the cooldown down once a second while the success screen is showing
+  useEffect(() => {
+    if (!done || cooldown === 0) return;
+    const timer = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [done, cooldown]);
+
+  async function handleResend() {
+    setResending(true);
+    const result = await resendConfirmation(data.email);
+    setResending(false);
+
+    if (result.success) {
+      toast.success(result.message);
+      setCooldown(60); // restart the countdown after each send
+    } else {
+      toast.error(
+        result.message ?? "Couldn't resend the email. Please try again.",
+      );
+    }
+  }
+
   // Success screen
   if (done) {
     return (
@@ -134,6 +159,20 @@ export default function SignUpWizard() {
           We&apos;ve sent a confirmation link to{" "}
           <span className="font-semibold text-grey">{data.email}</span>. Click
           it to activate your account.
+        </p>
+        <p className="mt-8 text-sm text-grey/70">
+          Didn&apos;t get the email? Check your spam folder, or{" "}
+          {cooldown > 0 ? (
+            <span>resend in {cooldown}s</span>
+          ) : (
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={resending}
+              className="font-semibold text-maroon underline underline-offset-2 disabled:opacity-50">
+              {resending ? "Sending..." : "Resend it"}
+            </button>
+          )}
         </p>
       </div>
     );

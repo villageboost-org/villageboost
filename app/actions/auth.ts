@@ -182,6 +182,42 @@ export async function signUp(
   };
 }
 
+// Resend the sign-up confirmation email
+export async function resendConfirmation(
+  email: string,
+): Promise<AuthActionData> {
+  const emailError = validateEmail(email);
+  if (emailError) return { message: emailError };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resend({
+    type: "signup",
+    email,
+    options: {
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback`,
+    },
+  });
+
+  if (error) {
+    console.error(
+      "[resendConfirmation]",
+      error.code,
+      error.status,
+      error.message,
+    );
+    if (error.code === "over_email_send_rate_limit")
+      return {
+        message: "Please wait a minute before requesting another email.",
+      };
+    return { message: "Couldn't resend the email. Please try again." };
+  }
+
+  return {
+    success: true,
+    message: "Confirmation email sent again. Check your inbox.",
+  };
+}
+
 // Sign In
 export async function signIn(
   _prevState: AuthActionState,
