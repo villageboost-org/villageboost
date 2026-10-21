@@ -1,4 +1,8 @@
 "use server";
+import {
+  normaliseUrl,
+  validatePortfolioLink,
+} from "@/lib/validation/portfolioLinks";
 
 // Server Actions run only on the server — your Supabase calls are
 // never exposed to the browser. They're called directly from forms
@@ -74,6 +78,13 @@ export async function signUp(
   if (!passwordError && password !== confirmPassword)
     errors.confirmPassword = "Passwords do not match.";
 
+  // Portfolio links: re-check on the server, since the form's checks can be bypassed
+  const validLinks = links.filter((l) => l.platform && l.url);
+  for (const link of validLinks) {
+    const linkError = validatePortfolioLink(link.platform, link.url);
+    if (linkError) return { message: `Portfolio link: ${linkError}` };
+  }
+
   if (Object.keys(errors).length > 0) return { errors };
 
   const supabase = await createClient();
@@ -100,7 +111,12 @@ export async function signUp(
         errors: { email: "An account with this email already exists." },
       };
     }
-    console.error("[signUp] Supabase auth error:", error.code, error.status, error.message);
+    console.error(
+      "[signUp] Supabase auth error:",
+      error.code,
+      error.status,
+      error.message,
+    );
     if (error.code === "over_email_send_rate_limit") {
       return {
         message: "Too many sign-up emails were sent. Please try again later.",
@@ -127,7 +143,8 @@ export async function signUp(
       .from("users")
       .update({ phone, gender, bio })
       .eq("id", userId);
-    if (profileError) console.error("[signUp] Profile update error:", profileError);
+    if (profileError)
+      console.error("[signUp] Profile update error:", profileError);
   }
 
   // Insert craft categories
@@ -135,11 +152,11 @@ export async function signUp(
     const { error: craftsError } = await admin
       .from("user_categories")
       .insert(crafts.map((category) => ({ user_id: userId, category })));
-    if (craftsError) console.error("[signUp] Crafts insert error:", craftsError);
+    if (craftsError)
+      console.error("[signUp] Crafts insert error:", craftsError);
   }
 
   // Insert portfolio links (skip any rows where both fields aren't filled)
-  const validLinks = links.filter((l) => l.platform && l.url);
   if (validLinks.length > 0) {
     const { error: linksError } = await admin
       .from("user_portfolio_links")
@@ -147,7 +164,7 @@ export async function signUp(
         validLinks.map((l, i) => ({
           user_id: userId,
           platform: l.platform,
-          url: l.url,
+          url: normaliseUrl(l.url),
           sort_order: i,
         })),
       );

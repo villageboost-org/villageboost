@@ -1,4 +1,5 @@
 "use client";
+import { validatePortfolioLink } from "@/lib/validation/portfolioLinks";
 
 import {
   FieldError,
@@ -84,19 +85,15 @@ export default function StepThree({
   const linkErrors = data.links.map((link, i) => ({
     platform:
       touched[i]?.platform && !link.platform ? "Please select a platform" : "",
-    url:
-      touched[i]?.url && !link.url
-        ? "Please enter a URL"
-        : touched[i]?.url && !/^https?:\/\/.+/.test(link.url)
-          ? "URL must start with http:// or https://"
-          : "",
+    url: touched[i]?.url
+      ? (validatePortfolioLink(link.platform, link.url) ?? "")
+      : "",
   }));
 
   const lastLink = data.links[data.links.length - 1];
   const canAddLink =
     !!lastLink?.platform &&
-    !!lastLink?.url &&
-    /^https?:\/\/.+/.test(lastLink.url);
+    !validatePortfolioLink(lastLink.platform, lastLink.url);
 
   return (
     <div className="flex flex-col gap-6">
@@ -112,7 +109,9 @@ export default function StepThree({
       {/* Dynamic link rows */}
       <div className="flex flex-col gap-4">
         {data.links.map((link, i) => (
-          <div key={i} className="flex md:flex-nowrap flex-wrap items-start md:gap-10 gap-5">
+          <div
+            key={i}
+            className="flex md:flex-nowrap flex-wrap items-start md:gap-10 gap-5">
             {/* Platform selector */}
             <Select
               fullWidth
@@ -133,7 +132,10 @@ export default function StepThree({
               <Select.Popover>
                 <ListBox>
                   {PLATFORMS.map((p) => (
-                    <ListBox.Item key={p.value} id={p.value} textValue={p.label}>
+                    <ListBox.Item
+                      key={p.value}
+                      id={p.value}
+                      textValue={p.label}>
                       {p.label}
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
@@ -147,7 +149,8 @@ export default function StepThree({
             <TextField
               fullWidth
               isRequired
-              type="url"
+              type="text"
+              inputMode="url"
               value={link.url}
               onChange={(value) => updateLink(i, "url", value)}
               onBlur={() => handleBlur(i, "url")}
