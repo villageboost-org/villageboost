@@ -12,7 +12,7 @@ export default function AuthLayout({
         position="top-right"
         richColors
         toastOptions={{
-          style: { fontFamily: "var(--font-figtree), sans-serif" },
+          style: { fontFamily: "var(--font-manrope)" },
         }}
       />
     </main>
