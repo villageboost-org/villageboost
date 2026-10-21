@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signUp } from "@/app/actions/auth";
 import { toast } from "sonner";
+import Confetti from "react-confetti";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -93,6 +94,13 @@ export default function SignUpWizard() {
   if (done) {
     return (
       <div className="py-10 text-center">
+        {/* One burst of brand-coloured confetti over the whole screen */}
+        <Confetti
+          recycle={false}
+          numberOfPieces={400}
+          colors={["#1b1c1a", "#f2421e", "#ffd028", "#16d09a", "#3463ff", "#ff4d8f"]}
+          style={{ position: "fixed", zIndex: 60 }}
+        />
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-maroon/10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
