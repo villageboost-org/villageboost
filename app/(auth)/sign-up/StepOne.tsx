@@ -18,6 +18,7 @@ import { ArrowRight } from "lucide-react";
 const GENDERS = [
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
+  { value: "other", label: "Other" },
 ];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
