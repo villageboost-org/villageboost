@@ -3,6 +3,7 @@ import {
   normaliseUrl,
   validatePortfolioLink,
 } from "@/lib/validation/portfolioLinks";
+import { normalisePhone, validatePhone } from "@/lib/validation/phone";
 
 // Server Actions run only on the server — your Supabase calls are
 // never exposed to the browser. They're called directly from forms
@@ -21,6 +22,7 @@ export type AuthActionData = {
     email?: string;
     password?: string;
     confirmPassword?: string;
+    phone?: string;
   };
   message?: string;
   success?: boolean;
@@ -55,7 +57,8 @@ export async function signUp(
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
   // Profile fields (optional)
-  const phone = (formData.get("phone") as string)?.trim() || null;
+  const rawPhone = (formData.get("phone") as string) ?? "";
+  const phone = normalisePhone(rawPhone);
   const gender = (formData.get("gender") as string)?.trim() || null;
   const bio = (formData.get("bio") as string)?.trim() || null;
   // Crafts: JSON array of category strings e.g. ["film", "music"]
@@ -84,6 +87,9 @@ export async function signUp(
     const linkError = validatePortfolioLink(link.platform, link.url);
     if (linkError) return { message: `Portfolio link: ${linkError}` };
   }
+
+  const phoneError = validatePhone(rawPhone);
+  if (phoneError) errors.phone = phoneError;
 
   if (Object.keys(errors).length > 0) return { errors };
 

@@ -14,6 +14,7 @@ import Link from "next/link";
 import type { WizardData } from "./SignUpWizard";
 import { EyeIcon } from "@/app/components/EyeIcon";
 import { ArrowRight } from "lucide-react";
+import { validatePhone } from "@/lib/validation/phone";
 
 const GENDERS = [
   { value: "male", label: "Male" },
@@ -52,7 +53,8 @@ const validate = (data: WizardData): Errors => {
     errors.password = "Password must be at least 8 characters";
   if (!data.confirmPassword || data.confirmPassword !== data.password)
     errors.confirmPassword = "Passwords do not match";
-  if (!data.phone.trim()) errors.phone = "Phone number is required";
+  const phoneError = validatePhone(data.phone);
+  if (phoneError) errors.phone = phoneError;
   if (!data.gender) errors.gender = "Please select a gender";
   return errors;
 };
@@ -164,7 +166,7 @@ export default function StepOne({ data, onUpdate, onNext }: Props) {
           onChange={(value) => onUpdate({ phone: value })}
           isInvalid={!!errors.phone}>
           <Label>Phone Number</Label>
-          <Input />
+          <Input placeholder="0712 345 678" />
           <FieldError>{errors.phone}</FieldError>
         </TextField>
 

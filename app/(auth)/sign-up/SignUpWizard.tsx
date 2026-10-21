@@ -78,7 +78,13 @@ export default function SignUpWizard() {
       return;
     }
 
-    const stepOneFields = ["fullName", "email", "password", "confirmPassword"];
+    const stepOneFields = [
+      "fullName",
+      "email",
+      "password",
+      "confirmPassword",
+      "phone",
+    ];
     if (
       result?.errors &&
       Object.keys(result.errors).some((k) => stepOneFields.includes(k))
@@ -98,7 +104,14 @@ export default function SignUpWizard() {
         <Confetti
           recycle={false}
           numberOfPieces={400}
-          colors={["#1b1c1a", "#f2421e", "#ffd028", "#16d09a", "#3463ff", "#ff4d8f"]}
+          colors={[
+            "#1b1c1a",
+            "#f2421e",
+            "#ffd028",
+            "#16d09a",
+            "#3463ff",
+            "#ff4d8f",
+          ]}
           style={{ position: "fixed", zIndex: 60 }}
         />
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-maroon/10">
@@ -133,8 +146,16 @@ export default function SignUpWizard() {
         {[1, 2, 3].map((s) => (
           <div
             key={s}
-            title={process.env.NODE_ENV === "development" ? `Jump to step ${s}` : undefined}
-            onClick={process.env.NODE_ENV === "development" ? () => setStep(s) : undefined}
+            title={
+              process.env.NODE_ENV === "development"
+                ? `Jump to step ${s}`
+                : undefined
+            }
+            onClick={
+              process.env.NODE_ENV === "development"
+                ? () => setStep(s)
+                : undefined
+            }
             className={`h-1.5 flex-1 rounded-full transition-colors duration-500 ${
               s <= step ? "bg-maroon" : "bg-grey/20"
             } ${process.env.NODE_ENV === "development" ? "cursor-pointer" : ""}`}
