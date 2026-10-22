@@ -93,6 +93,12 @@ export default function PrivacyPolicyPage() {
               <li>
                 <strong className="text-ink">Technical data.</strong> We use a
                 session cookie to keep you logged in while you use the platform.
+                Our sign-up, login and password reset forms also use Cloudflare
+                Turnstile, a security check that collects technical signals
+                from your browser and device (such as your IP address and
+                browser type) to tell people apart from automated bots. These
+                signals are processed by Cloudflare only to protect our forms,
+                not for advertising.
               </li>
             </ol>
           </PolicySection>
@@ -147,8 +153,9 @@ export default function PrivacyPolicyPage() {
               </li>
               <li>
                 <strong className="text-ink">Service providers</strong> — who
-                support our operations, such as hosting, database, and email
-                delivery, under appropriate confidentiality obligations.
+                support our operations, such as hosting, database, email
+                delivery, and bot protection (Cloudflare Turnstile), under
+                appropriate confidentiality obligations.
               </li>
               <li>
                 <strong className="text-ink">
