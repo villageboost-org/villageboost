@@ -139,38 +139,50 @@ export async function signUp(
   // when email confirmation is enabled.
   const admin = createAdminClient();
 
+  // Each write below stops at the first failure and records it here.
+  let saveError: { step: string; error: unknown } | null = null;
+
   // Update the profile row the trigger created
   if (phone || gender || bio) {
-    const { error: profileError } = await admin
+    const { error } = await admin
       .from("users")
       .update({ phone, gender, bio })
       .eq("id", userId);
-    if (profileError)
-      console.error("[signUp] Profile update error:", profileError);
+    if (error) saveError = { step: "profile", error };
   }
 
   // Insert craft categories
-  if (crafts.length > 0) {
-    const { error: craftsError } = await admin
+  if (!saveError && crafts.length > 0) {
+    const { error } = await admin
       .from("user_categories")
       .insert(crafts.map((category) => ({ user_id: userId, category })));
-    if (craftsError)
-      console.error("[signUp] Crafts insert error:", craftsError);
+    if (error) saveError = { step: "crafts", error };
   }
 
   // Insert portfolio links (skip any rows where both fields aren't filled)
-  if (validLinks.length > 0) {
-    const { error: linksError } = await admin
-      .from("user_portfolio_links")
-      .insert(
-        validLinks.map((l, i) => ({
-          user_id: userId,
-          platform: l.platform,
-          url: normaliseUrl(l.url),
-          sort_order: i,
-        })),
-      );
-    if (linksError) console.error("[signUp] Links insert error:", linksError);
+  if (!saveError && validLinks.length > 0) {
+    const { error } = await admin.from("user_portfolio_links").insert(
+      validLinks.map((l, i) => ({
+        user_id: userId,
+        platform: l.platform,
+        url: normaliseUrl(l.url),
+        sort_order: i,
+      })),
+    );
+    if (error) saveError = { step: "links", error };
+  }
+
+  // Roll back a half-saved sign-up so the user can simply try again.
+  // Deleting the auth user cascades to public.users, user_categories and
+  // user_portfolio_links (see migrations 01, 03 and 04).
+  if (saveError) {
+    console.error(`[signUp] ${saveError.step} save failed, rolling back:`, saveError.error);
+    const { error: deleteError } = await admin.auth.admin.deleteUser(userId);
+    if (deleteError)
+      console.error("[signUp] Rollback failed, user needs manual cleanup:", userId, deleteError);
+    return {
+      message: "We couldn't finish creating your account. Please try again.",
+    };
   }
 
   // If email confirmation is ON in Supabase, the user isn't logged in yet —
