@@ -1,10 +1,11 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { requestPasswordReset, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { toast } from "sonner";
 import { FieldError, Input, Label, TextField } from "@heroui/react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
 type FieldErrors = { email?: string };
 
@@ -23,6 +24,7 @@ export default function ForgotPasswordForm() {
   >(requestPasswordReset, undefined);
 
   const [clientErrors, setClientErrors] = useState<FieldErrors>({});
+  const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
 
   const emailError = clientErrors.email ?? state?.errors?.email;
 
@@ -46,6 +48,11 @@ export default function ForgotPasswordForm() {
     }
   }, [state]);
 
+  // A Turnstile token can only be used once, so get a fresh one after each attempt
+  useEffect(() => {
+    if (state) turnstileRef.current?.reset();
+  }, [state]);
+
   return (
     <form
       action={formAction}
@@ -67,6 +74,13 @@ export default function ForgotPasswordForm() {
         <Input />
         <FieldError>{emailError}</FieldError>
       </TextField>
+
+      {/* Bot check: adds a hidden cf-turnstile-response field to the form */}
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+        options={{ size: "flexible", theme: "light", appearance: "interaction-only" }}
+      />
 
       {/* Submit */}
       <button

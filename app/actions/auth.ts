@@ -36,6 +36,10 @@ export type AuthActionState = AuthActionData | undefined;
 
 // Helpers
 
+// Shown when Supabase rejects the Cloudflare Turnstile token (missing, expired or reused).
+const CAPTCHA_FAILED_MESSAGE =
+  "Security check failed. Please wait a moment and try again.";
+
 function validateEmail(email: string): string | undefined {
   if (!email) return "Email is required.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
@@ -65,6 +69,8 @@ export async function signUp(
   const links: { platform: string; url: string }[] = linksRaw
     ? JSON.parse(linksRaw)
     : [];
+  const captchaToken =
+    (formData.get("cf-turnstile-response") as string) || undefined;
 
   // Validate fields before hitting Supabase
   const errors: AuthActionData["errors"] = {};
@@ -100,11 +106,15 @@ export async function signUp(
       data: { full_name: fullName },
       // After email confirmation, redirect the user to /dashboard.
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback`,
+      captchaToken,
     },
   });
 
   if (error) {
     // Map Supabase error codes to friendly messages
+    if (error.code === "captcha_failed") {
+      return { message: CAPTCHA_FAILED_MESSAGE };
+    }
     if (
       error.code === "user_already_exists" ||
       error.message?.includes("already registered")
@@ -204,6 +214,7 @@ export async function signUp(
 // Resend the sign-up confirmation email
 export async function resendConfirmation(
   email: string,
+  captchaToken?: string,
 ): Promise<AuthActionData> {
   const emailError = validateEmail(email);
   if (emailError) return { message: emailError };
@@ -214,6 +225,7 @@ export async function resendConfirmation(
     email,
     options: {
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback`,
+      captchaToken,
     },
   });
 
@@ -224,6 +236,8 @@ export async function resendConfirmation(
       error.status,
       error.message,
     );
+    if (error.code === "captcha_failed")
+      return { message: CAPTCHA_FAILED_MESSAGE };
     if (error.code === "over_email_send_rate_limit")
       return {
         message: "Please wait a minute before requesting another email.",
@@ -264,9 +278,7 @@ export async function signIn(
 
   if (error) {
     if (error.code === "captcha_failed") {
-      return {
-        message: "Security check failed. Please wait a moment and try again.",
-      };
+      return { message: CAPTCHA_FAILED_MESSAGE };
     }
     if (
       error.code === "invalid_credentials" ||
@@ -300,6 +312,8 @@ export async function requestPasswordReset(
   formData: FormData,
 ): Promise<AuthActionState> {
   const email = (formData.get("email") as string)?.trim();
+  const captchaToken =
+    (formData.get("cf-turnstile-response") as string) || undefined;
 
   const emailError = validateEmail(email);
   if (emailError) return { errors: { email: emailError } };
@@ -308,9 +322,12 @@ export async function requestPasswordReset(
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback?next=/reset-password`,
+    captchaToken,
   });
 
   if (error) {
+    if (error.code === "captcha_failed")
+      return { message: CAPTCHA_FAILED_MESSAGE };
     return { message: "Something went wrong. Please try again." };
   }
 

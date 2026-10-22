@@ -33,6 +33,8 @@ type Props = {
   onBack: () => void;
   onSubmit: () => void;
   submitting: boolean;
+  // The Turnstile widget, owned by SignUpWizard (which submits) and shown here
+  captcha?: React.ReactNode;
 };
 
 export default function StepThree({
@@ -41,6 +43,7 @@ export default function StepThree({
   onBack,
   onSubmit,
   submitting,
+  captcha,
 }: Props) {
   const [touched, setTouched] = useState<{ platform: boolean; url: boolean }[]>(
     data.links.map(() => ({ platform: false, url: false })),
@@ -199,6 +202,8 @@ export default function StepThree({
           + Add another link
         </button>
       </div>
+
+      {captcha}
 
       {/* Navigation buttons */}
       <div className="flex gap-3">

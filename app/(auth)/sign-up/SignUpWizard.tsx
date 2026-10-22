@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { resendConfirmation, signUp } from "@/app/actions/auth";
 import { toast } from "sonner";
 import Confetti from "react-confetti";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -39,6 +40,17 @@ export default function SignUpWizard() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
+  // One Turnstile widget at a time: on step 3 for sign-up, then on the
+  // success screen for resending. Both read their token from this ref.
+  const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
+  const captcha = (
+    <Turnstile
+      ref={turnstileRef}
+      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+      options={{ size: "flexible", theme: "light", appearance: "interaction-only" }}
+    />
+  );
+
   // updateData helps update specific fields without changing the rest
   const updateData = (updates: Partial<WizardData>) => {
     setData((prev) => ({ ...prev, ...updates }));
@@ -67,6 +79,10 @@ export default function SignUpWizard() {
       "links",
       JSON.stringify(data.links.filter((l) => l.platform && l.url)),
     );
+    formData.set(
+      "cf-turnstile-response",
+      turnstileRef.current?.getResponse() ?? "",
+    );
 
     // Call the server action
     const result = await signUp(undefined, formData);
@@ -77,6 +93,9 @@ export default function SignUpWizard() {
       setDone(true);
       return;
     }
+
+    // The token was used up by this attempt, so get a fresh one for the retry
+    turnstileRef.current?.reset();
 
     const stepOneFields = [
       "fullName",
@@ -108,8 +127,12 @@ export default function SignUpWizard() {
 
   async function handleResend() {
     setResending(true);
-    const result = await resendConfirmation(data.email);
+    const result = await resendConfirmation(
+      data.email,
+      turnstileRef.current?.getResponse(),
+    );
     setResending(false);
+    turnstileRef.current?.reset(); // each token works once
 
     if (result.success) {
       toast.success(result.message);
@@ -174,6 +197,7 @@ export default function SignUpWizard() {
             </button>
           )}
         </p>
+        <div className="mt-4">{captcha}</div>
       </div>
     );
   }
@@ -220,6 +244,7 @@ export default function SignUpWizard() {
           onBack={prevStep}
           onSubmit={handleSubmit}
           submitting={submitting}
+          captcha={captcha}
         />
       )}
     </div>
