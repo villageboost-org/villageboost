@@ -305,7 +305,7 @@ export async function updatePassword(
   if (passwordError) return { errors: { password: passwordError } };
 
   if (password !== confirm) {
-    return { errors: { password: "Passwords do not match." } };
+    return { errors: { confirmPassword: "Passwords do not match." } };
   }
 
   const supabase = await createClient();
