@@ -1,12 +1,13 @@
 "use client";
 
-import { useActionState, useState, useEffect } from "react";
+import { useActionState, useState, useEffect, useRef } from "react";
 import { signIn, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { FieldError, Input, InputGroup, Label, TextField } from "@heroui/react";
 import { EyeIcon } from "@/app/components/EyeIcon";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
 type FieldErrors = { email?: string; password?: string };
 
@@ -31,6 +32,8 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState("");
 
+  const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -52,6 +55,11 @@ export default function LoginForm() {
     }
     router.replace("/login");
   }, [searchParams, router]);
+
+  // A Turnstile token can only be used once, so get a fresh one after each attempt
+  useEffect(() => {
+    if (state) turnstileRef.current?.reset();
+  }, [state]);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
@@ -136,6 +144,11 @@ export default function LoginForm() {
         </Link>
       </div>
 
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+        options={{ size: "flexible", theme: "light", appearance: "interaction-only" }}
+      />
       {/* Submit */}
       <button
         type="submit"

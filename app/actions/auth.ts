@@ -176,10 +176,17 @@ export async function signUp(
   // Deleting the auth user cascades to public.users, user_categories and
   // user_portfolio_links (see migrations 01, 03 and 04).
   if (saveError) {
-    console.error(`[signUp] ${saveError.step} save failed, rolling back:`, saveError.error);
+    console.error(
+      `[signUp] ${saveError.step} save failed, rolling back:`,
+      saveError.error,
+    );
     const { error: deleteError } = await admin.auth.admin.deleteUser(userId);
     if (deleteError)
-      console.error("[signUp] Rollback failed, user needs manual cleanup:", userId, deleteError);
+      console.error(
+        "[signUp] Rollback failed, user needs manual cleanup:",
+        userId,
+        deleteError,
+      );
     return {
       message: "We couldn't finish creating your account. Please try again.",
     };
@@ -237,7 +244,8 @@ export async function signIn(
 ): Promise<AuthActionState> {
   const email = (formData.get("email") as string)?.trim();
   const password = formData.get("password") as string;
-
+  const captchaToken =
+    (formData.get("cf-turnstile-response") as string) || undefined;
   const errors: AuthActionData["errors"] = {};
   const emailError = validateEmail(email);
   if (emailError) errors.email = emailError;
@@ -248,9 +256,18 @@ export async function signIn(
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken },
+  });
 
   if (error) {
+    if (error.code === "captcha_failed") {
+      return {
+        message: "Security check failed. Please wait a moment and try again.",
+      };
+    }
     if (
       error.code === "invalid_credentials" ||
       error.message?.includes("Invalid login")
