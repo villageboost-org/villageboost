@@ -17,6 +17,7 @@ Village Boost is a crowdfunding platform for East Africa, in the spirit of Kicks
 | [Sonner](https://sonner.emilkowal.ski) | 2 | Toast notifications |
 | [react-confetti](https://github.com/alampros/react-confetti) | 6 | Confetti on the sign-up success screen |
 | [libphonenumber-js](https://github.com/catamphetamine/libphonenumber-js) | 1.13 | Phone number validation and formatting (`/mobile` rules, Kenya by default) |
+| [@marsidev/react-turnstile](https://github.com/marsidev/react-turnstile) | 1.6 | Cloudflare Turnstile bot-check widget on auth forms |
 | [Supabase JS](https://supabase.com/docs/reference/javascript) and [@supabase/ssr](https://supabase.com/docs/guides/auth/server-side) | 2.110 / 0.12 | Auth and database clients for browser, server and admin use |
 | [ESLint](https://eslint.org) with `eslint-config-next` | 9 | Linting |
 
@@ -26,6 +27,7 @@ Village Boost is a crowdfunding platform for East Africa, in the spirit of Kicks
 | --- | --- |
 | [Supabase](https://supabase.com) | PostgreSQL database, Auth (email and password), Row Level Security policies |
 | [Resend](https://resend.com) | Custom SMTP provider for Supabase auth emails (sign-up confirmation, password reset) |
+| [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) | CAPTCHA alternative that blocks automated sign-ups and logins. Tokens are verified by Supabase Auth |
 | [Google Fonts](https://fonts.google.com) | Epilogue (headings) and Manrope (body text), loaded through `next/font` |
 
 ## Project structure
@@ -66,6 +68,7 @@ supabase/migrations/   SQL schema, applied in numeric order
    NEXT_PUBLIC_SUPABASE_ANON_KEY=<your Supabase anon key>
    SUPABASE_SERVICE_ROLE_KEY=<your Supabase service role key>
    NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   NEXT_PUBLIC_TURNSTILE_SITE_KEY=<your Cloudflare Turnstile site key>
    ```
 
    `SUPABASE_SERVICE_ROLE_KEY` bypasses Row Level Security. Keep it server-side only and never commit it. `.env*` is already in `.gitignore`.
@@ -74,7 +77,14 @@ supabase/migrations/   SQL schema, applied in numeric order
 
 4. In Supabase, go to Authentication, then URL Configuration, and add `http://localhost:3000/auth/callback` to the redirect URLs.
 
-5. Start the dev server:
+5. Set up Cloudflare Turnstile:
+   - In the Cloudflare dashboard, create a Turnstile widget (Managed mode) and add `localhost` and your production domain to its hostnames.
+   - Put the **site key** in `.env.local` as `NEXT_PUBLIC_TURNSTILE_SITE_KEY`. It is public by design.
+   - Put the **secret key** only in Supabase, under Authentication, then Attack Protection, with Turnstile selected as the CAPTCHA provider. It never goes in the codebase.
+
+   Turn on CAPTCHA protection in Supabase only after every auth form sends a token. Once it is on, Supabase rejects any sign-up, login or password-reset request without a valid token.
+
+6. Start the dev server:
 
    ```bash
    npm run dev
@@ -96,3 +106,4 @@ supabase/migrations/   SQL schema, applied in numeric order
 
 - This Next.js version has breaking changes from earlier releases. Read the relevant guide in `node_modules/next/dist/docs/` before writing code (see `AGENTS.md`).
 - `app/data/*.ts` holds only data that will later move to Supabase. Static content such as FAQs and navigation stays inline in components.
+- Turnstile: the widget sits inside each auth `<form>` and adds a hidden `cf-turnstile-response` field, which the server action passes to Supabase as `captchaToken`. Each token works only once, so forms reset the widget after every server response. The widget uses `appearance: "interaction-only"`, so most visitors never see it. Currently wired up on: **login**. Still to do: sign-up, forgot password and resend confirmation.
