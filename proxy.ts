@@ -48,6 +48,22 @@ export async function proxy(request: NextRequest) {
       url.pathname = '/login'
       return NextResponse.redirect(url)
     }
+
+    // Logged-in users have no reason to see the login or sign-up pages.
+    // Don't add /reset-password here: the reset link logs the user in
+    // temporarily, and they need that page to set their new password.
+    const guestOnlyRoutes = ['/login', '/sign-up']
+    const isGuestOnlyRoute = guestOnlyRoutes.some((route) =>
+      request.nextUrl.pathname.startsWith(route)
+    )
+
+    if (isGuestOnlyRoute && user) {
+      const url = request.nextUrl.clone()
+      // TODO: change to '/dashboard' once that page exists
+      url.pathname = '/'
+      url.search = ''
+      return NextResponse.redirect(url)
+    }
   } catch (error) {
     console.error('Error in proxy authentication handler:', error)
   }
