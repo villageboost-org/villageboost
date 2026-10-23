@@ -27,6 +27,8 @@ export type AuthActionData = {
   };
   message?: string;
   success?: boolean;
+  // Set by signIn when the account exists but the email hasn't been confirmed yet
+  unconfirmed?: boolean;
 };
 
 // useActionState requires the initial state to be undefined, so the
@@ -286,8 +288,14 @@ export async function signIn(
     ) {
       return { message: "Incorrect email or password." };
     }
-    if (error.message?.includes("Email not confirmed")) {
-      return { message: "Please confirm your email before logging in." };
+    if (
+      error.code === "email_not_confirmed" ||
+      error.message?.includes("Email not confirmed")
+    ) {
+      return {
+        message: "Please confirm your email before logging in.",
+        unconfirmed: true,
+      };
     }
     return { message: "Something went wrong. Please try again." };
   }

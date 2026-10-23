@@ -1,7 +1,11 @@
 "use client";
 
 import { useActionState, useState, useEffect, useRef } from "react";
-import { signIn, type AuthActionState } from "@/app/actions/auth";
+import {
+  resendConfirmation,
+  signIn,
+  type AuthActionState,
+} from "@/app/actions/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -33,6 +37,10 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
 
   const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
+
+  // Resending the confirmation email for an unconfirmed account
+  const [resending, setResending] = useState(false);
+  const [resentTo, setResentTo] = useState(""); // the address we last resent to
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -83,6 +91,25 @@ export default function LoginForm() {
       toast.error(state.message);
     }
   }, [state]);
+
+  async function handleResend() {
+    setResending(true);
+    const result = await resendConfirmation(
+      email.trim(),
+      turnstileRef.current?.getResponse(),
+    );
+    setResending(false);
+    turnstileRef.current?.reset(); // each token works once
+
+    if (result.success) {
+      toast.success(result.message);
+      setResentTo(email.trim());
+    } else {
+      toast.error(
+        result.message ?? "Couldn't resend the email. Please try again.",
+      );
+    }
+  }
 
   return (
     <form
@@ -156,6 +183,30 @@ export default function LoginForm() {
         className="w-full rounded-full bg-maroon py-3 text-base font-semibold text-white transition hover:bg-maroon/90 active:scale-[0.98]">
         {pending ? "Logging in..." : "Log In"}
       </button>
+
+      {/* Unconfirmed account: offer a fresh confirmation email */}
+      {state?.unconfirmed && (
+        <p className="rounded-lg bg-maroon/5 px-4 py-3 text-center text-sm text-grey/80">
+          {resentTo === email.trim() ? (
+            <>
+              We&apos;ve sent a new confirmation link to{" "}
+              <span className="font-semibold text-grey">{resentTo}</span>.
+              Check your inbox and spam folder.
+            </>
+          ) : (
+            <>
+              Didn&apos;t get the confirmation email?{" "}
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={resending}
+                className="font-semibold text-maroon underline underline-offset-2 disabled:opacity-50">
+                {resending ? "Sending..." : "Resend it"}
+              </button>
+            </>
+          )}
+        </p>
+      )}
 
       {/* Sign up link */}
       <p className="text-center text-sm text-grey/70">
