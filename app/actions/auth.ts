@@ -87,6 +87,8 @@ export async function signUp(
 
   // Portfolio links: re-check on the server, since the form's checks can be bypassed
   const validLinks = links.filter((l) => l.platform && l.url);
+  if (validLinks.length === 0)
+    return { message: "Please add at least one portfolio link." };
   for (const link of validLinks) {
     const linkError = validatePortfolioLink(link.platform, link.url);
     if (linkError) return { message: `Portfolio link: ${linkError}` };
