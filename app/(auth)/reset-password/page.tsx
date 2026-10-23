@@ -8,21 +8,22 @@ export const metadata = {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 overflow-hidden">
       {/* ── Left decorative panel ── */}
-      <div className="relative hidden w-2/5 shrink-0 lg:block">
+      <div className="hidden w-1/3 shrink-0 lg:block">
         <Image
           src="/login-pattern.svg"
           alt="Village Boost decorative art"
-          fill
-          className="object-cover object-center"
+          width={632}
+          height={1438}
+          className="h-full w-full object-cover"
           priority
         />
       </div>
 
       {/* ── Right: form area ── */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6">
-        <div className="w-full max-w-md">
+      <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-12">
+        <div className="my-auto w-full max-w-md">
           {/* Heading */}
           <h2 className="mb-2 text-center text-grey">Reset Your Password</h2>
           <h5 className="mb-10 text-center text-grey">
