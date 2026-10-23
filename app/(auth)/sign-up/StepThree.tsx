@@ -94,6 +94,19 @@ export default function StepThree({
   }));
 
   const lastLink = data.links[data.links.length - 1];
+  // Check every row before submitting. Marking all fields as touched makes
+  // their errors appear, including fields the user never visited.
+  const handleComplete = () => {
+    setTouched(data.links.map(() => ({ platform: true, url: true })));
+    const hasErrors = data.links.some(
+      (link) =>
+        !link.platform ||
+        validatePortfolioLink(link.platform, link.url) !== null,
+    );
+    if (hasErrors) return;
+    onSubmit();
+  };
+
   const canAddLink =
     !!lastLink?.platform &&
     !validatePortfolioLink(lastLink.platform, lastLink.url);
@@ -217,7 +230,7 @@ export default function StepThree({
         </button>
         <button
           type="button"
-          onClick={onSubmit}
+          onClick={handleComplete}
           disabled={submitting}
           className="flex flex-2 items-center justify-center gap-2 rounded-full bg-maroon py-3 text-base font-semibold text-white transition hover:bg-maroon/90 active:scale-[0.98] disabled:opacity-60">
           {submitting ? (

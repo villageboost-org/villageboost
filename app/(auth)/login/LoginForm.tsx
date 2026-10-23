@@ -186,7 +186,7 @@ export default function LoginForm() {
 
       {/* Unconfirmed account: offer a fresh confirmation email */}
       {state?.unconfirmed && (
-        <p className="rounded-lg bg-maroon/5 px-4 py-3 text-center text-sm text-grey/80">
+        <span className="rounded-lg bg-maroon/5 px-4 py-3 text-center text-sm text-grey/80">
           {resentTo === email.trim() ? (
             <>
               We&apos;ve sent a new confirmation link to{" "}
@@ -205,7 +205,7 @@ export default function LoginForm() {
               </button>
             </>
           )}
-        </p>
+        </span>
       )}
 
       {/* Sign up link */}
