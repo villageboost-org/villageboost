@@ -4,6 +4,16 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import {
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  User,
+  X,
+} from "lucide-react";
+import { Avatar, Dropdown, Separator } from "@heroui/react";
+import { signOut } from "@/app/actions/auth";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -13,9 +23,18 @@ const navLinks = [
   { label: "Contacts", href: "/#contacts" },
 ];
 
-import { Menu, X } from "lucide-react";
+type HeaderUser = { id: string; fullName: string; email: string } | null;
 
-export default function Header() {
+function getInitials(fullName: string) {
+  return fullName
+    .trim()
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+}
+
+export default function Header({ user }: { user: HeaderUser }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isSingleCampaignPage = /^\/campaigns\/[^/]+$/.test(pathname);
@@ -60,6 +79,8 @@ export default function Header() {
     return pathname.startsWith(href) && activeSection !== "contacts";
   };
 
+  const initials = user ? getInitials(user.fullName) : "";
+
   return (
     <>
       <header
@@ -88,14 +109,78 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <a
-            href="/login"
-            className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
-            Login
-          </a>
-          <a href="/start-campaign" className="btn-primary">
-            Start a campaign
-          </a>
+          {user ? (
+            <>
+              <a href="/start-campaign" className="btn-primary">
+                Start a campaign
+              </a>
+              <Dropdown>
+                <Dropdown.Trigger
+                  aria-label={`Account menu for ${user.fullName}`}
+                  className="flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
+                  <Avatar size="sm">
+                    <Avatar.Fallback className="bg-ink font-semibold text-white">
+                      {initials}
+                    </Avatar.Fallback>
+                  </Avatar>
+                  <ChevronDown className="h-4 w-4 text-body-gray" />
+                </Dropdown.Trigger>
+
+                <Dropdown.Popover
+                  placement="bottom end"
+                  className="w-60 rounded-sm">
+                  {/* Who's logged in? Long names and emails are cut off with "..." */}
+                  <div className="min-w-0 border-b border-ink/10 px-3 py-2.5">
+                    <span className="block truncate text-sm font-semibold text-ink">
+                      {user.fullName}
+                    </span>
+                    <span
+                      className="block truncate text-xs text-body-gray"
+                      title={user.email}>
+                      {user.email}
+                    </span>
+                  </div>
+
+                  <Dropdown.Menu
+                    aria-label="Account"
+                    onAction={(key) => {
+                      if (key === "logout") signOut();
+                    }}>
+                    <Dropdown.Item
+                      id="dashboard"
+                      href="/dashboard"
+                      textValue="Dashboard">
+                      <LayoutDashboard className="h-4 w-4" />
+                      Dashboard
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      id="profile"
+                      href="/profile"
+                      textValue="Profile">
+                      <User className="h-4 w-4" />
+                      Profile
+                    </Dropdown.Item>
+                    <Separator />
+                    <Dropdown.Item id="logout" textValue="Log out">
+                      <LogOut className="h-4 w-4" />
+                      Log out
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown.Popover>
+              </Dropdown>
+            </>
+          ) : (
+            <>
+              <a
+                href="/login"
+                className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
+                Login
+              </a>
+              <a href="/start-campaign" className="btn-primary">
+                Start a campaign
+              </a>
+            </>
+          )}
         </div>
 
         <button
@@ -130,20 +215,56 @@ export default function Header() {
             <X className="h-6 w-6" />
           </button>
           <div className="border-b border-ink/10 pb-6">
-            <div className="flex flex-row gap-3">
-              <a
-                href="/login"
-                className="text-sm btn-secondary text-center self-start"
-                onClick={() => setIsMenuOpen(false)}>
-                Login
-              </a>
-              <a
-                href="/start-campaign"
-                className="text-sm btn-primary text-center self-start"
-                onClick={() => setIsMenuOpen(false)}>
-                Start a campaign
-              </a>
-            </div>
+            {user ? (
+              <div className="flex flex-col gap-4">
+                <div className="flex min-w-0 items-center gap-3">
+                  <Avatar size="sm">
+                    <Avatar.Fallback className="bg-ink font-semibold text-white">
+                      {initials}
+                    </Avatar.Fallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <span className="block truncate text-sm font-semibold text-ink">
+                      {user.fullName}
+                    </span>
+                    <span className="block truncate text-xs text-body-gray">
+                      {user.email}
+                    </span>
+                  </div>
+                </div>
+                <a
+                  href="/dashboard"
+                  className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink"
+                  onClick={() => setIsMenuOpen(false)}>
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </a>
+                <a
+                  href="/profile"
+                  className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink"
+                  onClick={() => setIsMenuOpen(false)}>
+                  <User className="h-4 w-4" />
+                  Profile
+                </a>
+                <a
+                  href="/start-campaign"
+                  className="btn-primary self-start text-center text-sm"
+                  onClick={() => setIsMenuOpen(false)}>
+                  Start a campaign
+                </a>
+              </div>
+            ) : (
+              <div className="flex flex-row gap-3">
+                <a
+                  href="/login"
+                  className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
+                  Login
+                </a>
+                <a href="/start-campaign" className="btn-primary">
+                  Start a campaign
+                </a>
+              </div>
+            )}
           </div>
 
           {navLinks.map((link) => (
@@ -157,6 +278,17 @@ export default function Header() {
               {link.label}
             </a>
           ))}
+          {user && (
+            <form
+              action={signOut}
+              className="mt-auto border-t border-ink/10 pt-4">
+              <button
+                type="submit"
+                className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink">
+                <LogOut className="h-4 w-4" />
+              </button>
+            </form>
+          )}
         </nav>
       </header>
     </>

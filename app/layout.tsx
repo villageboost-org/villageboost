@@ -34,6 +34,7 @@ export default async function RootLayout({
   // Only what the header needs. full_name was saved at sign-up, so we don't need to fetch it again.
   const headerUser = user
     ? {
+        id: user.id,
         fullName: (user.user_metadata.full_name as string) ?? "",
         email: user.email ?? "",
       }
