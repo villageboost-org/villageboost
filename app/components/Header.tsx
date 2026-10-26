@@ -34,6 +34,25 @@ function getInitials(fullName: string) {
     .toUpperCase();
 }
 
+// Dark theme colours that keep white initials readable.
+const AVATAR_COLOURS = [
+  "bg-ink",
+  "bg-navy",
+  "bg-body-gray",
+  "bg-action",
+  "bg-signal",
+];
+
+// Turns the user's id into a number, then picks a colour from it.
+// The same id always gives the same colour.
+function getAvatarColour(userId: string) {
+  let hash = 0;
+  for (const char of userId) {
+    hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+  }
+  return AVATAR_COLOURS[hash % AVATAR_COLOURS.length];
+}
+
 export default function Header({ user }: { user: HeaderUser }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -81,6 +100,8 @@ export default function Header({ user }: { user: HeaderUser }) {
 
   const initials = user ? getInitials(user.fullName) : "";
 
+  const avatarColor = user ? getAvatarColour(user.id) : "";
+
   return (
     <>
       <header
@@ -119,7 +140,7 @@ export default function Header({ user }: { user: HeaderUser }) {
                   aria-label={`Account menu for ${user.fullName}`}
                   className="flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
                   <Avatar size="sm">
-                    <Avatar.Fallback className="bg-ink font-semibold text-white">
+                    <Avatar.Fallback className={`${avatarColor} font-semibold text-white`}>
                       {initials}
                     </Avatar.Fallback>
                   </Avatar>
