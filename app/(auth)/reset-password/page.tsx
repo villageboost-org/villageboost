@@ -22,7 +22,7 @@ export default function ResetPasswordPage() {
       </div>
 
       {/* ── Right: form area ── */}
-      <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-12">
+      <div className="flex flex-1 flex-col items-center overflow-y-auto px-6 py-24">
         <div className="my-auto w-full max-w-md">
           {/* Heading */}
           <h2 className="mb-2 text-center text-grey">Reset Your Password</h2>
