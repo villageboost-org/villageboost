@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  startTransition,
+} from "react";
 import { requestPasswordReset, type AuthActionState } from "@/app/actions/auth";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -29,14 +35,15 @@ export default function ForgotPasswordForm() {
   const emailError = clientErrors.email ?? state?.errors?.email;
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault(); // we send the form ourselves below
     const formData = new FormData(e.currentTarget);
     const errors = validate(String(formData.get("email") ?? "").trim());
     if (Object.keys(errors).length > 0) {
-      e.preventDefault(); // stops the server action from running
       setClientErrors(errors);
       return;
     }
     setClientErrors({});
+    startTransition(() => formAction(formData));
   };
 
   useEffect(() => {
@@ -54,11 +61,7 @@ export default function ForgotPasswordForm() {
   }, [state]);
 
   return (
-    <form
-      action={formAction}
-      onSubmit={handleSubmit}
-      noValidate
-      className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {/* Email field */}
       <TextField
         fullWidth
@@ -79,7 +82,11 @@ export default function ForgotPasswordForm() {
       <Turnstile
         ref={turnstileRef}
         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-        options={{ size: "flexible", theme: "light", appearance: "interaction-only" }}
+        options={{
+          size: "flexible",
+          theme: "light",
+          appearance: "interaction-only",
+        }}
       />
 
       {/* Submit */}

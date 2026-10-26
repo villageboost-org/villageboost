@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState, startTransition } from "react";
 import { updatePassword, type AuthActionState } from "@/app/actions/auth";
 import { toast } from "sonner";
 import { FieldError, InputGroup, Label, TextField } from "@heroui/react";
@@ -34,17 +34,18 @@ export default function ResetPasswordForm() {
     clientErrors.confirmPassword ?? state?.errors?.confirmPassword;
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const errors = validate(
       String(formData.get("password") ?? ""),
       String(formData.get("confirmPassword") ?? ""),
     );
     if (Object.keys(errors).length > 0) {
-      e.preventDefault(); // stops the server action from running
       setClientErrors(errors);
       return;
     }
     setClientErrors({});
+    startTransition(() => formAction(formData));
   };
 
   useEffect(() => {
@@ -63,11 +64,7 @@ export default function ResetPasswordForm() {
   );
 
   return (
-    <form
-      action={formAction}
-      onSubmit={handleSubmit}
-      noValidate
-      className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {/* New password */}
       <TextField
         fullWidth
