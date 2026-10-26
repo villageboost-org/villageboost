@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useState, useEffect, useRef } from "react";
+import {
+  useActionState,
+  useState,
+  useEffect,
+  useRef,
+  startTransition,
+} from "react";
 import {
   resendConfirmation,
   signIn,
@@ -70,17 +76,18 @@ export default function LoginForm() {
   }, [state]);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const errors = validate(
       String(formData.get("email") ?? "").trim(),
       String(formData.get("password") ?? ""),
     );
     if (Object.keys(errors).length > 0) {
-      e.preventDefault(); // stops the server action from running
       setClientErrors(errors);
       return;
     }
     setClientErrors({});
+    startTransition(() => formAction(formData));
   };
 
   useEffect(() => {
@@ -112,11 +119,7 @@ export default function LoginForm() {
   }
 
   return (
-    <form
-      action={formAction}
-      onSubmit={handleSubmit}
-      noValidate
-      className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {/* Email field */}
       <TextField
         fullWidth
@@ -174,7 +177,11 @@ export default function LoginForm() {
       <Turnstile
         ref={turnstileRef}
         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-        options={{ size: "flexible", theme: "light", appearance: "interaction-only" }}
+        options={{
+          size: "flexible",
+          theme: "light",
+          appearance: "interaction-only",
+        }}
       />
       {/* Submit */}
       <button
@@ -187,11 +194,11 @@ export default function LoginForm() {
       {/* Unconfirmed account: offer a fresh confirmation email */}
       {state?.unconfirmed && (
         <span className="rounded-lg bg-maroon/5 px-4 py-3 text-center text-sm text-grey/80">
-          {resentTo === email.trim() ? (
+          {resentTo && resentTo === email.trim() ? (
             <>
               We&apos;ve sent a new confirmation link to{" "}
-              <span className="font-semibold text-grey">{resentTo}</span>.
-              Check your inbox and spam folder.
+              <span className="font-semibold text-grey">{resentTo}</span>. Check
+              your inbox and spam folder.
             </>
           ) : (
             <>
