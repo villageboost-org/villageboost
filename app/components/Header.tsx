@@ -105,7 +105,7 @@ export default function Header({ user }: { user: HeaderUser }) {
   return (
     <>
       <header
-        className={`xl:inset-x-40 inset-x-5 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
+        className={`xl:inset-x-40 inset-x-2 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
         <Link className="flex items-center gap-2" href="/">
           <Image
             src="/main-logo.svg"
@@ -129,10 +129,12 @@ export default function Header({ user }: { user: HeaderUser }) {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="flex items-center gap-3 lg:gap-5">
           {user ? (
             <>
-              <a href="/start-campaign" className="btn-primary">
+              <a
+                href="/start-campaign"
+                className="btn-primary hidden lg:inline-block">
                 Start a campaign
               </a>
               <Dropdown>
@@ -140,7 +142,8 @@ export default function Header({ user }: { user: HeaderUser }) {
                   aria-label={`Account menu for ${user.fullName}`}
                   className="flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
                   <Avatar size="sm">
-                    <Avatar.Fallback className={`${avatarColor} font-semibold text-white`}>
+                    <Avatar.Fallback
+                      className={`${avatarColor} font-semibold text-white`}>
                       {initials}
                     </Avatar.Fallback>
                   </Avatar>
@@ -194,28 +197,30 @@ export default function Header({ user }: { user: HeaderUser }) {
             <>
               <a
                 href="/login"
-                className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
+                className="hidden text-sm font-medium text-body-gray hover:text-ink transition-colors lg:inline">
                 Login
               </a>
-              <a href="/start-campaign" className="btn-primary">
+              <a
+                href="/start-campaign"
+                className="btn-primary hidden lg:inline-block">
                 Start a campaign
               </a>
             </>
           )}
-        </div>
 
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-          className="text-ink lg:hidden"
-          onClick={() => setIsMenuOpen((open) => !open)}>
-          {isMenuOpen ? (
-            <X className="h-8 w-8" />
-          ) : (
-            <Menu className="h-8 w-8" />
-          )}
-        </button>
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            className="text-ink lg:hidden"
+            onClick={() => setIsMenuOpen((open) => !open)}>
+            {isMenuOpen ? (
+              <X className="h-8 w-8" />
+            ) : (
+              <Menu className="h-8 w-8" />
+            )}
+          </button>
+        </div>
 
         <div
           className={`fixed inset-0 z-40 bg-black/60 transition-opacity lg:hidden ${
@@ -237,51 +242,24 @@ export default function Header({ user }: { user: HeaderUser }) {
           </button>
           <div className="border-b border-ink/10 pb-6">
             {user ? (
-              <div className="flex flex-col gap-4">
-                <div className="flex min-w-0 items-center gap-3">
-                  <Avatar size="sm">
-                    <Avatar.Fallback className="bg-ink font-semibold text-white">
-                      {initials}
-                    </Avatar.Fallback>
-                  </Avatar>
-                  <div className="min-w-0">
-                    <span className="block truncate text-sm font-semibold text-ink">
-                      {user.fullName}
-                    </span>
-                    <span className="block truncate text-xs text-body-gray">
-                      {user.email}
-                    </span>
-                  </div>
-                </div>
-                <a
-                  href="/dashboard"
-                  className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink"
-                  onClick={() => setIsMenuOpen(false)}>
-                  <LayoutDashboard className="h-4 w-4" />
-                  Dashboard
-                </a>
-                <a
-                  href="/profile"
-                  className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink"
-                  onClick={() => setIsMenuOpen(false)}>
-                  <User className="h-4 w-4" />
-                  Profile
-                </a>
-                <a
-                  href="/start-campaign"
-                  className="btn-primary self-start text-center text-sm"
-                  onClick={() => setIsMenuOpen(false)}>
-                  Start a campaign
-                </a>
-              </div>
+              <a
+                href="/start-campaign"
+                className="btn-primary text-center text-sm"
+                onClick={() => setIsMenuOpen(false)}>
+                Start a campaign
+              </a>
             ) : (
               <div className="flex flex-row gap-3">
                 <a
                   href="/login"
-                  className="text-sm font-medium text-body-gray hover:text-ink transition-colors">
+                  className="text-sm btn-secondary text-center self-start"
+                  onClick={() => setIsMenuOpen(false)}>
                   Login
                 </a>
-                <a href="/start-campaign" className="btn-primary">
+                <a
+                  href="/start-campaign"
+                  className="text-sm btn-primary text-center self-start"
+                  onClick={() => setIsMenuOpen(false)}>
                   Start a campaign
                 </a>
               </div>
@@ -299,17 +277,6 @@ export default function Header({ user }: { user: HeaderUser }) {
               {link.label}
             </a>
           ))}
-          {user && (
-            <form
-              action={signOut}
-              className="mt-auto border-t border-ink/10 pt-4">
-              <button
-                type="submit"
-                className="flex items-center gap-2 text-sm font-medium text-body-gray hover:text-ink">
-                <LogOut className="h-4 w-4" />
-              </button>
-            </form>
-          )}
         </nav>
       </header>
     </>
