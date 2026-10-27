@@ -368,6 +368,27 @@ export async function updatePassword(
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
+    console.error(
+      "[updatePassword] Supabase auth error:",
+      error.code,
+      error.status,
+      error.message,
+    );
+    if (error.code === "same_password") {
+      return {
+        errors: {
+          password: "Your new password must be different from your old one.",
+        },
+      };
+    }
+    if (error.code === "weak_password") {
+      return {
+        errors: {
+          password:
+            "That password doesn't meet the security requirements. Please choose a stronger one.",
+        },
+      };
+    }
     return {
       message: "Failed to update password. Your reset link may have expired.",
     };
