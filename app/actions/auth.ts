@@ -146,12 +146,36 @@ export async function signUp(
     return { message: "Something went wrong. Please try again." };
   }
 
+  const emailTaken = {
+    errors: { email: "An account with this email already exists." },
+  };
+
+  // With email confirmation on, Supabase doesn't return an error for an
+  // email that's already registered. For a confirmed account it returns a
+  // fake user with no identities, so there's nothing for us to write to.
+  if (data.user?.identities?.length === 0) return emailTaken;
+
   // Write additional profile data using the admin client.
   // The handle_new_user trigger already created the public.users row with id + full_name,
   // but we need to add phone, gender, bio, crafts and portfolio links.
   // We use the admin (service role) client because the user has no session yet
   // when email confirmation is enabled.
   const admin = createAdminClient();
+
+  // For an account that exists but isn't confirmed yet, Supabase returns the
+  // real user (and resends their confirmation email). Every finished sign-up
+  // saves at least one portfolio link, so existing links mean this account
+  // belongs to an earlier sign-up. Stop here so we never overwrite its
+  // profile or delete it in the rollback below.
+  const { count: existingLinks, error: lookupError } = await admin
+    .from("user_portfolio_links")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId);
+  if (lookupError) {
+    console.error("[signUp] Existing account check failed:", lookupError);
+    return { message: "Something went wrong. Please try again." };
+  }
+  if (existingLinks && existingLinks > 0) return emailTaken;
 
   // Each write below stops at the first failure and records it here.
   let saveError: { step: string; error: unknown } | null = null;
