@@ -105,7 +105,8 @@ export default function Header({ user }: { user: HeaderUser }) {
   return (
     <>
       <header
-        className={`xl:inset-x-40 inset-x-2 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-16 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}>
+        className={`xl:inset-x-40 inset-x-2 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-10 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}
+      >
         <Link className="flex items-center gap-2" href="/">
           <Image
             src="/main-logo.svg"
@@ -116,14 +117,15 @@ export default function Header({ user }: { user: HeaderUser }) {
           <h4 className="font-bold text-ink">VillageBoost</h4>
         </Link>
 
-        <nav className="hidden items-center xl:gap-10 gap-6 text-sm font-medium text-body-gray lg:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-body-gray lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               className={`transition-colors hover:text-ink ${
                 isActive(link.href) ? "text-ink font-bold" : ""
-              }`}>
+              }`}
+            >
               {link.label}
             </a>
           ))}
@@ -134,16 +136,19 @@ export default function Header({ user }: { user: HeaderUser }) {
             <>
               <a
                 href="/start-campaign"
-                className="btn-primary hidden lg:inline-block">
+                className="btn-primary hidden lg:inline-block"
+              >
                 Start a campaign
               </a>
               <Dropdown>
                 <Dropdown.Trigger
                   aria-label={`Account menu for ${user.fullName}`}
-                  className="flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
+                  className="flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink/40"
+                >
                   <Avatar size="sm">
                     <Avatar.Fallback
-                      className={`${avatarColor} font-semibold text-white`}>
+                      className={`${avatarColor} font-semibold text-white`}
+                    >
                       {initials}
                     </Avatar.Fallback>
                   </Avatar>
@@ -152,7 +157,8 @@ export default function Header({ user }: { user: HeaderUser }) {
 
                 <Dropdown.Popover
                   placement="bottom end"
-                  className="w-60 rounded-sm">
+                  className="w-60 rounded-sm"
+                >
                   {/* Who's logged in? Long names and emails are cut off with "..." */}
                   <div className="min-w-0 border-b border-ink/10 px-3 py-2.5">
                     <span className="block truncate text-sm font-semibold text-ink">
@@ -160,7 +166,8 @@ export default function Header({ user }: { user: HeaderUser }) {
                     </span>
                     <span
                       className="block truncate text-xs text-body-gray"
-                      title={user.email}>
+                      title={user.email}
+                    >
                       {user.email}
                     </span>
                   </div>
@@ -169,18 +176,21 @@ export default function Header({ user }: { user: HeaderUser }) {
                     aria-label="Account"
                     onAction={(key) => {
                       if (key === "logout") signOut();
-                    }}>
+                    }}
+                  >
                     <Dropdown.Item
                       id="dashboard"
                       href="/dashboard"
-                      textValue="Dashboard">
+                      textValue="Dashboard"
+                    >
                       <LayoutDashboard className="h-4 w-4" />
                       Dashboard
                     </Dropdown.Item>
                     <Dropdown.Item
                       id="profile"
                       href="/profile"
-                      textValue="Profile">
+                      textValue="Profile"
+                    >
                       <User className="h-4 w-4" />
                       Profile
                     </Dropdown.Item>
@@ -197,12 +207,14 @@ export default function Header({ user }: { user: HeaderUser }) {
             <>
               <a
                 href="/login"
-                className="hidden text-sm font-medium text-body-gray hover:text-ink transition-colors lg:inline">
+                className="hidden text-sm font-medium text-body-gray hover:text-ink transition-colors lg:inline"
+              >
                 Login
               </a>
               <a
                 href="/start-campaign"
-                className="btn-primary hidden lg:inline-block">
+                className="btn-primary hidden lg:inline-block"
+              >
                 Start a campaign
               </a>
             </>
@@ -213,7 +225,8 @@ export default function Header({ user }: { user: HeaderUser }) {
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
             className="text-ink lg:hidden"
-            onClick={() => setIsMenuOpen((open) => !open)}>
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
             {isMenuOpen ? (
               <X className="h-8 w-8" />
             ) : (
@@ -232,12 +245,14 @@ export default function Header({ user }: { user: HeaderUser }) {
         <nav
           className={`fixed inset-y-0 right-0 z-50 flex w-76 flex-col gap-6 bg-white px-4 py-4 shadow-lg transition-transform duration-300 lg:hidden ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}>
+          }`}
+        >
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => setIsMenuOpen(false)}
-            className="rounded-full p-1 text-body-gray hover:text-ink transition-colors">
+            className="rounded-full p-1 text-body-gray hover:text-ink transition-colors"
+          >
             <X className="h-6 w-6" />
           </button>
           <div className="border-b border-ink/10 pb-6">
@@ -245,7 +260,8 @@ export default function Header({ user }: { user: HeaderUser }) {
               <a
                 href="/start-campaign"
                 className="btn-primary text-center text-sm"
-                onClick={() => setIsMenuOpen(false)}>
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Start a campaign
               </a>
             ) : (
@@ -253,13 +269,15 @@ export default function Header({ user }: { user: HeaderUser }) {
                 <a
                   href="/login"
                   className="text-sm btn-secondary text-center self-start"
-                  onClick={() => setIsMenuOpen(false)}>
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Login
                 </a>
                 <a
                   href="/start-campaign"
                   className="text-sm btn-primary text-center self-start"
-                  onClick={() => setIsMenuOpen(false)}>
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Start a campaign
                 </a>
               </div>
@@ -273,7 +291,8 @@ export default function Header({ user }: { user: HeaderUser }) {
               className={`text-sm font-medium transition-colors hover:text-ink ${
                 isActive(link.href) ? "text-ink font-bold" : "text-body-gray"
               }`}
-              onClick={() => setIsMenuOpen(false)}>
+              onClick={() => setIsMenuOpen(false)}
+            >
               {link.label}
             </a>
           ))}
