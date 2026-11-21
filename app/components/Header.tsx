@@ -105,7 +105,7 @@ export default function Header({ user }: { user: HeaderUser }) {
   return (
     <>
       <header
-        className={`xl:inset-x-40 inset-x-2 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-10 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}
+        className={`xl:inset-x-30 inset-x-2 rounded-full shadow-md/5 top-4 z-50 flex items-center justify-between border-b border-ink/8 bg-white py-3 xl:px-10 md:px-8 px-4 ${isSingleCampaignPage ? "" : "fixed"}`}
       >
         <Link className="flex items-center gap-2" href="/">
           <Image
