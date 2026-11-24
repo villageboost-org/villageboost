@@ -28,15 +28,23 @@ export default function CampaignWizard() {
           return (
             <li key={label} aria-current={isActive ? "step" : undefined}>
               <span
-                className={`block truncate text-sm font-semibold md:text-base ${
-                  isActive ? "text-signal" : "text-body-gray"
+                className={`block truncate text-sm font-semibold md:text-sm ${
+                  isActive
+                    ? "text-signal"
+                    : isComplete
+                      ? "text-progress"
+                      : "text-body-gray"
                 }`}
               >
                 {number}.<span className="hidden sm:inline"> {label}</span>
               </span>
               <div
                 className={`mt-2 h-1.5 rounded-full transition-colors duration-500 ${
-                  isActive || isComplete ? "bg-signal" : "bg-body-gray/15"
+                  isActive
+                    ? "bg-signal"
+                    : isComplete
+                      ? "bg-progress"
+                      : "bg-body-gray/15"
                 }`}
               />
             </li>
