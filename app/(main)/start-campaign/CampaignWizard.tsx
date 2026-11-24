@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import StepBasics from "./StepBasics";
+import StepStory from "./StepStory";
 import type { CampaignData } from "./types";
 
 const STEPS = ["Basics", "Story", "Funding", "Rewards", "Review"];
@@ -12,10 +13,12 @@ export default function CampaignWizard() {
     title: "",
     category: "",
     coverImage: null,
+    story: "",
   });
   const updateData = (updates: Partial<CampaignData>) =>
     setData((prev) => ({ ...prev, ...updates }));
   const nextStep = () => setStep((s) => Math.min(s + 1, STEPS.length));
+  const prevStep = () => setStep((s) => Math.max(s - 1, 1)); 
 
   return (
     <div className="mt-12 lg:mt-16">
@@ -56,6 +59,9 @@ export default function CampaignWizard() {
       <div className="mt-10 rounded-3xl border border-body-gray/30 bg-white px-5 py-8 md:px-14 md:py-12 lg:mt-16">
         {step === 1 && (
           <StepBasics data={data} onUpdate={updateData} onNext={nextStep} />
+        )}
+        {step === 2 && (
+          <StepStory data={data} onUpdate={updateData} onNext={nextStep} onBack={prevStep} />
         )}
       </div>
     </div>

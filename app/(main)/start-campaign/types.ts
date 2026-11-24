@@ -5,4 +5,7 @@ export interface CampaignData {
   title: string;
   category: string;
   coverImage: File | null;
+
+  // Step 2: Story
+  story: string;
 }
