@@ -10,21 +10,9 @@ import {
 } from "@heroui/react";
 import type { WizardData } from "./SignUpWizard";
 import { ArrowLeft } from "lucide-react";
+import { CATEGORIES } from "@/lib/categories";
 
-// ─── Craft options ─────────────────────────────────────────────────────────────
-// Values MUST match the CHECK constraint in 03_create_user_categories.sql
-const CRAFTS = [
-  { value: "film", label: "Film" },
-  { value: "music", label: "Music" },
-  { value: "illustration", label: "Illustration" },
-  { value: "design", label: "Design" },
-  { value: "photography", label: "Photography" },
-  { value: "writing", label: "Writing" },
-  { value: "theatre", label: "Theatre" },
-  { value: "dance", label: "Dance" },
-  { value: "fashion", label: "Fashion" },
-  { value: "crafts", label: "Crafts" },
-];
+const CRAFTS = CATEGORIES;
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 type Props = {
