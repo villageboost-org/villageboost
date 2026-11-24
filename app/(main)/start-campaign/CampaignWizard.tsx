@@ -3,9 +3,12 @@
 import { useState } from "react";
 import StepBasics from "./StepBasics";
 import StepStory from "./StepStory";
+import StepFunding from "./StepFunding";
 import type { CampaignData } from "./types";
 
 const STEPS = ["Basics", "Story", "Funding", "Rewards", "Review"];
+
+const isDev = process.env.NODE_ENV === "development";
 
 export default function CampaignWizard() {
   const [step, setStep] = useState(1);
@@ -14,11 +17,14 @@ export default function CampaignWizard() {
     category: "",
     coverImage: null,
     story: "",
+    goal: null,
+    startDate: null,
+    endDate: null,
   });
   const updateData = (updates: Partial<CampaignData>) =>
     setData((prev) => ({ ...prev, ...updates }));
   const nextStep = () => setStep((s) => Math.min(s + 1, STEPS.length));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1)); 
+  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
 
   return (
     <div className="mt-12 lg:mt-16">
@@ -29,7 +35,13 @@ export default function CampaignWizard() {
           const isActive = number === step;
           const isComplete = number < step;
           return (
-            <li key={label} aria-current={isActive ? "step" : undefined}>
+            <li
+              key={label}
+              aria-current={isActive ? "step" : undefined}
+              onClick={isDev ? () => setStep(number) : undefined}
+              title={isDev ? `Jump to step ${number}` : undefined}
+              className={isDev ? "cursor-pointer" : undefined}
+            >
               <span
                 className={`block truncate text-sm font-semibold md:text-sm ${
                   isActive
@@ -61,7 +73,15 @@ export default function CampaignWizard() {
           <StepBasics data={data} onUpdate={updateData} onNext={nextStep} />
         )}
         {step === 2 && (
-          <StepStory data={data} onUpdate={updateData} onNext={nextStep} onBack={prevStep} />
+          <StepStory
+            data={data}
+            onUpdate={updateData}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        )}
+        {step === 3 && (
+          <StepFunding data={data} onUpdate={updateData} onNext={nextStep} onBack={prevStep} />
         )}
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Description, FieldError, TextArea, TextField } from "@heroui/react";
-import { ArrowLeft, ArrowRight, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { CampaignData } from "./types";
 import { useState } from "react";
 import {
