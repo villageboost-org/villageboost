@@ -9,14 +9,14 @@ import {
   Input,
 } from "@heroui/react";
 import { ArrowLeft, ArrowRight, Plus, Trash2 } from "lucide-react";
-import { MAX_TIERS, REWARD_TITLE_MIN } from "@/lib/validation/campaignRewards";
-import type { CampaignData, RewardTier } from "./types";
-import { useState } from "react";
 import {
+  MAX_TIERS,
   validateRewards,
   type RewardsErrors,
   createEmptyTier,
 } from "@/lib/validation/campaignRewards";
+import type { CampaignData, RewardTier } from "./types";
+import { useState } from "react";
 
 type Props = {
   data: CampaignData;
@@ -87,10 +87,7 @@ export default function StepRewards({ data, onUpdate, onNext, onBack }: Props) {
                     isInvalid={!!errors[tier.id]?.title}
                   >
                     <Label>Reward Title</Label>
-                    <Input
-                      minLength={REWARD_TITLE_MIN}
-                      placeholder="e.g. Signed poster"
-                    />
+                    <Input placeholder="e.g. Signed poster" />
                     <FieldError>{errors[tier.id]?.title}</FieldError>
                   </TextField>
 

@@ -18,9 +18,16 @@ export type TierErrors = {
 // Errors for each tier, keyed by the tier's id.
 export type RewardsErrors = Record<string, TierErrors>;
 
+// A short id that's unique within the page, e.g. "m3x9k2-4f7a1c".
+// Only used as a React key, so it doesn't need to be cryptographically
+// random.
+function tierId(): string {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
 // A blank tier, ready to add to the list.
 export function createEmptyTier(): Tier {
-  return { id: crypto.randomUUID(), title: "", amount: null, description: "" };
+  return { id: tierId(), title: "", amount: null, description: "" };
 }
 
 export function validateTier(tier: Tier, goal: number | null): TierErrors {
