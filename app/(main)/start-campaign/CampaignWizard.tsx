@@ -81,7 +81,12 @@ export default function CampaignWizard() {
           />
         )}
         {step === 3 && (
-          <StepFunding data={data} onUpdate={updateData} onNext={nextStep} onBack={prevStep} />
+          <StepFunding
+            data={data}
+            onUpdate={updateData}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
         )}
       </div>
     </div>

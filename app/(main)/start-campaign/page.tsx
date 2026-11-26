@@ -20,9 +20,9 @@ export default function StartCampaignPage() {
             className="w-20 md:w-40 lg:absolute lg:left-0 lg:-top-8"
             priority
           />
-          <h1 className="mt-6 text-center text-body-gray lg:mt-0 lg:pt-14">
+          <h2 className="mt-6 text-center lg:mt-0 lg:pt-14">
             Start Your Campaign
-          </h1>
+          </h2>
         </div>
 
         <CampaignWizard />

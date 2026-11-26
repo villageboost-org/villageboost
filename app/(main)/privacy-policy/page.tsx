@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
           className="hidden md:block absolute right-2 top-28 md:right-10 md:w-28 lg:top-36 lg:right-28"
         />
 
-        <h1 className="relative px-4">Privacy Policy</h1>
+        <h2 className="relative px-4">Privacy Policy</h2>
       </section>
 
       <div className="grid gap-10 pb-20 xl:px-16 md:px-8 px-4 lg:grid-cols-[280px_1fr] lg:gap-16 xl:gap-24">

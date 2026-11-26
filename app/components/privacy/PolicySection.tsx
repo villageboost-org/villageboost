@@ -9,7 +9,7 @@ export default function PolicySection({
 }) {
   return (
     <section id={id} className="scroll-mt-32">
-      <h2 className="mb-4 text-[1.375rem]! font-semibold!">{title}</h2>
+      <h4 className="mb-4 font-semibold!">{title}</h4>
       <div className="space-y-4 text-body-gray">{children}</div>
     </section>
   );

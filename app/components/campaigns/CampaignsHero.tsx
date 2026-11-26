@@ -18,7 +18,7 @@ export default function CampaignsHero() {
           className="ml-auto md:mr-auto w-56 md:w-auto"
           priority
         />
-        <h1 className="mt-6">Campaigns</h1>
+        <h2 className="mt-6">Campaigns</h2>
         <h5 className="font-normal! mt-6 text-body-gray">
           Discover East African creatives bringing their visions to life and be
           part of making it happen.
