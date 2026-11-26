@@ -52,9 +52,9 @@ export default function StepRewards({ data, onUpdate, onNext, onBack }: Props) {
       <div>
         <h4 className="text-body-gray">Rewards For Your Contributors</h4>
         <p className="mt-1 max-w-2xl text-sm! text-body-gray">
-          Rewards are optional, but they give people a reason to contribute
-          and to give a little more. Something small, like a shout-out,
-          early access or a behind-the-scenes update, can make a difference.
+          Rewards are optional, but they give people a reason to contribute and
+          to give a little more. Something small, like a shout-out, early access
+          or a behind-the-scenes update, can make a difference.
         </p>
         <p className="mt-3 text-xs font-semibold text-body-gray">
           {rewards.length} of {MAX_TIERS} tiers used
@@ -68,11 +68,12 @@ export default function StepRewards({ data, onUpdate, onNext, onBack }: Props) {
                 <div className="flex items-center justify-between">
                   <span className="eyebrow-headline mb-0!">Reward {i + 1}</span>
                   <button
+                    onClick={() => removeTier(tier.id)}
                     type="button"
                     aria-label={`Remove reward ${i + 1}`}
                     className="rounded-full p-1.5 text-signal transition-colors hover:bg-signal/10"
                   >
-                    <Trash2 onClick={() => removeTier(tier.id)} size={22} />
+                    <Trash2 size={22} />
                   </button>
                 </div>
 
