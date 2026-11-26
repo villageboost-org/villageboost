@@ -4,7 +4,9 @@ import { useState } from "react";
 import StepBasics from "./StepBasics";
 import StepStory from "./StepStory";
 import StepFunding from "./StepFunding";
+import StepRewards from "./StepRewards";
 import type { CampaignData } from "./types";
+import { createEmptyTier } from "@/lib/validation/campaignRewards";
 
 const STEPS = ["Basics", "Story", "Funding", "Rewards", "Review"];
 
@@ -20,6 +22,7 @@ export default function CampaignWizard() {
     goal: null,
     startDate: null,
     endDate: null,
+    rewards: [createEmptyTier()],
   });
   const updateData = (updates: Partial<CampaignData>) =>
     setData((prev) => ({ ...prev, ...updates }));
@@ -82,6 +85,14 @@ export default function CampaignWizard() {
         )}
         {step === 3 && (
           <StepFunding
+            data={data}
+            onUpdate={updateData}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        )}
+        {step === 4 && (
+          <StepRewards
             data={data}
             onUpdate={updateData}
             onNext={nextStep}

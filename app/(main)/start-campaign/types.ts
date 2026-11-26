@@ -15,4 +15,16 @@ export interface CampaignData {
   goal: number | null; // whole KES
   startDate: CalendarDate | null;
   endDate: CalendarDate | null;
+
+  // Step 4: Rewards
+  rewards: RewardTier[];
+}
+
+// One reward tier. `id` only exists in the browser, to give React a stable
+// key; the database assigns the real id when the campaign is saved.
+export interface RewardTier {
+  id: string;
+  title: string;
+  amount: number | null; // whole KES
+  description: string;
 }
