@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PlaceholderImage from "@/app/components/PlaceholderImage";
+import campaignPlaceholder from "@/public/campaign-placeholder.webp";
 import { campaigns, type Campaign } from "@/app/data/campaigns";
 import Image from "next/image";
 
@@ -90,10 +90,12 @@ export default function SingleCampaignDetails({
                       />
                     ))
                   : [0, 1].map((i) => (
-                      <PlaceholderImage
+                      <Image
                         key={i}
-                        label="Behind the scenes"
-                        className="aspect-3/4 w-1/2 rounded-lg"
+                        src={campaignPlaceholder}
+                        alt=""
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                        className="aspect-3/4 w-1/2 rounded-lg object-cover"
                       />
                     ))}
               </div>

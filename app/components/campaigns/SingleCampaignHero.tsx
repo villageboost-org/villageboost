@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PlaceholderImage from "@/app/components/PlaceholderImage";
+import campaignPlaceholder from "@/public/campaign-placeholder.webp";
 import type { Campaign } from "@/app/data/campaigns";
 
 function formatDeadline(iso: string) {
@@ -49,7 +49,13 @@ export default function SingleCampaignHero({ campaign }: { campaign: Campaign })
               priority
             />
           ) : (
-            <PlaceholderImage label={category} className="h-full min-h-80 w-full" />
+            <Image
+              src={campaignPlaceholder}
+              alt={`${title}: no cover image yet`}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="h-full min-h-80 w-full object-cover"
+              priority
+            />
           )}
         </div>
 

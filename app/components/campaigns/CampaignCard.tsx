@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PlaceholderImage from "@/app/components/PlaceholderImage";
+import campaignPlaceholder from "@/public/campaign-placeholder.webp";
 import type { CreatorInfo } from "@/app/data/campaigns";
 
 type CampaignCardProps = {
@@ -40,7 +40,12 @@ export default function CampaignCard({
             className="aspect-video w-full object-cover"
           />
         ) : (
-          <PlaceholderImage label={category} className="aspect-video w-full" />
+          <Image
+            src={campaignPlaceholder}
+            alt={`${title}: no cover image yet`}
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="aspect-video w-full object-cover"
+          />
         )}
         <span
           className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold text-white"
