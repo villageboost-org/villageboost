@@ -6,6 +6,7 @@ import StepStory from "./StepStory";
 import StepFunding from "./StepFunding";
 import StepRewards from "./StepRewards";
 import type { CampaignData } from "./types";
+import StepReview from "./StepReview";
 
 const STEPS = ["Basics", "Story", "Funding", "Rewards", "Review"];
 
@@ -95,6 +96,13 @@ export default function CampaignWizard() {
             data={data}
             onUpdate={updateData}
             onNext={nextStep}
+            onBack={prevStep}
+          />
+        )}
+         {step === 5 && (
+          <StepReview
+            data={data}
+            onEdit={setStep}
             onBack={prevStep}
           />
         )}
