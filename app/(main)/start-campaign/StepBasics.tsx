@@ -18,6 +18,11 @@ import {
   type BasicsErrors,
 } from "@/lib/validation/campaignBasics";
 import Image from "next/image";
+import { readImageSize } from "@/lib/readImageSize";
+import {
+  validateCoverRatio,
+  validateCoverImage,
+} from "@/lib/validation/campaignBasics";
 
 type Props = {
   data: CampaignData;
@@ -119,9 +124,34 @@ export default function StepBasics({ data, onUpdate, onNext }: Props) {
               name="coverImage"
               accept="image/png,image/jpeg,image/webp"
               className="sr-only"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
+              onChange={async (e) => {
+                const input = e.currentTarget;
+                const file = input.files?.[0];
                 if (!file) return;
+
+                // Check the type and size first: no point loading a 20 MB PDF
+                const fileError = validateCoverImage(file);
+                if (fileError) {
+                  setErrors((prev) => ({ ...prev, coverImage: fileError }));
+                  input.value = "";
+                  return;
+                }
+
+                // Then load it and check the shape
+                let ratioError: string | undefined;
+                try {
+                  const { width, height } = await readImageSize(file);
+                  ratioError = validateCoverRatio(width, height);
+                } catch {
+                  ratioError = "We couldn't read this image. Try another file";
+                }
+                if (ratioError) {
+                  setErrors((prev) => ({ ...prev, coverImage: ratioError }));
+                  input.value = "";
+                  return;
+                }
+
+                // All good: same as before
                 if (preview) URL.revokeObjectURL(preview);
                 setPreview(URL.createObjectURL(file));
                 onUpdate({ coverImage: file });

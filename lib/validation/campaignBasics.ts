@@ -36,6 +36,28 @@ export function validateCoverImage(file: File | null): string | undefined {
   if (file.size > COVER_MAX_BYTES) return "Cover image must be 5 MB or smaller";
 }
 
+// Checks the cover's shape and size.
+// Covers are shown in 16:9 boxes everywhere, so other shapes get cropped.
+// Allow 2% either way, so 1920×1080, 1280×720 and slightly-off exports
+// (e.g. 1918×1080) all pass.
+const COVER_RATIO = 16 / 9;
+const COVER_RATIO_TOLERANCE = 0.02;
+// Smaller than this looks blurry on large screens.
+export const COVER_MIN_WIDTH = 1280;
+export const COVER_MIN_HEIGHT = 720;
+
+export function validateCoverRatio(
+  width: number,
+  height: number,
+): string | undefined {
+  if (!width || !height) return "We couldn't read this image. Try another file";
+  const ratio = width / height;
+  if (Math.abs(ratio - COVER_RATIO) / COVER_RATIO > COVER_RATIO_TOLERANCE)
+    return `Cover image must be 16:9 (e.g. 1920×1080 px). Yours is ${width}×${height} px`;
+  if (width < COVER_MIN_WIDTH || height < COVER_MIN_HEIGHT)
+    return `Cover image must be at least ${COVER_MIN_WIDTH}×${COVER_MIN_HEIGHT} px (1920×1080 recommended). Yours is ${width}×${height} px`;
+}
+
 // Runs every Basics check. An empty object means the step is valid.
 export function validateBasics(data: {
   title: string;
